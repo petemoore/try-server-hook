@@ -3,10 +3,7 @@
 var when = require('when');
 var debug = require('debug')('event-pr');
 
-/* Take a Github API PullRequestEvent payload
-   and create a new object that contains the
-   information relevant to the Try Server
-*/
+// Parse a GitHub webhook payload and create a Pull Request object
 function parse(payload) {
   var pr = {};
   var upstream_pr = payload.pull_request;
@@ -25,6 +22,7 @@ function parse(payload) {
   return pr;
 }
 
+// Validate a pull request object
 function validate(pr) {
   if (!pr) {
     return false;
@@ -40,7 +38,21 @@ function validate(pr) {
   return true;
 }
 
+// This function returns true if it's interesting, false otherwise
+function interesting(type, payload) {
+  // We don't care about PRs that are being closed
+  if (!payload || !payload.action || payload.action === 'closed') {
+    return false;
+  }
+  return true;
+}
+
+function handle(type, payload) {
+  when
+}
+
 module.exports = {
   parse: parse,
   validate: validate,
+  interesting: interesting
 }

@@ -4,18 +4,8 @@ var debug = require('debug')('github-event-receiver');
 var when = require('when');
 
 
-var event_pr = require('./event-pr');
+var eventPr = require('./event-pr');
 var q = require('./msg-queue');
-
-
-function head(name) {
-  return "<!DOCTYPE html><html><head><title>" + name + "</title>" +
-         "</head>\n<body>\n<h1>" + name + "</h1>\n";
-}
-
-function foot() {
-  return "</body></html>";
-}
 
 function error(msg) {
   return JSON.stringify({'error': msg});
@@ -27,15 +17,10 @@ function success(msg) {
 
 function handlePullRequestEvent(payload) {
   return when.promise(function (resolve, reject) {
-    if (!payload.action) {
-      reject(new Error('Pull request missing fields'));
-    } else if (payload.action === 'closed') {
-      debug('Skipping close events');
-      resolve('Skipping synchronize events');
-    } else {
-      debug('Enqueueing Pull Request');
+    if (eventPr.interesting(payload)) {
+      debug('Handling Pull Request');
       try {
-        var pr = event_pr.parse(payload);
+        var pr = eventPr.parse(payload);
         debug('Parsed PR');
       } catch(e) {
         debug('Failed to parse PR');
@@ -47,12 +32,16 @@ function handlePullRequestEvent(payload) {
           resolve('Success'); 
         },
         function (x) {
-          debug('Failed: ' + x);
+          debug('Failed to enqueue:\n' + x);
           reject(x);
         });
     }
   });
 }
+
+var eventHandlers = {
+  'pull_request': [eventPr]
+};
 
 function handleEvent(id, type, payload) {
   debug('Handling ' + type + ' event ' + id);
@@ -73,7 +62,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.get('/', function(req, res) {
-  res.send('200', head('Welcome') + '<p>You probably don\'t want to be here</p>' + foot()); 
+  res.send('200', ''); 
 });
 
 // curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \

@@ -37,14 +37,15 @@ function enqueue(pullRequest) {
     return when.reject(e);
   }
 
-  return when(amqp.connect(amqpUri).then(function(conn) {
+  return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
     debug('Connected to message broker');
     return when(conn.createChannel().then(function(ch) {
       debug('Channel created');
       return assertSchema(ch)
         .then(function () {
           debug('Publishing message');
-          ch.publish(
+          function x() { 
+            return ch.publish(
             exchange,
             '',
             new Buffer(json_pr),
@@ -52,18 +53,39 @@ function enqueue(pullRequest) {
               persistent: true,
               contentType: 'application/json',
             })
-          debug('Message published');
-          return ch.close();
+          }
+          var outcome = x();
+          if (outcome) {
+            debug('Message published');
+            return ch.close();
+          } else {
+            debug('Message queue write buffer is full');
+            // I should figure out how the drain event should be handled
+            // and handle it better than just rejecting the request
+            return promise.reject('message broker write buffer is full');
+          }
         });
     })).ensure(function() { conn.close() } );
   }));
 }
 
 
-function registerConsumer(action) {
-  return when(amqp.connect(amqpUri).then(function(conn) {
+function registerConsumer(action, onConnClose, onChClose) {
+  return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
     debug('Connected to message broker');
+    conn.on('error', function (err) {
+      debug('Connection to message broker experienced an error:\n' + err);
+    });
+    if (onConnClose) {
+      conn.on('close', onConnClose);
+    }
     return when(conn.createChannel().then(function(ch) {
+      ch.on('error', function (err) {
+        debug('Channel experienced an error:\n' + err);
+      });
+      if (onChClose) {
+        ch.on('close', onChClose);
+      }
       debug('Channel created');
       return assertSchema(ch)
         .then(function () { ch.prefetch(1); })
@@ -82,14 +104,14 @@ function registerConsumer(action) {
               ch.reject(msg);
               return
             }
-            hDebug('Received message:\n' + msg.content);
+            hDebug(new Date().toString() + 'Received message:\n' + msg.content);
             
             action(pr, function(err) {
               if (err) {
-                hDebug('Action failed');
+                hDebug(new Date().toString() + 'Action failed');
                 ch.reject(msg, true);
               } else {
-                hDebug('Action passed!');
+                hDebug(new Date().toString() + 'Action passed!');
                 ch.ack(msg);
               }
             });
@@ -106,8 +128,6 @@ function registerConsumer(action) {
 }
 
 module.exports = {
-  QUEUE: queue,
-  EXCHANGE: exchange,
   enqueue: enqueue,
   assertSchema: assertSchema,
   registerConsumer: registerConsumer,
