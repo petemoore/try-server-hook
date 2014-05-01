@@ -1,0 +1,37 @@
+{
+  "name": "try-server-hook",
+  "version": "0.0.0",
+  "description": "GitHub webhook for triggering try jobs on Gaia",
+  "main": "index.js",
+  "scripts": {
+    "test": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhford/try-server-hook"
+  },
+  "author": "John Ford <john@johnford.org>",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/jhford/try-server-hook/issues"
+  },
+  "homepage": "https://github.com/jhford/try-server-hook",
+  "engines" : {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "express": "^3.4.8",
+    "debug": "~0.7.4",
+    "amqplib": "^0.1.3",
+    "when": "^3.1.0",
+    "forever": "^0.11.1",
+    "hg": "0.0.6",
+    "temp": "^0.7.0",
+    "rimraf": "^2.2.6"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "should": "~3.1.3",
+    "sinon": "~1.8.2"
+  }
+}
