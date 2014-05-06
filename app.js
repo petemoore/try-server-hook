@@ -5,7 +5,6 @@ var when = require('when');
 
 
 var eventPr = require('./event-pr');
-var q = require('./msg-queue');
 
 function error(msg) {
   return JSON.stringify({'error': msg});
@@ -15,47 +14,20 @@ function success(msg) {
   return JSON.stringify({'outcome': msg});
 }
 
-function handlePullRequestEvent(payload) {
-  return when.promise(function (resolve, reject) {
-    if (eventPr.interesting(payload)) {
-      debug('Handling Pull Request');
-      try {
-        var pr = eventPr.parse(payload);
-        debug('Parsed PR');
-      } catch(e) {
-        debug('Failed to parse PR');
-        reject(new Error('Could not parse PR Payload: ' + e));
-      }
-      q.enqueue(pr).then(
-        function () {
-          debug('Enqueued');
-          resolve('Success'); 
-        },
-        function (x) {
-          debug('Failed to enqueue:\n' + x);
-          reject(x);
-        });
+var eventHandlers = [eventPr];
+
+
+function handleEvent(delivery_id, type, payload) {
+  var eventPromises = [];
+  eventHandlers.forEach(function(e) {
+    if (e.interesting(type, payload)) {
+      debug(e.name + ' event is interested in this event');
+      eventPromises.push(e.handle(type, payload));
+    } else {
+      debug(e.name + ' event is ignoring this event');
     }
   });
-}
-
-var eventHandlers = {
-  'pull_request': [eventPr]
-};
-
-function handleEvent(id, type, payload) {
-  debug('Handling ' + type + ' event ' + id);
-  var event_promise = null;
-  switch(type) {
-    case 'pull_request':
-      event_promise = handlePullRequestEvent(payload);
-      break;
-    default:
-      var msg = "Skipping unknown event type";
-      debug(msg);
-      event_promise = when.resolve(msg);
-  }
-  return event_promise;
+  return when.all(eventPromises);
 }
 
 app.use(express.json());

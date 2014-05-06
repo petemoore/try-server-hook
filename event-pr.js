@@ -2,6 +2,7 @@
 
 var when = require('when');
 var debug = require('debug')('event-pr');
+var q = require('./msg-queue');
 
 // Parse a GitHub webhook payload and create a Pull Request object
 function parse(payload) {
@@ -40,18 +41,44 @@ function validate(pr) {
 
 // This function returns true if it's interesting, false otherwise
 function interesting(type, payload) {
-  // We don't care about PRs that are being closed
-  if (!payload || !payload.action || payload.action === 'closed') {
+  if (!type || type !== 'pull_request') {
+    debug('Event is not a pull request');
     return false;
   }
+  // We don't care about PRs that are being closed
+  if (!payload || !payload.action || payload.action === 'closed') {
+    debug('Pull request missing an action or is closed');
+    return false;
+  }
+  debug('Event is interesting');
   return true;
 }
 
 function handle(type, payload) {
-  when
+  return when.promise(function (resolve, reject) {
+    debug('Handling Pull Request');
+    try {
+      var pr = parse(payload);
+      debug('Parsed PR');
+    } catch(e) {
+      debug('Failed to parse PR');
+      reject(new Error('Could not parse PR Payload: ' + e));
+    }
+    q.enqueue(pr).then(
+      function () {
+        debug('Enqueued');
+        resolve('Success'); 
+      },
+      function (x) {
+        debug('Failed to enqueue:\n' + x);
+        reject(x);
+      });
+  });
 }
 
 module.exports = {
+  name: 'gaia-try-trigger',
+  handle: handle,
   parse: parse,
   validate: validate,
   interesting: interesting
