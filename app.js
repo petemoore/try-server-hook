@@ -62,7 +62,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.get('/', function(req, res) {
-  res.send('200', ''); 
+  res.send('200', 'Server is up!'); 
 });
 
 // curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
