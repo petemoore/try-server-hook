@@ -5,8 +5,6 @@ var msgQueue = require('./msg-queue');
 
 console.log('Starting consumer');
 
-setInterval(function () { console.log('teehee')}, 15*60*1000);
-
 function exitOnClose () {
   console.log('Exiting because of channel or connection close');
   process.exit();

@@ -2,7 +2,7 @@
 
 var when = require('when');
 var debug = require('debug')('event-pr');
-var q = require('./msg-queue');
+var q = require('../msg-queue');
 
 // Parse a GitHub webhook payload and create a Pull Request object
 function parse(payload) {
@@ -79,7 +79,7 @@ function handle(type, payload) {
 module.exports = {
   name: 'gaia-try-trigger',
   handle: handle,
-  parse: parse,
-  validate: validate,
+  _parse: parse,
+  _validate: validate,
   interesting: interesting
 }

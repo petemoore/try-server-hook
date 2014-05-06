@@ -76,7 +76,7 @@ function run(pr, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg'});
   var gaiaJsonPath = path.join(repoDir, 'gaia.json');
   var commitOpts = {
-    '--message': util.format('Try run for GitHub PR#%d: %s', pr.pr_number, pr.pr_label),
+    '--message': util.format('Gaia PR#%d: %s', pr.pr_number, pr.pr_label),
     '--user': pr.who
   }
   var jsonData = createJson(pr); 
@@ -86,7 +86,7 @@ function run(pr, callback) {
       debug('Failed to clone ' + HG_URL); 
       return callback(err);
     };
-    var repo = new hg.HGRepo(repoDir); // The convenience wrapper sucks
+    var repo = new hg.HGRepo(repoDir); // The convenience API sucks
     debug('Cloned to ' + repoDir);
     showHgOutput(output);
 
@@ -117,6 +117,7 @@ function run(pr, callback) {
     });
   });
 }
+
 
 module.exports = {
   run: run,

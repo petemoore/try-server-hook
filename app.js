@@ -2,9 +2,23 @@ var express = require('express');
 var app = express();
 var debug = require('debug')('github-event-receiver');
 var when = require('when');
+var fs = require('fs');
+var path = require('path');
 
-
-var eventPr = require('./event-pr');
+// This is all sync because it's startup code and I don't want to wrap the
+// entire application in a callback
+var eventsDir = path.join(__dirname, 'events')
+var eventModules = fs.readdirSync(eventsDir);
+var eventHandlers = [];
+eventModules.forEach(function(module) {
+  // This regex shouldn't need to be here, but js lacks
+  // a sane string.prototype.endsWith() :'(
+  // Not concerned about performance here because it's done infrequently
+  if (/.*\.js$/.exec(module)) {
+    debug('Using event handling module ' + module);
+    eventHandlers.push(require(path.join(eventsDir, module)));
+  }
+});
 
 function error(msg) {
   return JSON.stringify({'error': msg});
@@ -13,9 +27,6 @@ function error(msg) {
 function success(msg) {
   return JSON.stringify({'outcome': msg});
 }
-
-var eventHandlers = [eventPr];
-
 
 function handleEvent(delivery_id, type, payload) {
   var eventPromises = [];
