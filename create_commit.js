@@ -76,7 +76,8 @@ function run(pr, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg'});
   var gaiaJsonPath = path.join(repoDir, 'gaia.json');
   var commitOpts = {
-    '--message': util.format('Gaia PR#%d: %s', pr.pr_number, pr.pr_label),
+    '--message': util.format('Gaia PR#%d: %s <-- %s',
+                    pr.pr_number, pr.base_label, pr.pr_label),
     '--user': pr.who
   }
   var jsonData = createJson(pr); 
