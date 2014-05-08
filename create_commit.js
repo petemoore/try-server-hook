@@ -46,7 +46,7 @@ function createJson(pr) {
   var rando = Math.floor(Math.random() * 100000);
   var data = {
     git: {
-      git_revision: pr.merge_sha,
+      git_revision: 'replacedByPrNumber',
       remote: pr.base_clone_url,
       github_pr_number: pr.number
     },
