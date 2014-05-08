@@ -10,7 +10,7 @@ function parse(payload) {
   var upstream_pr = payload.pull_request;
   pr.type = 'pull_request';
   pr.action = payload.action;
-  pr.pr_number = payload.number;
+  pr.number = payload.number;
   pr.who = payload.sender.login;
   pr.base_label = upstream_pr.base.label;
   pr.base_git_url = upstream_pr.base.repo.git_url;
@@ -20,6 +20,7 @@ function parse(payload) {
   pr.pr_git_url = upstream_pr.head.repo.git_url;
   pr.pr_clone_url = upstream_pr.head.repo.clone_url;
   pr.pr_sha = upstream_pr.head.sha;
+  pr.merge_sha = upstream_pr.merge_commit_sha;
   return pr;
 }
 
@@ -30,7 +31,7 @@ function validate(pr) {
   }
   ['type', 'action', 'pr_number', 'who', 'base_label', 'base_git_url',
    'base_clone_url', 'base_sha', 'pr_label', 'pr_git_url', 'pr_clone_url',
-   'pr_sha'].forEach(function(element) {
+   'pr_sha', 'merge_sha'].forEach(function(element) {
     if (!element) {
       return false;
     }
@@ -80,6 +81,6 @@ module.exports = {
   name: 'gaia-try-trigger',
   handle: handle,
   _parse: parse,
-  _validate: validate,
+  validate: validate,
   interesting: interesting
 }

@@ -9,7 +9,7 @@ var util = require('util');
 var rimraf = require('rimraf');
 var exec = require('child_process').exec;
 
-var eventPr = require('./event-pr');
+var eventPr = require('./events/gaia_try');
 var hgId = require('./hg_id');
 
 
@@ -46,8 +46,9 @@ function createJson(pr) {
   var rando = Math.floor(Math.random() * 100000);
   var data = {
     git: {
-      git_revision: pr.pr_sha,
-      remote: pr.pr_clone_url
+      git_revision: pr.merge_sha,
+      remote: pr.base_clone_url,
+      github_pr_number: pr.number
     },
     tryhook_raw: {
       notes: 'This data is here for debugging, not downstream use',
@@ -77,7 +78,7 @@ function run(pr, callback) {
   var gaiaJsonPath = path.join(repoDir, 'gaia.json');
   var commitOpts = {
     '--message': util.format('Gaia PR#%d: %s <-- %s',
-                    pr.pr_number, pr.base_label, pr.pr_label),
+                    pr.number, pr.base_label, pr.pr_label),
     '--user': pr.who
   }
   var jsonData = createJson(pr); 
