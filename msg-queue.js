@@ -1,7 +1,4 @@
 var when = require('when');
-var _debug = require('debug');
-var debug = _debug('message-queue');
-var hDebug = _debug('message-handler');
 var amqp = require('amqplib');
 
 //http://www.squaremobius.net/amqp.node/doc/channel_api.html
@@ -17,13 +14,13 @@ if (process.env.CLOUDAMQP_URL) {
 } else {
   amqpUri = 'amqp://localhost';
 }
-debug('Using AMQP Message Broker at: ' + amqpUri);
+console.log('Using AMQP Message Broker at: ' + amqpUri);
 
 function assertSchema(ch) {
   return ch.assertExchange(exchange, 'fanout', {durable: true})
     .then(ch.assertQueue(queue, {durable: true}))
     .then(function (assertedQueue) {
-          debug('Asserted queue');
+          console.log('Asserted queue');
           return ch.bindQueue(queue, exchange, '').then(function() {
             return assertedQueue;
           })
@@ -38,12 +35,12 @@ function enqueue(pullRequest) {
   }
 
   return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
-    debug('Connected to message broker');
+    console.log('Connected to message broker');
     return when(conn.createChannel().then(function(ch) {
-      debug('Channel created');
+      console.log('Channel created');
       return assertSchema(ch)
         .then(function () {
-          debug('Publishing message');
+          console.log('Publishing message');
           function x() { 
             return ch.publish(
             exchange,
@@ -56,10 +53,10 @@ function enqueue(pullRequest) {
           }
           var outcome = x();
           if (outcome) {
-            debug('Message published');
+            console.log('Message published');
             return ch.close();
           } else {
-            debug('Message queue write buffer is full');
+            console.log('Message queue write buffer is full');
             // I should figure out how the drain event should be handled
             // and handle it better than just rejecting the request
             return promise.reject('message broker write buffer is full');
@@ -72,54 +69,54 @@ function enqueue(pullRequest) {
 
 function registerConsumer(action, onConnClose, onChClose) {
   return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
-    debug('Connected to message broker');
+    console.log('Connected to message broker');
     conn.on('error', function (err) {
-      debug('Connection to message broker experienced an error:\n' + err);
+      console.log('Connection to message broker experienced an error:\n' + err);
     });
     if (onConnClose) {
       conn.on('close', onConnClose);
     }
     return when(conn.createChannel().then(function(ch) {
       ch.on('error', function (err) {
-        debug('Channel experienced an error:\n' + err);
+        console.log('Channel experienced an error:\n' + err);
       });
       if (onChClose) {
         ch.on('close', onChClose);
       }
-      debug('Channel created');
+      console.log('Channel created');
       return assertSchema(ch)
         .then(function () { ch.prefetch(1); })
         .then(function () {
-          debug('Registering message consumer');
+          console.log('Registering message consumer');
 
           function handle(msg) {
             if (msg === null) {
-              hDebug('Message from queue is null, this handler is cancelled');
+              console.log('Message from queue is null, this handler is cancelled');
               return
             }
             try {
               var pr = JSON.parse(msg.content);
             } catch(e) {
-              hDebug('Unable to parse JSON, discarding message\n' + msg.content);
+              console.log('Unable to parse JSON, discarding message\n' + msg.content);
               ch.reject(msg);
               return
             }
-            hDebug(new Date().toString() + 'Received message:\n' + msg.content);
+            console.log(new Date().toString() + 'Received message:\n' + msg.content);
             
             action(pr, function(err) {
               if (err) {
-                hDebug(new Date().toString() + 'Action failed');
+                console.log(new Date().toString() + 'Action failed');
                 ch.reject(msg, true);
               } else {
-                hDebug(new Date().toString() + 'Action passed!');
+                console.log(new Date().toString() + 'Action passed!');
                 ch.ack(msg);
               }
             });
           };
 
-          debug('Registering consumer for queue: ' + queue);
+          console.log('Registering consumer for queue: ' + queue);
           ch.consume(queue, handle, {noAck: false});
-          debug('Message consumer registered');
+          console.log('Message consumer registered');
         });
       
     }))

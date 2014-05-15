@@ -1,4 +1,3 @@
-var debug = require('debug')('hg-id');
 
 // We're assuming output like this:
 /*
@@ -26,7 +25,7 @@ function hgId(repo, callback) {
       return callback(new Error('Expected extraneous output differs from expected content'));
     }
     id = output[0].body;
-    debug('HG id: ' + id);
+    console.log('HG id: ' + id);
     return callback(null, id);
   });
 }

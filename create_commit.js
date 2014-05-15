@@ -3,7 +3,6 @@ var path = require('path');
 var when = require('when');
 var nodefn = require('when/node');
 var hg = require('hg');
-var debug = require('debug')('create-commits');
 var temp = require('temp');
 var util = require('util');
 var rimraf = require('rimraf');
@@ -18,12 +17,12 @@ var SSH_KEY = process.env.SSH_KEY || '~/.ssh/user_rsa';
 var SSH_CMD = process.env.SSH_CMD || util.format('ssh -i %s -l %s', SSH_KEY, SSH_USER);
 var HG_URL = process.env.HG_URL || 'ssh://hg.mozilla.org/integration/gaia-try';
 
-debug('Using ' + SSH_CMD + ' to talk to ' + HG_URL);
+console.log('Using ' + SSH_CMD + ' to talk to ' + HG_URL);
 
 
 function showHgOutput(output) {
   if (!output) {
-    debug('No HG Output');
+    console.log('No HG Output');
     return
   }
   output.forEach(function (e) {
@@ -60,7 +59,7 @@ function createJson(pr) {
 
 
 function handleErr(repo, err, callback) {
-  debug('Cleaning up ' + repo.path + ' after failure ' + err);
+  console.log('Cleaning up ' + repo.path + ' after failure ' + err);
   rimraf(repo.path, function (rmrferr) {
     if (rmrferr) {
       console.warn('ERROR CLEANING UP ' + repo.path);
@@ -85,22 +84,22 @@ function run(pr, callback) {
 
   hg.clone(HG_URL, repoDir, {'--ssh': SSH_CMD}, function(err, output) {
     if (err) {
-      debug('Failed to clone ' + HG_URL); 
+      console.log('Failed to clone ' + HG_URL); 
       return callback(err);
     };
     var repo = new hg.HGRepo(repoDir); // The convenience API sucks
-    debug('Cloned to ' + repoDir);
+    console.log('Cloned to ' + repoDir);
     showHgOutput(output);
 
     fs.writeFile(gaiaJsonPath, jsonData, function (err) {
       if (err) handleErr(repo, err, callback);
-      debug('Wrote new gaia.json to ' + gaiaJsonPath);
+      console.log('Wrote new gaia.json to ' + gaiaJsonPath);
       showHgOutput(output);
 
       repo.commit(commitOpts, function (err, out) {
         showHgOutput(output);
         if (err) handleErr(repo, err, callback);
-        debug('Commit success');
+        console.log('Commit success');
 
         repo.push(HG_URL, {'--ssh': SSH_CMD, '--force': ''}, function(err, output) {
           if (err) handleErr(repo, err, callback);

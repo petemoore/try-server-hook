@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var debug = require('debug')('github-event-receiver');
 var when = require('when');
 var fs = require('fs');
 var path = require('path');
@@ -15,7 +14,7 @@ eventModules.forEach(function(module) {
   // a sane string.prototype.endsWith() :'(
   // Not concerned about performance here because it's done infrequently
   if (/.*\.js$/.exec(module)) {
-    debug('Using event handling module ' + module);
+    console.log('Using event handling module ' + module);
     eventHandlers.push(require(path.join(eventsDir, module)));
   }
 });
@@ -32,10 +31,10 @@ function handleEvent(delivery_id, type, payload) {
   var eventPromises = [];
   eventHandlers.forEach(function(e) {
     if (e.interesting(type, payload)) {
-      debug(e.name + ' event is interested in this event');
+      console.log(e.name + ' event is interested in this event');
       eventPromises.push(e.handle(type, payload));
     } else {
-      debug(e.name + ' event is ignoring this event');
+      console.log(e.name + ' event is ignoring this event');
     }
   });
   return when.all(eventPromises);
