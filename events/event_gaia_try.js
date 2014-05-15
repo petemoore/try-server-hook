@@ -1,7 +1,7 @@
 // Module that figures out pull requests
 
 var when = require('when');
-var q = require('../msg-queue');
+var q = require('../msg_queue');
 
 // Parse a GitHub webhook payload and create a Pull Request object
 function parse(payload) {
