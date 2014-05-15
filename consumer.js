@@ -1,6 +1,6 @@
 var when = require('when');
 
-var createCommit = require('./create_commit');
+var createCommit = require('./events/gaia_try/create_commit');
 var msgQueue = require('./msg-queue');
 
 console.log('Starting consumer');

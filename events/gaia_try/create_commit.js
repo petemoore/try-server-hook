@@ -8,7 +8,7 @@ var util = require('util');
 var rimraf = require('rimraf');
 var exec = require('child_process').exec;
 
-var eventPr = require('./events/gaia_try');
+var eventPr = require('../event_gaia_try');
 var hgId = require('./hg_id');
 
 
