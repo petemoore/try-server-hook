@@ -13,7 +13,7 @@ eventModules.forEach(function(module) {
   // This regex shouldn't need to be here, but js lacks
   // a sane string.prototype.endsWith() :'(
   // Not concerned about performance here because it's done infrequently
-  if (/.*\.js$/.exec(module)) {
+  if (/^event_.*\.js$/.exec(module)) {
     console.log('Using event handling module ' + module);
     eventHandlers.push(require(path.join(eventsDir, module)));
   }
