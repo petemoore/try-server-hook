@@ -27,9 +27,9 @@ function assertSchema(ch) {
         })
 }
 
-function enqueue(pullRequest) {
+function enqueue(payload) {
   try {
-    var json_pr = JSON.stringify(pullRequest);
+    var payload_json = JSON.stringify(payload);
   } catch(e) {
     return when.reject(e);
   }
@@ -45,7 +45,7 @@ function enqueue(pullRequest) {
             return ch.publish(
             exchange,
             '',
-            new Buffer(json_pr),
+            new Buffer(payload_json),
             {
               persistent: true,
               contentType: 'application/json',
