@@ -42,6 +42,10 @@ app.post('/github/v3', function(req, res) {
       },
       function(outcome) {
         if (typeof outcome === 'object' && outcome.message) {
+          console.log('ERROR!')
+          console.log(outcome.fileName || 'no filename');
+          console.log(outcome.lineNumber || 'no line number');
+          console.log(outcome.stack || 'no stack');
           res.send(500, error(outcome.message));
         } else {
           res.send(500, error(outcome));

@@ -1,11 +1,6 @@
 var when = require('when');
 var amqp = require('amqplib');
 
-//http://www.squaremobius.net/amqp.node/doc/channel_api.html
-
-var exchange = 'incoming_pr';
-var queue = 'incoming_pr_queue';
-
 var amqpUri
 if (process.env.CLOUDAMQP_URL) {
   amqpUri = process.env.CLOUDAMQP_URL;
@@ -16,16 +11,54 @@ if (process.env.CLOUDAMQP_URL) {
 }
 console.log('Using AMQP Message Broker at: ' + amqpUri);
 
-function assertSchema(ch) {
-  return ch.assertExchange(exchange, 'fanout', {durable: true})
-    .then(ch.assertQueue(queue, {durable: true}))
-    .then(function (assertedQueue) {
-          console.log('Asserted queue');
-          return ch.bindQueue(queue, exchange, '').then(function() {
-            return assertedQueue;
-          })
-        })
+//http://www.squaremobius.net/amqp.node/doc/channel_api.html
+
+function Pineapple(conn, exchange, queues) {
+  this.exchange = exchange;
+  this.queues = queues;
 }
+
+Pineapple.prototype = {
+  addQueue: function(queue) {
+    this.queues.push(queue);
+  },
+  _assert: function(ch) {
+    var promises = [ch.assertExchange(this.exchange, 'fanout', { durable: true} )];
+    this.queues.forEach(function(i) {
+      promises.push(ch.assertQueue(i, { durable: true}));
+      promises.push(ch.bindQueue(i, this.exchange, ''));
+    }.bind(this));
+    return when.all(promises);
+  },
+  _openChannel: function(conn) {
+    return conn.createChannel();
+  },
+  insert: function(conn, payload, contentType) {
+    return this._openChannel(conn).then(this._assert())
+      .then(function () {
+        if (typeof payload !== 'string') {
+          return when.reject('Payload must be a string');
+        }
+        console.log('Publishing message');
+        var pubOpts = {
+          persistent: true,
+          contentType: contentType || 'application/json'
+        };
+        var outcome = ch.publish(this.exchange, '', new Buffer(payload), pubOpts);
+        if (outcome) {
+          console.log('Message published');
+          return ch.close();
+        } else {
+          console.log('Message queue write buffer is full');
+          // I should figure out how the drain event should be handled
+          // and handle it better than just rejecting the request
+          return promise.reject('message broker write buffer is full');
+        }
+    }.bind(this));
+  }
+}
+
+var GithubEventInput = new Pineapple('incoming_gh_events', ['incoming_gh_events_queue']);
 
 function enqueue(payload) {
   try {
@@ -36,34 +69,8 @@ function enqueue(payload) {
 
   return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
     console.log('Connected to message broker');
-    return when(conn.createChannel().then(function(ch) {
-      console.log('Channel created');
-      return assertSchema(ch)
-        .then(function () {
-          console.log('Publishing message');
-          function x() { 
-            return ch.publish(
-            exchange,
-            '',
-            new Buffer(payload_json),
-            {
-              persistent: true,
-              contentType: 'application/json',
-            })
-          }
-          var outcome = x();
-          if (outcome) {
-            console.log('Message published');
-            return ch.close();
-          } else {
-            console.log('Message queue write buffer is full');
-            // I should figure out how the drain event should be handled
-            // and handle it better than just rejecting the request
-            return promise.reject('message broker write buffer is full');
-          }
-        });
+      return GithubEventInput.insert(conn, payload_json);
     })).ensure(function() { conn.close() } );
-  }));
 }
 
 
@@ -126,6 +133,6 @@ function registerConsumer(action, onConnClose, onChClose) {
 
 module.exports = {
   enqueue: enqueue,
-  assertSchema: assertSchema,
+  //assertSchema: assertSchema,
   registerConsumer: registerConsumer,
 }
