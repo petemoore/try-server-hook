@@ -3,7 +3,24 @@ var app = express();
 var when = require('when');
 var fs = require('fs');
 var path = require('path');
-var msgQueue = require('./msg_queue');
+//var msgQueue = require('./msg_queue');
+
+var GithubEvents = require('./github_events');
+
+var amqpUri = null;
+if (process.env.CLOUDAMQP_URL) {
+  amqpUri = process.env.CLOUDAMQP_URL;
+} else if (process.env.AMQP_URI) {
+  amqpUri = process.env.AMQP_URI;
+} else {
+  amqpUri = 'amqp://localhost';
+}
+
+var githubEvents = new GithubEvents();
+githubEvents.openConnection(amqpUri)
+  .then(function (conn) {
+    app.brokerConncetion = conn;
+  });
 
 function error(msg) {
   return JSON.stringify({'error': msg});
@@ -21,12 +38,13 @@ app.get('/', function(req, res) {
 });
 
 function handle(type, delivery_id, payload) {
-  return msgQueue.enqueue({
+  return githubEvents.insertJson({
     type: type,
     delivery_id: delivery_id,
     payload: payload,
   });
 }
+
 
 // curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
 //   --header "Content-Type:application/json" \
@@ -42,7 +60,7 @@ app.post('/github/v3', function(req, res) {
       },
       function(outcome) {
         if (typeof outcome === 'object' && outcome.message) {
-          console.log('ERROR!')
+          console.log('ERROR!');
           console.log(outcome.fileName || 'no filename');
           console.log(outcome.lineNumber || 'no line number');
           console.log(outcome.stack || 'no stack');

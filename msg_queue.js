@@ -1,64 +1,24 @@
+"use strict";
+
 var when = require('when');
 var amqp = require('amqplib');
 
-var amqpUri
-if (process.env.CLOUDAMQP_URL) {
-  amqpUri = process.env.CLOUDAMQP_URL;
-} else if (process.env.AMQP_URI) {
-  amqpUri = process.env.AMQP_URI;
-} else {
-  amqpUri = 'amqp://localhost';
-}
+var Pineapple = require('./pineapple');
+
 console.log('Using AMQP Message Broker at: ' + amqpUri);
 
-//http://www.squaremobius.net/amqp.node/doc/channel_api.html
 
-function Pineapple(conn, exchange, queues) {
-  this.exchange = exchange;
-  this.queues = queues;
-}
+var GithubEventInput = new Pineapple('inc_gh', ['inc_gh_wq']);
 
-Pineapple.prototype = {
-  addQueue: function(queue) {
-    this.queues.push(queue);
-  },
-  _assert: function(ch) {
-    var promises = [ch.assertExchange(this.exchange, 'fanout', { durable: true} )];
-    this.queues.forEach(function(i) {
-      promises.push(ch.assertQueue(i, { durable: true}));
-      promises.push(ch.bindQueue(i, this.exchange, ''));
-    }.bind(this));
-    return when.all(promises);
-  },
-  _openChannel: function(conn) {
-    return conn.createChannel();
-  },
-  insert: function(conn, payload, contentType) {
-    return this._openChannel(conn).then(this._assert())
-      .then(function () {
-        if (typeof payload !== 'string') {
-          return when.reject('Payload must be a string');
-        }
-        console.log('Publishing message');
-        var pubOpts = {
-          persistent: true,
-          contentType: contentType || 'application/json'
-        };
-        var outcome = ch.publish(this.exchange, '', new Buffer(payload), pubOpts);
-        if (outcome) {
-          console.log('Message published');
-          return ch.close();
-        } else {
-          console.log('Message queue write buffer is full');
-          // I should figure out how the drain event should be handled
-          // and handle it better than just rejecting the request
-          return promise.reject('message broker write buffer is full');
-        }
-    }.bind(this));
-  }
-}
+amqp.connect(amqpUri, {heartbeat: 60*15}).then(function(conn) {
+  globalConn = conn; 
+  console.log('Created connection');
+  conn.createChannel().then(function(ch) {
+    globalCh = ch;
+    GithubEventInput.bindChannel(ch);
+  }).then(function() { console.log('Created channel') });
+});
 
-var GithubEventInput = new Pineapple('incoming_gh_events', ['incoming_gh_events_queue']);
 
 function enqueue(payload) {
   try {
@@ -66,11 +26,8 @@ function enqueue(payload) {
   } catch(e) {
     return when.reject(e);
   }
-
-  return when(amqp.connect(amqpUri, {heartbeat: 15}).then(function(conn) {
-    console.log('Connected to message broker');
-      return GithubEventInput.insert(conn, payload_json);
-    })).ensure(function() { conn.close() } );
+  console.log(typeof globalCh);
+  return GithubEventInput.insert(payload_json);
 }
 
 
