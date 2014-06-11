@@ -1,5 +1,6 @@
 "use strict";
 
+var url = require('url');
 var when = require('when');
 var amqp = require('amqplib');
 
@@ -16,7 +17,8 @@ function Connection (uri, opts) {
 Connection.prototype = {
   open: function () {
     return when(amqp.connect(this.uri, this.heartbeat).then(function(conn) {
-      console.log('Connection to message broker established');
+      // We only print the hostname to avoid showing credentials in output
+      console.log('Connected message broker running at ' + url.parse(this.uri).hostname);
       this.connection = conn;
       return when.resolve(conn);
     }.bind(this)));

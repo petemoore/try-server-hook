@@ -7,9 +7,11 @@ var path = require('path');
 var amqpUri = require('./amqp_uri');
 var GithubEvents = require('./github_events');
 var CommitEvents = require('./commit_events');
+var NotificationEvents = require('./notification_events');
 var Connection = require('./msg_broker');
 
 var PullRequestToTryCommitFilter = require('./pr_to_try');
+var CommitToNotificationFilter = require('./gaia_try_commit');
 
 
 function error(msg) {
@@ -27,10 +29,12 @@ app.use(express.urlencoded());
 app.connection = new Connection(amqpUri);
 app.githubEvents = new GithubEvents();
 app.commitEvents = new CommitEvents();
+app.notificationEvents = new NotificationEvents();
 app.prToTryFilter = new PullRequestToTryCommitFilter(app.commitEvents);
+app.commitToNotificationFilter = new CommitToNotificationFilter(app.notificationEvents);
 
 app.get('/', function(req, res) {
-  res.send('200', 'Server is up!'); 
+  res.send('200', 'Server is up!');
 });
 
 /* curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
@@ -40,7 +44,7 @@ app.get('/', function(req, res) {
 app.post('/github/v3', function(req, res) {
   var type = req.get('X-GitHub-Event');
   var delivery_id = req.get('X-GitHub-Delivery');
-  
+
   console.log('Api received a ' + type);
   app.githubEvents.insertJson({type:type, delivery_id:delivery_id, content:req.body})
     .then(
@@ -67,8 +71,8 @@ app.connection.open()
   .then(app.commitEvents.bindConnection(app.connection))
   .then(function() {
     app.connection.createChannel().then(function (ch) {
-      //app.githubEvents.addConsumer(function (obj, cb) { app.prToTryFilter.handle(obj, cb) }, ch, 'github_api_incoming');
       app.githubEvents.addConsumer(app.prToTryFilter.makeAction(), ch, 'github_api_incoming');
+      //app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
     });
   })
   .then(function() {

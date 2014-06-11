@@ -5,26 +5,6 @@ var util = require('util');
 
 var GaiaTryEvents = require('./commit_events');
 
-function Filter() {
-
-}
-
-Filter.prototype = {
-  parse: function (obj) {
-    return obj;
-  },
-  validate: function (obj) {
-    return true;
-  },
-  interesting: function(obj) {
-    return false;
-  },
-  handle: function(obj) {
-    console.log('This is where I *would* handle the object if I were implemented');
-  }
-};
-
-
 function jsonForPR(pr) {
   var rando = Math.floor(Math.random() * 100000);
   var data = {
@@ -40,7 +20,6 @@ function jsonForPR(pr) {
   data.tryhook_raw[rando] = pr;
   return JSON.stringify(data, null, '  ');
 }
-
 
 
 function PullRequestToTryCommitFilter(commitEvents) {
@@ -100,7 +79,7 @@ PullRequestToTryCommitFilter.prototype = {
     var user = pr.who;
     var contents = jsonForPR(pr);
     
-    this.commitEvents.insertJson({user: user, message: message, contents: contents}).then(
+    this.commitEvents.insertJson({user: user, message: message, contents: contents, upstream: pr}).then(
         function onSuccess() {
           return callback(null);
         },

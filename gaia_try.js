@@ -89,7 +89,7 @@ function commit(obj, callback) {
             if (err) handleErr(repo, err, callback);
             rimraf(repo.path, function(err) {
               if (err) {
-                console.warn('ERROR REPO ON SUCCESS: ' + err);
+                console.warn('Commit succedded, delete failed ' + err);
               }
               callback(null, id);
             });
