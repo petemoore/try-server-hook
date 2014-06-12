@@ -3,7 +3,7 @@
 var util = require('util');
 var GithubAPI = require('github');
 
-var tbpl = require('./misc/tbpl');
+var tbpl = require('../misc/tbpl');
 
 var BaseEventHandler = require('./base_event');
 
@@ -21,27 +21,30 @@ function GithubPostHandler(downstreams) {
   this.github.authenticate({type: 'oauth', token: this.apiKey});
 }
 
-function postToPr(msg, comment, callback) {
-  var base_info = msg.pr.base_label.split(':');
-  if (base_info.length !== 2) {
-    return callback(new Error('base label of PR needs to be user:repo'));
-  }
-  var user = base_info[0];
-  var repo = base_info[1];
+function postToPr(github, msg, comment, callback) {
+  var user = msg.pr.base_owner;
+  var repo = msg.pr.base_name;
   var ghmsg = {
     user: user,
     repo: repo,
     number: msg.pr.number,
     body: comment
   };
-  github.issues.createComment(ghmsg, callback); 
+  console.log('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
+  github.issues.createComment(ghmsg, function(err, response){
+    if (err) {
+      return callback(err, true);
+    }
+    console.log('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
+    return callback(null);
+  }); 
 }
 
 function handleStartPR(github, msg, callback) {
   var comment = util.format(
       'Continuous Integration started. [Results](%s)',
-      tbpl.url({rev: msg.hg_id}));
-  postToPr(msg, comment, callback);
+      tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id}));
+  postToPr(github, msg, comment, callback);
 }
 
 function handleFinishPR(github, msg, callback) {
@@ -49,7 +52,7 @@ function handleFinishPR(github, msg, callback) {
       'Continuous Integration compeleted and %s. [Results](%s)',
       msg.state,
       tbpl.url({rev: msg.hg_id}));
-  postToPr(msg, comment, callback);
+  postToPr(github, msg, comment, callback);
 }
 
 GithubPostHandler.prototype = Object.create(BaseEventHandler.prototype);

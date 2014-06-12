@@ -21,6 +21,7 @@ CommitEventHandler.prototype.handle = function(msg, callback) {
       return callback(err)
     }
     msg['hg_id'] = hgId; 
+    msg['state'] = 'submitted';
     return callback(null, msg);
   });
 };

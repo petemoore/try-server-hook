@@ -18,7 +18,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
   }
   console.log('Handling an IRC event');
 
-  var tbplurl = tbpl.url({rev: msg.hg_id});
+  var tbplurl = tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id});
   shorten(tbplurl, function(err, url) {
     var message = 'Oops';
     if (err) {
@@ -27,7 +27,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
     if (msg.finished) {
       message = util.format('%s\'s tests are compete! results here: %s', msg.user, url);
     } else {
-      message = util.format('%s started tests.  Results here: %s', msg.user, url);
+      message = util.format('%s started tests.  Outcome: %s  Results here: %s', msg.user, msg.state, url);
     }
     callback(null, {message: message});
   }.bind(this)); 
