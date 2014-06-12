@@ -66,7 +66,7 @@ Pineapple.prototype = {
           } else {
             // I should really figure out how the drain event works and use it here.
             console.log('Message Queue write buffer is full');
-            return promise.reject('Message broker write buffer is full');
+            return when.reject('Message broker write buffer is full');
           }
         }.bind(this))
       }.bind(this))
@@ -82,6 +82,7 @@ Pineapple.prototype = {
     }
     return this.insert(payload_json, 'application/json');
   },
+  // This should really be like pineapple.queue('lala').addConsumer(ch, action)
   addConsumer: function (action, channel, queue, onChClose) {
     if (onChClose) channel.on('close', onChClose); 
     return this._assert(channel).then(function() {
@@ -117,8 +118,9 @@ Pineapple.prototype = {
         action(objForAction, function(err) {
           if (err) {
             console.log('Action failed');
-            console.log('Error:\n' + err.stack || err);
+            console.log(err.stack || err);
             // We want to requeue
+            console.log('Rejecting message');
             channel.reject(msg, false);
           } else {
             console.log('Action succeeded');

@@ -7,12 +7,16 @@ function CommitEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
 }
 
-CommitEventHandler.prototype = Object.create(BaseEventHandler.prototype)
+CommitEventHandler.prototype = Object.create(BaseEventHandler.prototype);
 CommitEventHandler.prototype.constructor = CommitEventHandler;
 
 CommitEventHandler.prototype.handle = function(msg, callback) {
+  if (!msg || !msg.user || !msg.commit_message || !msg.contents) {
+    console.log(JSON.stringify(msg, null, '  '));
+    return callback(new Error('Invalid message'));
+  }
   console.log('Handing a commit');
-  gaiaTry.commit(msg, function(err, hgId) {
+  gaiaTry.commit(msg.user, msg.commit_message, msg.contents, function(err, hgId) {
     if (err) {
       return callback(err)
     }

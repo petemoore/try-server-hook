@@ -52,10 +52,7 @@ function handleErr(repo, err, callback) {
 }
 
 
-function commit(obj, callback) {
-  var message = obj.message;
-  var user = obj.user;
-  var contents = obj.contents;
+function commit(user, message, contents, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg'});
   var gaiaJsonPath = path.join(repoDir, 'gaia.json');
   var commitOpts = {

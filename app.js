@@ -9,10 +9,7 @@ var GithubEvents = require('./github_events');
 var CommitEvents = require('./commit_events');
 var NotificationEvents = require('./notification_events');
 var Connection = require('./msg_broker');
-
-var PullRequestToTryCommitFilter = require('./pr_to_try');
-var CommitToNotificationFilter = require('./gaia_try_commit');
-
+var PREventHandler = require('./event_handlers/pr_event_handler');
 
 function error(msg) {
   return JSON.stringify({'error': msg}) + '\n';
@@ -29,9 +26,7 @@ app.use(express.urlencoded());
 app.connection = new Connection(amqpUri);
 app.githubEvents = new GithubEvents();
 app.commitEvents = new CommitEvents();
-app.notificationEvents = new NotificationEvents();
-app.prToTryFilter = new PullRequestToTryCommitFilter(app.commitEvents);
-app.commitToNotificationFilter = new CommitToNotificationFilter(app.notificationEvents);
+app.prEventHandler = new PREventHandler(app.commitEvents);
 
 app.get('/', function(req, res) {
   res.send('200', 'Server is up!');
@@ -71,8 +66,8 @@ app.connection.open()
   .then(app.commitEvents.bindConnection(app.connection))
   .then(function() {
     app.connection.createChannel().then(function (ch) {
-      app.githubEvents.addConsumer(app.prToTryFilter.makeAction(), ch, 'github_api_incoming');
-      //app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
+      app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming');
+      ///app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
     });
   })
   .then(function() {
