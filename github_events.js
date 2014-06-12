@@ -1,9 +1,9 @@
 "use strict";
 
-var Pineapple = require('./pineapple');
+var EventStream = require('./event_stream');
 
 function GithubEvents () {}
 
-GithubEvents.prototype = new Pineapple('github_events', ['github_api_incoming']);
+GithubEvents.prototype = new EventStream('github_events', ['github_api_incoming']);
 
 module.exports = GithubEvents;

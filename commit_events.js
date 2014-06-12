@@ -1,9 +1,9 @@
 "use strict";
 
-var Pineapple = require('./pineapple');
+var EventStream = require('./event_stream');
 
 function GaiaTryEvents () {}
 
-GaiaTryEvents.prototype = new Pineapple('gaia_try_events', ['gaia_try_commit']);
+GaiaTryEvents.prototype = new EventStream('gaia_try_events', ['gaia_try_commit']);
 
 module.exports = GaiaTryEvents;

@@ -7,7 +7,7 @@ var amqp = require('amqplib');
 //http://www.squaremobius.net/amqp.node/doc/channel_api.html
 //http://www.rabbitmq.com/consumer-prefetch.html
 
-function Pineapple(exchange, queues, prefetch) {
+function EventStream(exchange, queues, prefetch) {
   this.exchange = exchange;
   this.queues = queues;
   if (prefetch) {
@@ -21,7 +21,7 @@ function Pineapple(exchange, queues, prefetch) {
 }
 
 
-Pineapple.prototype = {
+EventStream.prototype = {
   bindConnection: function(conn) {
     this.conn = conn;
     return this.conn.createChannel().then(function (ch) {
@@ -137,4 +137,4 @@ Pineapple.prototype = {
   }
 }
 
-module.exports = Pineapple;
+module.exports = EventStream;
