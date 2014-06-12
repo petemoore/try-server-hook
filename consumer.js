@@ -4,13 +4,14 @@ var when = require('when');
 var amqpUri = require('./amqp_uri');
 var CommitEvents = require('./commit_events');
 var Connection = require('./msg_broker');
-var GaiaTryCommitToNotificationFilter = require('./gaia_try_commit');
 var NotificationEvents = require('./notification_events');
+
+var CommitEventHandler = require('./event_handlers/commit_event_handler');
 
 var commitEvents = new CommitEvents();
 var notificationEvents = new NotificationEvents();
 var connection = new Connection(amqpUri);
-var gaiaTryCommitFilter = new GaiaTryCommitToNotificationFilter(notificationEvents);
+var commitEventHandler = new CommitEventHandler(notificationEvents);
 
 function exitOnClose () {
   console.log('Exiting because of channel or connection close');
@@ -24,7 +25,7 @@ connection.open()
     function() {
       connection.createChannel().then(function (ch) {
         ch.prefetch(1, true);
-        commitEvents.addConsumer(gaiaTryCommitFilter.makeAction(), ch, 'gaia_try_commit');
+        commitEvents.addConsumer(commitEventHandler.makeAction(), ch, 'gaia_try_commit');
       } );
     }
   )
