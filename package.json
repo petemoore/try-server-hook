@@ -16,18 +16,22 @@
     "url": "https://github.com/jhford/try-server-hook/issues"
   },
   "homepage": "https://github.com/jhford/try-server-hook",
-  "engines" : {
+  "engines": {
     "node": "0.10.x"
   },
   "dependencies": {
-    "express": "^3.4.8",
-    "debug": "~0.7.4",
     "amqplib": "^0.1.3",
-    "when": "^3.1.0",
+    "bitly": "^1.2.5",
+    "debug": "~0.7.4",
+    "express": "^3.4.8",
     "forever": "^0.11.1",
     "hg": "0.0.6",
+    "irc-js": "^2.0.0-beta.5",
+    "jerk": "^1.1.23",
+    "rimraf": "^2.2.6",
+    "shakespeare-insult": "^1.0.0",
     "temp": "^0.7.0",
-    "rimraf": "^2.2.6"
+    "when": "^3.1.0"
   },
   "devDependencies": {
     "mocha": "~1.17.1",

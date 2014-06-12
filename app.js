@@ -8,8 +8,10 @@ var amqpUri = require('./amqp_uri');
 var GithubEvents = require('./github_events');
 var CommitEvents = require('./commit_events');
 var NotificationEvents = require('./notification_events');
+var IRCSendEvents = require('./irc_send_events');
 var Connection = require('./msg_broker');
 var PREventHandler = require('./event_handlers/pr_event_handler');
+var IRCEventHandler = require('./event_handlers/irc_event_handler');
 
 function error(msg) {
   return JSON.stringify({'error': msg}) + '\n';
@@ -26,7 +28,10 @@ app.use(express.urlencoded());
 app.connection = new Connection(amqpUri);
 app.githubEvents = new GithubEvents();
 app.commitEvents = new CommitEvents();
+app.notificationEvents = new NotificationEvents();
+app.ircSendEvents = new IRCSendEvents();
 app.prEventHandler = new PREventHandler(app.commitEvents);
+app.ircEventHandler = new IRCEventHandler(app.ircSendEvents);
 
 app.get('/', function(req, res) {
   res.send('200', 'Server is up!');
@@ -64,11 +69,13 @@ app.post('/github/v3', function(req, res) {
 app.connection.open()
   .then(app.githubEvents.bindConnection(app.connection))
   .then(app.commitEvents.bindConnection(app.connection))
+  .then(app.ircSendEvents.bindConnection(app.connection))
+  .then(app.notificationEvents.bindConnection(app.connection))
   .then(function() {
     app.connection.createChannel().then(function (ch) {
       ch.prefetch(1);
       app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming');
-      app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
+      app.notificationEvents.addConsumer(app.ircEventHandler.makeAction(), ch, 'irc_start');
     });
   })
   .then(function() {

@@ -33,6 +33,9 @@ Connection.prototype = {
       this.channels.push(ch);
       return ch;
     }.bind(this)));
+  },
+  close: function() {
+    return this.connection.close();
   }
 };
 
