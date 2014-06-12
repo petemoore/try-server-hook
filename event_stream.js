@@ -7,6 +7,53 @@ var amqp = require('amqplib');
 //http://www.squaremobius.net/amqp.node/doc/channel_api.html
 //http://www.rabbitmq.com/consumer-prefetch.html
 
+
+function parseMsg (contentType, msg) {
+  return when.promise(function(resolve, reject) {
+    switch(contentType) {
+      case 'application/json':
+        parseMsgJson(msg).then(resolve, reject);
+        break;
+      default:
+        reject(new Error('Unsupported content type: ' + contentType));
+    }
+  });
+}
+
+function parseMsgJson(msg) {
+  return when.promise(function(resolve, reject) {
+    try {
+      var obj = JSON.parse(msg);
+    } catch(e) {
+      reject(e);
+    }
+    resolve(obj);
+  });
+}
+
+function serialiseMsg (contentType, msg) {
+  return when.promise(function(resolve, reject) {
+    switch(contentType) {
+      case 'application/json':
+        serialiseMsgJson(msg).then(resolve, reject);
+        break;
+      default:
+        reject(new Error('Unsupported content type: ' + contentType));
+    }
+  });
+}
+
+function serialiseMsgJson(msg) {
+  return when.promise(function(resolve, reject) {
+    try {
+      var jsons = JSON.stringify(msg);
+    } catch(e) {
+      reject(e);
+    }
+    resolve(jsons);
+  });
+}
+
 function EventStream(exchange, queues, prefetch) {
   this.exchange = exchange;
   this.queues = queues;
@@ -84,6 +131,47 @@ EventStream.prototype = {
   },
   // This should really be like pineapple.queue('lala').addConsumer(ch, action)
   addConsumer: function (action, channel, queue, onChClose) {
+    if (onChClose) channel.on('close', onChClose); 
+
+    return this._assert(channel).then(function () {
+      
+      function handleMsg(msg) {
+        if (!msg) {
+          console.log('This consumer was canceled');
+          return;
+        }
+
+        parseMsg(msg.properties.contentType, msg.content).then(
+          function (obj) {
+            action(obj, function (err, retry) {
+              if (err) {
+                console.log('Action failed');
+                console.log(err.stack || err);
+                channel.reject(msg, !!retry);
+              } else {
+                console.log('Action worked');
+                channel.ack(msg);
+              }
+            });
+          },
+          function (err) {
+            channel.reject(msg, false); 
+          }
+        );
+      }
+
+      channel.consume(queue, handleMsg, {noAck: false}).then(function (tagObj) {
+        console.log('Consumer created');
+        return tagObj;
+      });
+
+      
+
+    });
+    
+
+    return;
+    
     if (onChClose) channel.on('close', onChClose); 
     return this._assert(channel).then(function() {
       console.log('Registering ' + action.name + ' consumer on ' + queue); 

@@ -66,8 +66,9 @@ app.connection.open()
   .then(app.commitEvents.bindConnection(app.connection))
   .then(function() {
     app.connection.createChannel().then(function (ch) {
+      ch.prefetch(1);
       app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming');
-      ///app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
+      app.notificationEvents.addConsumer(app.commitToNotificationFilter.makeAction(), ch, '');
     });
   })
   .then(function() {
