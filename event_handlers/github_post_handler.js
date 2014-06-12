@@ -22,7 +22,7 @@ function GithubPostHandler(downstreams) {
 }
 
 function postToPr(github, msg, comment, callback) {
-  var user = msg.pr.base_owner;
+  var user = process.env.STAGING_GH_USER ||  msg.pr.base_owner;
   var repo = msg.pr.base_name;
   var ghmsg = {
     user: user,
