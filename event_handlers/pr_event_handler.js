@@ -76,7 +76,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
   var user = pr.who;
   var contents = jsonForPR(pr);
 
-  return callback(null, {user: user, commit_message: commit_message, contents: contents});
+  return callback(null, {user: user, commit_message: commit_message, contents: contents, pr: pr});
 };
 
 module.exports = PREventHandler;
