@@ -66,7 +66,7 @@ PREventHandler.prototype.interesting = function (msg) {
 }
 
 PREventHandler.prototype.handle = function (msg, callback) {
-  if (!this.interesting) {
+  if (!this.interesting(msg)) {
     return callback(null);
   }
 
