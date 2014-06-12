@@ -3,6 +3,7 @@ var when = require('when');
 var BaseEventHandler = require('./base_event');
 var util = require('util');
 var shorten = require('../misc/bitly_shorten').shorten;
+var tbpl = require('../misc/tbpl');
 
 function IRCEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
@@ -17,7 +18,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
   }
   console.log('Handling an IRC event');
 
-  var tbplurl = 'https://tbpl.mozilla.org/?tree=Gaia-Try&rev=' + msg.hg_id;
+  var tbplurl = tbpl.url({rev: msg.hg_id});
   shorten(tbplurl, function(err, url) {
     var message = 'Oops';
     if (err) {
