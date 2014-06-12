@@ -12,6 +12,7 @@ var IRCSendEvents = require('./irc_send_events');
 var Connection = require('./msg_broker');
 var PREventHandler = require('./event_handlers/pr_event_handler');
 var IRCEventHandler = require('./event_handlers/irc_event_handler');
+var GithubPostHandler = require('./event_handlers/github_post_handler');
 
 function error(msg) {
   return JSON.stringify({'error': msg}) + '\n';
@@ -32,6 +33,7 @@ app.notificationEvents = new NotificationEvents();
 app.ircSendEvents = new IRCSendEvents();
 app.prEventHandler = new PREventHandler(app.commitEvents);
 app.ircEventHandler = new IRCEventHandler(app.ircSendEvents);
+app.githubPostHandler = new GithubPostHandler();
 
 app.get('/', function(req, res) {
   res.send('200', 'Server is up!');
@@ -77,6 +79,7 @@ app.connection.open()
       return when.all([
         app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming'),
         app.notificationEvents.addConsumer(app.ircEventHandler.makeAction(), ch, 'irc_start'),
+        app.notificationEvents.addConsumer(app.githubPostHandler.makeAction(), ch, 'pr_comment_start'),
       ]);
     });
   })
