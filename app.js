@@ -13,7 +13,7 @@ var Connection = require('./msg_broker');
 var PREventHandler = require('./event_handlers/pr_event_handler');
 var IRCEventHandler = require('./event_handlers/irc_event_handler');
 var GithubPostHandler = require('./event_handlers/github_post_handler');
-var StartMonitoringEventHandler = require('./start_monitoring_event_handler');
+var StartMonitoringEventHandler = require('./event_handlers/start_monitoring_event_handler');
 
 function error(msg) {
   return JSON.stringify({'error': msg}) + '\n';
@@ -82,7 +82,7 @@ app.connection.open()
         app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming'),
         app.notificationEvents.addConsumer(app.ircEventHandler.makeAction(), ch, 'irc_start'),
         app.notificationEvents.addConsumer(app.githubPostHandler.makeAction(), ch, 'pr_comment_start'),
-        app.notificationEvents.addConsumer(app.githubPostHandler.makeAction(), ch, 'start_monitoring'),
+        app.notificationEvents.addConsumer(app.startMonitoringEventHandler.makeAction(), ch, 'start_monitoring'),
       ]);
     });
   })
