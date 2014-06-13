@@ -15,7 +15,7 @@ var commitEvents = new CommitEvents();
 var notificationEvents = new NotificationEvents();
 var commitEventHandler = new CommitEventHandler(notificationEvents);
 var ircSendEvents = new IRCSendEvents();
-var ircSender = new IRCEventHandler([], 'irc://irc.mozilla.org:6667', 'gertrude', ['#gaiabot']);
+var ircSender = new IRCEventHandler([], 'irc://irc.mozilla.org:6667', 'gertrude', ['#gaiabot', '#gaia']);
 var connection = new Connection(amqpUri);
 
 connection.open()
