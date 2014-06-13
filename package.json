@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "amqplib": "^0.1.3",
+    "badwords": "0.0.3",
     "bitly": "^1.2.5",
     "debug": "~0.7.4",
     "express": "^3.4.8",
@@ -29,6 +30,8 @@
     "hg": "0.0.6",
     "irc-js": "^2.0.0-beta.5",
     "jerk": "^1.1.23",
+    "pg": "^3.3.0",
+    "request": "^2.36.0",
     "rimraf": "^2.2.6",
     "shakespeare-insult": "^1.0.0",
     "temp": "^0.7.0",

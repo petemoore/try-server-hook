@@ -20,7 +20,7 @@ function error(msg) {
 }
 
 function success(msg) {
-  return JSON.stringify({'outcome': msg}) + '\n';
+  return JSON.stringify({'outcome': msg}) + '\n'
 }
 
 var app = express();

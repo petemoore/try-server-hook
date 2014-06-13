@@ -27,7 +27,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
     if (msg.finished) {
       message = util.format('%s\'s tests are compete! results here: %s', msg.user, url);
     } else {
-      message = util.format('%s started tests.  Outcome: %s  Results here: %s', msg.user, msg.state, url);
+      message = util.format('%s started testing Gaia PR#%d. Results here: %s', msg.user, msg.pr.number, url);
     }
     callback(null, {message: message});
   }.bind(this)); 

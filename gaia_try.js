@@ -41,13 +41,13 @@ function showHgOutput(output) {
 }
 
 
-function handleErr(repo, err, callback) {
+function handleErr(repo, err, retry, callback) {
   console.log('Cleaning up ' + repo.path + ' after failure ' + err);
   rimraf(repo.path, function (rmrferr) {
     if (rmrferr) {
       console.warn('ERROR CLEANING UP ' + repo.path);
     }
-    callback(err);
+    callback(err, retry);
   });
 }
 
@@ -63,32 +63,32 @@ function commit(user, message, contents, callback) {
   hg.clone(HG_URL, repoDir, {'--ssh': SSH_CMD}, function(err, output) {
     if (err) {
       console.log('Failed to clone ' + HG_URL); 
-      return callback(err);
+      return callback(err, true);
     };
     var repo = new hg.HGRepo(repoDir); // The convenience API sucks
     console.log('Cloned to ' + repoDir);
     showHgOutput(output);
 
     fs.writeFile(gaiaJsonPath, contents, function (err) {
-      if (err) handleErr(repo, err, callback);
+      if (err) handleErr(repo, err, true, callback);
       console.log('Wrote new gaia.json to ' + gaiaJsonPath);
       showHgOutput(output);
 
       repo.commit(commitOpts, function (err, out) {
         showHgOutput(output);
-        if (err) handleErr(repo, err, callback);
+        if (err) handleErr(repo, err, true, callback);
         console.log('Commit success');
 
         repo.push(HG_URL, {'--ssh': SSH_CMD, '--force': ''}, function(err, output) {
-          if (err) handleErr(repo, err, callback);
+          if (err) handleErr(repo, err, true, callback);
           showHgOutput(output);
           hgId(repo, function (err, id) {
-            if (err) handleErr(repo, err, callback);
+            if (err) handleErr(repo, err, false, callback);
             rimraf(repo.path, function(err) {
               if (err) {
                 console.warn('Commit succedded, delete failed ' + err);
               }
-              callback(null, id);
+              callback(null, null, id);
             });
           });
         });
