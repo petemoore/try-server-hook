@@ -164,63 +164,6 @@ EventStream.prototype = {
         console.log('Consumer created');
         return tagObj;
       });
-
-      
-
-    });
-    
-
-    return;
-    
-    if (onChClose) channel.on('close', onChClose); 
-    return this._assert(channel).then(function() {
-      console.log('Registering ' + action.name + ' consumer on ' + queue); 
-
-      function handle(msg) {
-        if (!msg) {
-          // I would remove this from the containing object's
-          // list of consumers but because the response is null
-          // in this case, I don't know which consumer tag it is
-          console.log('consumer cancelled!');
-          return;
-        }
-        var objForAction = null;
-        switch(msg.properties.contentType){
-          case 'application/json':
-            console.log('Parsing JSON message');
-            try {
-              var objForAction = JSON.parse(msg.content);
-            } catch(e) {
-              console.log('Unable to parse JSON message:\n' + msg.content); 
-              channel.reject(msg, false);
-              return 
-            }
-            break;
-          default:
-            console.log('Received message is not in a known encoding: ' + msg.properties.contentType);
-            channel.reject(msg, false);
-            return 
-        }
-
-        console.log('Invoking consumer action');
-        action(objForAction, function(err) {
-          if (err) {
-            console.log('Action failed');
-            console.log(err.stack || err);
-            // We want to requeue
-            console.log('Rejecting message');
-            channel.reject(msg, false);
-          } else {
-            console.log('Action succeeded');
-            channel.ack(msg);
-          }
-          return;
-        }); 
-      }
-      channel.consume(queue, handle, {noAck: false}).then(function (tagObj) {
-        console.log('consumer registered');
-        return when.resolve(tagObj);
-      });
     }.bind(this));
   }
 }
