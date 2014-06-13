@@ -82,7 +82,7 @@ app.connection.open()
         app.githubEvents.addConsumer(app.prEventHandler.makeAction(), ch, 'github_api_incoming'),
         app.notificationEvents.addConsumer(app.ircEventHandler.makeAction(), ch, 'irc_start'),
         app.notificationEvents.addConsumer(app.githubPostHandler.makeAction(), ch, 'pr_comment_start'),
-        app.notificationEvents.addConsumer(app.startMonitoringEventHandler.makeAction(), ch, 'start_monitoring'),
+        //app.notificationEvents.addConsumer(app.startMonitoringEventHandler.makeAction(), ch, 'start_monitoring'),
       ]);
     });
   })

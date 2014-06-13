@@ -27,7 +27,7 @@ StartMonitoringEventHandler.prototype.handle = function (msg, callback) {
     var insertSql = 'INSERT INTO gaia_try_monitor (hg_id, state, upstream) VALUES ($1, $2, $3)';
     client.query(insertSql, [msg.hg_id, msg.state, JSON.stringify(msg)], function (err, result) {
       if (err) {
-        var updateSql = 'UPDATE gaia_try_monitor SET state WHERE hg_id = $1';
+        var updateSql = 'UPDATE gaia_try_monitor SET state = \'started\' WHERE hg_id = $1';
         client.query(updateSql, [msg.hg_id], function(err, result) {
           if (err) {
             return callback(err);
