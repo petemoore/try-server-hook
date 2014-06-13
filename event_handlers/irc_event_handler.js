@@ -20,15 +20,10 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
 
   var tbplurl = tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id});
   shorten(tbplurl, function(err, url) {
-    var message = 'Oops';
     if (err) {
       return callback(err)
     }
-    if (msg.finished) {
-      message = util.format('%s\'s tests are compete! results here: %s', msg.user, url);
-    } else {
-      message = util.format('%s started testing Gaia PR#%d. Results here: %s', msg.user, msg.pr.number, url);
-    }
+    var message = util.format('%s started testing Gaia PR#%d. Results here: %s', msg.user, msg.pr.number, url);
     callback(null, {message: message});
   }.bind(this)); 
 };

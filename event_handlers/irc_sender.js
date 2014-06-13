@@ -4,38 +4,12 @@ var BaseEventHandler = require('./base_event');
 var jerk = require('jerk');
 var url = require('url');
 var util = require('util');
-var insult = require('shakespeare-insult');
-var badwords = require('badwords/array');
-
-var userdb = {};
-
-function swearJar(user, num) {
-  if (userdb[user]) {
-    userdb[user] += 0.25 * (num || 1);
-  } else {
-    userdb[user] = 0.25 * (num || 1);
-  }
-}
 
 function cyfn(message) {
-  console.log('Can you fucking not?');
   message.say(message.user + ': https://i.imgur.com/tM2E2kI.png');
 }
 
-var bwRegexps = []
-badwords.forEach(function(bw) {
-  bwRegexps.push('.*\\b' + bw + '\\b.*');
-});
-bwRegexps = bwRegexps.join('|');
-
 var commands = [
-  {
-    action: function (m) {
-      swearJar(m.user, m.match_data.length);
-      m.say(m.user + ': https://i.imgur.com/tM2E2kI.png . $' + String(userdb[m.user]))
-    },
-    aliases: [bwRegexps]
-  },
   {
     action: function (m) { m.say(String(new Date().toUTCString())); },
     aliases: ['mozilla time', 'time', 'mozilla standard time']
@@ -43,18 +17,6 @@ var commands = [
   {
     action: function (m) { m.say(String(new Date().toUTCString())); },
     aliases: ['utc time']
-  },
-  {
-    action: function (m) { 
-      var user = m.match_data[0].split(/^[^\s]+ /)[1].substring(0, m.match_data[0].length - 2);
-      if (userdb[user]) {
-        userdb[user]++;
-        console.log('raising ' + user);
-      } else {
-        userdb[user] = 1;
-      }
-    },
-    aliases: ['^[^\s\\+]+\\+\\+$']
   }
 ]
 
@@ -75,7 +37,7 @@ function IRCSender(downstreams, server, username, channels) {
     this.secure = false;
   }
   this.jerk = jerk(function (j) {
-  
+
     commands.forEach(function(command) {
       command.aliases.forEach(function(alias) {
         var regexp = new RegExp('^' + this.username + ': ' + alias);
@@ -88,7 +50,7 @@ function IRCSender(downstreams, server, username, channels) {
     server: this.server.hostname,
     channels: this.channels,
     nick: this.username,
-    log: false,
+    log: true,
     die: true,
     flood_protection: true,
     user: {
