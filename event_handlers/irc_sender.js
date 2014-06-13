@@ -50,7 +50,7 @@ function IRCSender(downstreams, server, username, channels) {
     server: this.server.hostname,
     channels: this.channels,
     nick: this.username,
-    log: true,
+    log: false,
     die: true,
     flood_protection: true,
     user: {
