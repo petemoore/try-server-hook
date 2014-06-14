@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Server: Apache
+X-Backend-Server: ftp1.dmz.scl3.mozilla.com
+Cache-Control: max-age=300
+Content-Type: text/html;charset=UTF-8
+Date: Sat, 14 Jun 2014 09:03:31 GMT
+Expires: Sat, 14 Jun 2014 09:08:31 GMT
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Content-Length: 846
+Connection: Keep-Alive
+X-Cache-Info: cached
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+ <head>
+  <title>Index of /pub/mozilla.org/b2g/tinderbox-builds/mozilla-b2g28_v1_3t-linux32_gecko</title>
+ </head>
+ <body>
+<h1>Index of /pub/mozilla.org/b2g/tinderbox-builds/mozilla-b2g28_v1_3t-linux32_gecko</h1>
+<table><tr><th><img src="/icons/blank.gif" alt="[ICO]"></th><th><a href="?C=N;O=D">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th><th><a href="?C=D;O=A">Description</a></th></tr><tr><th colspan="5"><hr></th></tr>
+<tr><td valign="top"><img src="/icons/back.gif" alt="[DIR]"></td><td><a href="/pub/mozilla.org/b2g/tinderbox-builds/">Parent Directory</a></td><td>&nbsp;</td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><th colspan="5"><hr></th></tr>
+</table>
+<pre>
+ftp1.dmz.scl3.mozilla.com in UTC</pre>
+</body></html>
