@@ -8,8 +8,10 @@ function jsonForPR(pr) {
   var rando = Math.floor(Math.random() * 100000);
   var data = {
     git: {
-      git_revision: 'replacedByPrNumber',
+      git_revision: pr.base_sha,
       remote: pr.base_clone_url,
+      pr_git_revision: pr.pr_sha,
+      pr_remote: pr.pr_clone_url,
       github_pr_number: pr.number
     },
     tryhook_raw: {
@@ -46,7 +48,6 @@ PREventHandler.prototype.parse = function (msg) {
   pr.pr_sha = upstream_pr.head.sha;
   pr.pr_owner = upstream_pr.head.repo.owner.login;
   pr.pr_name = upstream_pr.head.repo.name;
-  pr.merge_sha = upstream_pr.merge_commit_sha;
   return pr;
 }
 
