@@ -53,8 +53,19 @@ function handleErr(repo, err, retry, output, callback) {
   });
 }
 
+function generatePlatformFiles(directory) {
+  var geckoVersion = 33;
 
-function commit(user, message, contents, callback) {
+  ['linux-i686', 'linux-x86_64', 'mac64'].forEach(function(platform) {
+    var data = {
+      installer_url: 
+    }
+  });
+    
+}
+
+
+function commit(user, message, contents, platformDict, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg'});
   var gaiaJsonPath = path.join(repoDir, 'gaia.json');
   var commitOpts = {

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "amqplib": "^0.1.3",
+    "async": "^0.9.0",
     "badwords": "0.0.3",
     "bitly": "^1.2.5",
     "debug": "~0.7.4",
