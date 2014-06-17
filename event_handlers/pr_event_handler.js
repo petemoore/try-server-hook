@@ -29,6 +29,7 @@ function PREventHandler(downstreams) {
 PREventHandler.prototype = Object.create(BaseEventHandler.prototype);
 PREventHandler.prototype.constructor = PREventHandler;
 
+PREventHandler.prototype.name = 'Incoming Pull Request';
 PREventHandler.prototype.parse = function (msg) {
   var pr = {};
   var upstream_pr = msg.content.pull_request;

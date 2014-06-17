@@ -67,6 +67,7 @@ function IRCSender(downstreams, server, username, channels) {
 IRCSender.prototype = Object.create(BaseEventHandler.prototype);
 IRCSender.prototype.constructor = IRCSender;
 
+IRCSender.prototype.name = 'Send IRC Message';
 IRCSender.prototype.handle = function(msg, callback) {
   if (!msg || !msg.message) {
     return callback(new Error('Invalid message'));

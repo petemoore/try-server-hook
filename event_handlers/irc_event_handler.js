@@ -12,6 +12,8 @@ function IRCEventHandler(downstreams) {
 IRCEventHandler.prototype = Object.create(BaseEventHandler.prototype);
 IRCEventHandler.prototype.constructor = IRCEventHandler;
 
+IRCEventHandler.name = 'Queue IRC Message';
+
 IRCEventHandler.prototype.handle = function(msg, callback) {
   if (!msg || !msg.user || !msg.hg_id) {
     return callback(new Error('Invalid message'));

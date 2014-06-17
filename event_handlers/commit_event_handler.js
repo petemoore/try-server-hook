@@ -10,6 +10,7 @@ function CommitEventHandler(downstreams) {
 CommitEventHandler.prototype = Object.create(BaseEventHandler.prototype);
 CommitEventHandler.prototype.constructor = CommitEventHandler;
 
+CommitEventHandler.prototype.name = "Gaia Try Commit";
 CommitEventHandler.prototype.handle = function(msg, callback) {
   if (!msg || !msg.user || !msg.commit_message || !msg.contents) {
     return callback(new Error('Invalid message'));

@@ -47,7 +47,7 @@ BaseEventHandler.prototype = {
             }
         );
       }.bind(this);
-      debug('Handling a event %s', this.name);
+      debug('Handling %s event', this.name);
       this.handle(msg, new_callback);
     }.bind(this);
   }
