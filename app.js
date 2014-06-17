@@ -7,11 +7,15 @@ var debug = require('debug')('try-server-hook:app');
 
 var config = require('./config');
 
-var GithubEvents = require('./github_events');
-var CommitEvents = require('./commit_events');
-var NotificationEvents = require('./notification_events');
-var IRCSendEvents = require('./irc_send_events');
 var Connection = require('./msg_broker');
+
+// Event Streams
+var IncomingGithubStream = require('./event_streams/incoming_github_stream');
+var CommitEventStream = require('./event_streams/commit_event_stream');
+var NotificationEventStream = require('./event_streams/notification_event_stream');
+var IRCQueueEventStream = require('./event_streams/irc_queue_event_stream');
+
+// Event Handlers
 var PREventHandler = require('./event_handlers/pr_event_handler');
 var IRCEventHandler = require('./event_handlers/irc_event_handler');
 var GithubPostHandler = require('./event_handlers/github_post_handler');
@@ -30,10 +34,10 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.connection = new Connection();
-app.githubEvents = new GithubEvents();
-app.commitEvents = new CommitEvents();
-app.notificationEvents = new NotificationEvents();
-app.ircSendEvents = new IRCSendEvents();
+app.githubEvents = new IncomingGithubStream();
+app.commitEvents = new CommitEventStream();
+app.notificationEvents = new NotificationEventStream();
+app.ircSendEvents = new IRCQueueEventStream();
 app.prEventHandler = new PREventHandler(app.commitEvents);
 app.ircEventHandler = new IRCEventHandler(app.ircSendEvents);
 app.githubPostHandler = new GithubPostHandler();
