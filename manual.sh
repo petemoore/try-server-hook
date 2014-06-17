@@ -17,8 +17,10 @@ import random
 with open('.gaia-try/gaia.json', 'w+') as f:
   data={
     'git': {
-        'git_revision': '$2',
-        'remote': '$1',
+        'git_revision': 'master',
+        'remote': 'http://github.com/mozilla-b2g/gaia.git',
+        'pr_git_revision': '$2',
+        'pr_remote': '$1',
     },
     random.randint(0,10000000): 'random'
   }
