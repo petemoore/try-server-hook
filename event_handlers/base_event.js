@@ -1,5 +1,6 @@
 "use strict";
 
+var debug = require('debug')('try-server-hook:base_event');
 var when = require('when');
 
 function BaseEventHandler(downstream) {
@@ -12,39 +13,41 @@ function BaseEventHandler(downstream) {
 }
 
 BaseEventHandler.prototype = {
+  name: 'Base Event',
   handle: function (msg, callback) {
     callback(new Error('Handler not implemented'));
   },
   makeAction: function (msg, callback) {
     return function (msg, callback) {
       var new_callback = function (err, msg) {
-        console.log('Invoking intercepting callback');
+        debug('Invoking intercepting callback');
         if (err) {
-          console.log('Error in intercepting callback');
+          debug('Error in intercepting callback');
           return callback(err)
         }
 
         if (!msg) {
-          console.log('Not sending downstream message from ' + this.name);
+          debug('Not sending downstream message because it\'s falsy');
           return callback(null);
         }
 
         var promises = []
         this.downstreams.forEach(function (ds) {
-          console.log('Sending downstream message to ' + ds.name);
+          debug('Sending downstream message');
           promises.push(ds.insertJson(msg));
         });
         when.all(promises).then(
             function () {
-              console.log('Downstream event handler insertions complete!');
+              debug('Downstream event handler insertions complete!');
               return callback(null, msg);
             },
             function (err) {
-              console.log('Error sending a message downstream');
+              debug('Error sending a message downstream');
               return callback(err);
             }
         );
       }.bind(this);
+      debug('Handling a event %s', this.name);
       this.handle(msg, new_callback);
     }.bind(this);
   }

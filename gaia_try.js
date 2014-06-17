@@ -1,3 +1,5 @@
+"use strict";
+var debug = require('debug')('try-server-hook:gaia_try');
 var fs = require('fs');
 var path = require('path');
 var when = require('when');
@@ -14,32 +16,22 @@ var hgId = require('./hg_id');
 
 function showHgOutput(output) {
   if (!output) {
-    console.log('No HG Output');
+    debug('No HG Output');
     return
   }
   output.forEach(function (e) {
-    var func = console.error;
-    body = e.body.replace(/\n$/, '')
-    // Output, Result, Debug, Error
-    switch (e.channel) {
-      case 'o':
-      case 'r':
-      case 'd':
-        func = console.log;
-        break;
-    }
-    func(body);
+    debug(e.body.replace(/\n$/, ''));
   });
 }
 
 
 function handleErr(repo, err, retry, output, callback) {
-  console.log('Failed command output:');
+  debug('Failed command output:');
   showHgOutput(output);
-  console.log('Cleaning up ' + repo.path + ' after failure ' + err);
+  debug('Cleaning up ' + repo.path + ' after failure ' + err);
   rimraf(repo.path, function (rmrferr) {
     if (rmrferr) {
-      console.warn('ERROR CLEANING UP ' + repo.path);
+      debug('Failed to clean up %s', repo.path);
     }
     callback(err, retry);
   });
@@ -54,35 +46,36 @@ function commit(user, message, contents, platformDict, callback) {
     '--user': user
   }
   var ssh_cmd = util.format('ssh -i %s -l %s', 
-                            config.get('HG_USER'),
-                            config.get('HG_KEY'));
+                            config.get('HG_KEY'),
+                            config.get('HG_USER'));
   var hg_url = config.get('HG_REPOSITORY');
 
-  console.log('Using %s to talk to %s', ssh_cmd, hg_url);
+  debug('Using %s to talk to %s', ssh_cmd, hg_url);
 
   hg.clone(hg_url, repoDir, {'--ssh': ssh_cmd}, function(err, output) {
     if (err) {
-      console.log('Failed to clone ' + hg_url); 
+      debug('Failed to clone %s', hg_url); 
       showHgOutput(output);
       return callback(err, true);
     };
     var repo = new hg.HGRepo(repoDir); // The convenience API sucks
-    console.log('Cloned to ' + repoDir);
+    debug('Cloned to %s', repoDir);
     fs.writeFile(gaiaJsonPath, contents, function (err) {
       if (err) handleErr(repo, err, true, callback);
-      console.log('Wrote new gaia.json to ' + gaiaJsonPath);
+      debug('Wrote new gaia.json to %s', gaiaJsonPath);
 
       repo.commit(commitOpts, function (err, output) {
         if (err) handleErr(repo, err, true, output, callback);
-        console.log('Commit success');
+        debug('Commit success');
         repo.push(hg_url, {'--ssh': ssh_cmd, '--force': ''}, function(err, output) {
           if (err) handleErr(repo, err, true, output, callback);
           hgId(repo, function (err, id) {
             if (err) handleErr(repo, err, false, callback);
             rimraf(repo.path, function(err) {
               if (err) {
-                console.warn('Commit succedded, delete failed ' + err);
+                debug('Commit succedded, delete failed ' + err);
               }
+              debug('Created commit %s', id);
               callback(null, null, id);
             });
           });

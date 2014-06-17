@@ -1,5 +1,6 @@
 "use strict";
 
+var debug = require('debug')('try-server-hook:github_post_handler');
 var util = require('util');
 var config = require('../config');
 var GithubAPI = require('github');
@@ -31,12 +32,12 @@ function postToPr(github, msg, comment, callback) {
     number: msg.pr.number,
     body: comment
   };
-  console.log('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
+  debug('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
   github.issues.createComment(ghmsg, function(err, response){
     if (err) {
       return callback(err, true);
     }
-    console.log('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
+    debug('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
     return callback(null);
   }); 
 }

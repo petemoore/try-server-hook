@@ -16,8 +16,6 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
   if (!msg || !msg.user || !msg.hg_id) {
     return callback(new Error('Invalid message'));
   }
-  console.log('Handling an IRC event');
-
   var tbplurl = tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id});
   shorten(tbplurl, function(err, url) {
     if (err) {

@@ -3,6 +3,7 @@ var express = require('express');
 var when = require('when');
 var fs = require('fs');
 var path = require('path');
+var debug = require('debug')('try-server-hook:app');
 
 var config = require('./config');
 
@@ -50,7 +51,7 @@ app.post('/github/v3', function(req, res) {
   var type = req.get('X-GitHub-Event');
   var delivery_id = req.get('X-GitHub-Delivery');
 
-  console.log('Api received a ' + type);
+  debug('Api received a ' + type);
   app.githubEvents.insertJson({type:type, delivery_id:delivery_id, content:req.body})
     .then(
       function(outcome) {
@@ -59,8 +60,6 @@ app.post('/github/v3', function(req, res) {
       function(outcome) {
         if (typeof outcome === 'object' && outcome.message) {
           console.log('ERROR!');
-          console.log(outcome.fileName || 'no filename');
-          console.log(outcome.lineNumber || 'no line number');
           console.log(outcome.stack || 'no stack');
           res.send(500, error(outcome.message));
         } else {
@@ -90,4 +89,4 @@ app.connection.open()
   .then(function() {
     return when(app.listen(config.get('PORT') || 7040));
   }).done()
-console.log('Starting up server!');
+debug('Starting up server!');

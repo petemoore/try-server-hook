@@ -1,11 +1,11 @@
 "use strict";
 
+var debug = require('debug')('try-server-hook:platform_files');
 var url = require('url');
 var async = require('async');
 var request = require('request');
 var util = require('util');
 var jsdom = require('jsdom');
-var debug = require('debug')('platform_files.js');
 
 var bbToRealPlatform = {
   'linux32_gecko': 'linux-i686',
@@ -187,7 +187,7 @@ function findB2GVer (b2gGeckoRepos, b2gVer) {
   // repo already are aurora.  I will live to regret this
   var geckoBranch;
   if (!mapping[b2gVer]) {
-    console.log('NOTICE: using aurora because this non-master version of b2g doesn\'t have a gecko yet');
+    debug('Using aurora because this non-master version of b2g doesn\'t have a gecko yet');
     geckoBranch = 'releases/mozilla-aurora';
   } else {
     geckoBranch = mapping[b2gVer];

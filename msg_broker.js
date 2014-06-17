@@ -28,11 +28,10 @@ Connection.prototype.open = function () {
     this.emit('connected');
     this.connection = conn;
     conn.on('close', function() {
-      console.log('Closing AMQP connection')
+      debug('Closing AMQP connection')
     });
     conn.on('error', function(e) {
-      console.log(e);
-      console.log('ERROR: AMQP Connection Error\n%s', e.stack||e)
+      debug('AMQP Connection Error\n%s', e.stack||e)
       this.emit('error', e);
     }.bind(this));
     conn.on('blocked', function(reason) {
@@ -57,14 +56,13 @@ Connection.prototype.createChannel = function () {
     ch.on('close', function() {
       this.channelCount--;
       debug('Closing AMQP channel, %d channels remaining', this.channelCount);
-      this.emit('chClose', channelCount);
-      if (channelCount === 0) {
+      this.emit('chClose', this.channelCount);
+      if (this.channelCount === 0) {
         this.emit('lastChClose');
       }
     }.bind(this));
     ch.on('error', function(e) {
-      console.log(e);
-      console.log('ERROR: AMQP Channel Error\n%s', e.stack||e);
+      debug('ERROR: AMQP Channel Error\n%s', e.stack||e);
       this.emit('chErr', e);
     });
     return ch;

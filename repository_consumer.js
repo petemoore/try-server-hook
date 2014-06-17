@@ -1,6 +1,8 @@
 "use strict";
 var when = require('when');
 
+var debug = require('debug')('try-server-hook:repository_consumer');
+
 var CommitEvents = require('./commit_events');
 var Connection = require('./msg_broker');
 var NotificationEvents = require('./notification_events');
@@ -13,7 +15,6 @@ var connection = new Connection();
 var commitEventHandler = new CommitEventHandler(notificationEvents);
 
 function exitOnClose () {
-  console.log('Exiting because of channel or connection close');
   process.exit();
 }
 
