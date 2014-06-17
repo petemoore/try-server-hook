@@ -1,7 +1,6 @@
 "use strict";
 var when = require('when');
 
-var amqpUri = require('./amqp_uri');
 var CommitEvents = require('./commit_events');
 var Connection = require('./msg_broker');
 var NotificationEvents = require('./notification_events');
@@ -10,7 +9,7 @@ var CommitEventHandler = require('./event_handlers/commit_event_handler');
 
 var commitEvents = new CommitEvents();
 var notificationEvents = new NotificationEvents();
-var connection = new Connection(amqpUri);
+var connection = new Connection();
 var commitEventHandler = new CommitEventHandler(notificationEvents);
 
 function exitOnClose () {

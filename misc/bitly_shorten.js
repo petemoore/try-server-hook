@@ -1,7 +1,8 @@
 "use strict";
 
 var Bitly = require('bitly');
-var bitly = new Bitly(process.env.BITLY_API_USER, process.env.BITLY_API_KEY);
+var config = require('../config');
+var bitly = new Bitly(config.get('BITLY_API_USER'), config.get('BITLY_API_KEY'));
 
 function shorten(url, callback) {
   bitly.shorten(url, function(err, response) {

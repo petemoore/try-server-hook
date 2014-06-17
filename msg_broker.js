@@ -6,9 +6,10 @@ var amqp = require('amqplib');
 var debug = require('debug')('try-server-hook:msg_broker');
 var util = require('util');
 var events = require('events');
+var config = require('./config');
 
-function Connection (uri, opts) {
-  this.uri = uri;
+function Connection (opts) {
+  this.uri = config.get('CLOUDAMQP_URL') || config.get('AMQP_URL');
   this.channelCount = 0;
   this.options = opts || {};
   if (!this.options.heartbeat) {

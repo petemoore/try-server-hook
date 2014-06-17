@@ -29,5 +29,10 @@ node_modules
 
 *.swp
 *.swo
+
+# Credentials!
 user_rsa.pub
 user_rsa
+config/local.json
+config/staging.json
+config/production.json

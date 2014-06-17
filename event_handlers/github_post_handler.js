@@ -1,6 +1,7 @@
 "use strict";
 
 var util = require('util');
+var config = require('../config');
 var GithubAPI = require('github');
 
 var tbpl = require('../misc/tbpl');
@@ -13,8 +14,8 @@ var BaseEventHandler = require('./base_event');
 
 function GithubPostHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
-  this.username = process.env.GITHUB_API_USER;
-  this.apiKey = process.env.GITHUB_API_KEY;
+  this.username = config.get('GITHUB_API_USER');
+  this.apiKey = config.get('GITHUB_API_KEY');
   this.github = new GithubAPI({
     version: '3.0.0'
   });
@@ -22,7 +23,7 @@ function GithubPostHandler(downstreams) {
 }
 
 function postToPr(github, msg, comment, callback) {
-  var user = process.env.STAGING_GH_USER ||  msg.pr.base_owner;
+  var user = msg.pr.base_owner;
   var repo = msg.pr.base_name;
   var ghmsg = {
     user: user,

@@ -4,7 +4,8 @@ var when = require('when');
 var fs = require('fs');
 var path = require('path');
 
-var amqpUri = require('./amqp_uri');
+var config = require('./config');
+
 var GithubEvents = require('./github_events');
 var CommitEvents = require('./commit_events');
 var NotificationEvents = require('./notification_events');
@@ -27,7 +28,7 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.connection = new Connection(amqpUri);
+app.connection = new Connection();
 app.githubEvents = new GithubEvents();
 app.commitEvents = new CommitEvents();
 app.notificationEvents = new NotificationEvents();
@@ -87,6 +88,6 @@ app.connection.open()
     });
   })
   .then(function() {
-    return when(app.listen(process.env.PORT || 7040));
+    return when(app.listen(config.get('PORT') || 7040));
   }).done()
 console.log('Starting up server!');

@@ -1,12 +1,13 @@
 "use strict";
 
+var config = require('../config');
 var pg = require('pg');
 
 var BaseEventHandler = require('./base_event');
 
 function StartMonitoringEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
-  this.dburl = process.env.DATABASE_URL;
+  this.dburl = config.get('DATABASE_URL');
   if (!this.dburl || this.dburl === '') {
     throw new Error('could not load db url'); 
   }

@@ -1,0 +1,16 @@
+{
+  "AMQP_URL": "amqp://localhost",
+  "BITLY_API_USER": "your-username",
+  "BITLY_API_KEY": "your-api-key",
+  "GITHUB_API_USER": "your-username",
+  "GITHUB_API_KEY": "your-api-key",
+  "DATABASE_URL": "postgres://user:pass@localhost:5432/try-server-hook",
+  "HG_USER": "gaiabld",
+  "HG_KEY": "~/.ssh/user_rsa",
+  "HG_REPOSITORY": "ssh://hg.mozilla.org/users/jford_mozilla.com/gaia-try",
+  "BUILD_API_USER": "your-username",
+  "BUILD_API_PASSWORD": "your-password",
+  "IRC_CHANNELS": ["#gaiabot"],
+  "IRC_USER": "gertrude-dev",
+  "PORT": 7040
+}

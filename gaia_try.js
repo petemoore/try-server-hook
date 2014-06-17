@@ -8,16 +8,8 @@ var util = require('util');
 var rimraf = require('rimraf');
 var exec = require('child_process').exec;
 
+var config = require('./config');
 var hgId = require('./hg_id');
-
-
-var SSH_USER = process.env.SSH_USER || 'gaiabld';
-var SSH_KEY = process.env.SSH_KEY || '~/.ssh/user_rsa';
-var SSH_CMD = process.env.SSH_CMD || util.format('ssh -i %s -l %s', SSH_KEY, SSH_USER);
-var HG_URL = process.env.HG_URL || 'ssh://hg.mozilla.org/integration/gaia-try';
-//var HG_URL = process.env.HG_URL || 'ssh://hg.mozilla.org/users/jford_mozilla.com/gaia-try';
-
-console.log('Using ' + SSH_CMD + ' to talk to ' + HG_URL);
 
 
 function showHgOutput(output) {
@@ -53,17 +45,6 @@ function handleErr(repo, err, retry, output, callback) {
   });
 }
 
-function generatePlatformFiles(directory) {
-  var geckoVersion = 33;
-
-  ['linux-i686', 'linux-x86_64', 'mac64'].forEach(function(platform) {
-    var data = {
-      installer_url: 
-    }
-  });
-    
-}
-
 
 function commit(user, message, contents, platformDict, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg'});
@@ -72,10 +53,16 @@ function commit(user, message, contents, platformDict, callback) {
     '--message': message,
     '--user': user
   }
+  var ssh_cmd = util.format('ssh -i %s -l %s', 
+                            config.get('HG_USER'),
+                            config.get('HG_KEY'));
+  var hg_url = config.get('HG_REPOSITORY');
 
-  hg.clone(HG_URL, repoDir, {'--ssh': SSH_CMD}, function(err, output) {
+  console.log('Using %s to talk to %s', ssh_cmd, hg_url);
+
+  hg.clone(hg_url, repoDir, {'--ssh': ssh_cmd}, function(err, output) {
     if (err) {
-      console.log('Failed to clone ' + HG_URL); 
+      console.log('Failed to clone ' + hg_url); 
       showHgOutput(output);
       return callback(err, true);
     };
@@ -88,7 +75,7 @@ function commit(user, message, contents, platformDict, callback) {
       repo.commit(commitOpts, function (err, output) {
         if (err) handleErr(repo, err, true, output, callback);
         console.log('Commit success');
-        repo.push(HG_URL, {'--ssh': SSH_CMD, '--force': ''}, function(err, output) {
+        repo.push(hg_url, {'--ssh': ssh_cmd, '--force': ''}, function(err, output) {
           if (err) handleErr(repo, err, true, output, callback);
           hgId(repo, function (err, id) {
             if (err) handleErr(repo, err, false, callback);
