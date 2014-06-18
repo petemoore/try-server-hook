@@ -9,8 +9,7 @@ function IRCEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
 }
 
-IRCEventHandler.prototype = Object.create(BaseEventHandler.prototype);
-IRCEventHandler.prototype.constructor = IRCEventHandler;
+util.inherits(IRCEventHandler, BaseEventHandler);
 
 IRCEventHandler.name = 'Queue IRC Message';
 

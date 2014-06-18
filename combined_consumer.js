@@ -1,31 +1,33 @@
 "use strict";
 
 var when = require('when');
+var util = require('util');
+var config = require('./config');
 
-var Connection = require('./msg_broker');
-var IRCSendEvents = require('./irc_send_events');
-var IRCEventHandler = require('./event_handlers/irc_sender');
-var CommitEvents = require('./commit_events');
-var Connection = require('./msg_broker');
-var NotificationEvents = require('./notification_events');
-var CommitEventHandler = require('./event_handlers/commit_event_handler');
-
-var commitEvents = new CommitEvents();
-var notificationEvents = new NotificationEvents();
-var commitEventHandler = new CommitEventHandler(notificationEvents);
-var ircSendEvents = new IRCSendEvents();
-var ircSender = new IRCEventHandler([], 'irc://irc.mozilla.org:6667', 'gertrude', ['#gaiabot', '#gaia']);
+var Connection = require('./connection');
 var connection = new Connection();
+var msgBroker = require('./msg_broker');
+
+var CommitEventHandler = require('./event_handlers/commit_event_handler');
+var commitEventHandler = new CommitEventHandler('to_commit');
+var IRCSender = require('./event_handlers/irc_sender');
+var ircSender = new IRCSender();
 
 connection.open()
-  .then(commitEvents.bindConnection(connection))
-  .then(notificationEvents.bindConnection(connection))
-  .then(ircSendEvents.bindConnection(connection))
-  .then(function() {
-    connection.createChannel().then(function (ch) {
-        ch.prefetch(1, true);
-        commitEvents.addConsumer(commitEventHandler.makeAction(), ch, 'gaia_try_commit');
-        ircSendEvents.addConsumer(ircSender.makeAction(), ch, 'irc_message').done();
+  .then(msgBroker.assertSchema)
+  .then(function(conn) {
+    return conn.createChannel().then(function(ch) {
+      ch.prefetch(1);
+      ch.on('error', function(err) {
+        debug('AMQP Channel Error, exiting');
+        process.exit(1);
+      });
+      return when.all([
+        msgBroker.addConsumer(ch, 'to_commit', commitEventHandler),
+        msgBroker.addConsumer(ch, 'irc_outgoing', ircSender)
+      ]);
     });
-  }).done()
+  })
+  .done();
+
 

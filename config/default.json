@@ -10,6 +10,7 @@
   "HG_REPOSITORY": "ssh://hg.mozilla.org/users/jford_mozilla.com/gaia-try",
   "BUILD_API_USER": "your-username",
   "BUILD_API_PASSWORD": "your-password",
+  "IRC_SERVER": "irc://irc.mozilla.org",
   "IRC_CHANNELS": ["#gaiabot"],
   "IRC_USER": "gertrude-dev",
   "PORT": 7040

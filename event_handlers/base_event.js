@@ -20,9 +20,9 @@ BaseEventHandler.prototype = {
   makeAction: function (msg, callback) {
     return function (msg, callback) {
       var new_callback = function (err, msg) {
-        debug('Invoking intercepting callback');
+        debug('Invoking intercepting callback for %s', this.name);
         if (err) {
-          debug('Error in intercepting callback');
+          debug('Error in intercepting callback for %s', this.name);
           return callback(err)
         }
 
@@ -33,7 +33,7 @@ BaseEventHandler.prototype = {
 
         var promises = []
         this.downstreams.forEach(function (ds) {
-          debug('Sending downstream message');
+          debug('Sending message to downstream %s', ds);
           promises.push(ds.insertJson(msg));
         });
         when.all(promises).then(

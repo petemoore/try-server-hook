@@ -4,6 +4,7 @@ var BaseEventHandler = require('./base_event');
 var jerk = require('jerk');
 var url = require('url');
 var util = require('util');
+var config = require('../config');
 
 function cyfn(message) {
   message.say(message.user + ': https://i.imgur.com/tM2E2kI.png');
@@ -20,17 +21,13 @@ var commands = [
   }
 ]
 
-function IRCSender(downstreams, server, username, channels) {
+function IRCSender(downstreams) {
   BaseEventHandler.call(this, downstreams);
-  if (channels instanceof Array){
-    this.channels = channels;
-  } else {
-    this.channels = [channels];
-  }
+  this.channels = config.get('IRC_CHANNELS');
 
-  this.username = username
+  this.username = config.get('IRC_USER');
 
-  this.server = url.parse(server);
+  this.server = url.parse(config.get('IRC_SERVER'));
   if (this.server.protocol === 'ircs:') {
     this.secure = true;
   } else if(this.server.protocol !== 'irc:') {
@@ -64,8 +61,7 @@ function IRCSender(downstreams, server, username, channels) {
 
 }
 
-IRCSender.prototype = Object.create(BaseEventHandler.prototype);
-IRCSender.prototype.constructor = IRCSender;
+util.inherits(IRCSender, BaseEventHandler);
 
 IRCSender.prototype.name = 'Send IRC Message';
 IRCSender.prototype.handle = function(msg, callback) {

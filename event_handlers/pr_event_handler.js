@@ -26,10 +26,9 @@ function PREventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
 }
 
-PREventHandler.prototype = Object.create(BaseEventHandler.prototype);
-PREventHandler.prototype.constructor = PREventHandler;
+util.inherits(PREventHandler, BaseEventHandler);
 
-PREventHandler.prototype.name = 'Incoming Pull Request';
+PREventHandler.prototype.name = 'Incoming Github API Message';
 PREventHandler.prototype.parse = function (msg) {
   var pr = {};
   var upstream_pr = msg.content.pull_request;

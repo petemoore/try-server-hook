@@ -57,8 +57,9 @@ function handleFinishPR(github, msg, callback) {
   postToPr(github, msg, comment, callback);
 }
 
-GithubPostHandler.prototype = Object.create(BaseEventHandler.prototype);
-GithubPostHandler.prototype.constructor = GithubPostHandler;
+util.inherits(GithubPostHandler, BaseEventHandler);
+
+GithubPostHandler.prototype.name = "Post to Github Issue";
 
 GithubPostHandler.prototype.handle = function (msg, callback) {
   // Do shit

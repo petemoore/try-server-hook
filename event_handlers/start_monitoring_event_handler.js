@@ -13,12 +13,12 @@ function StartMonitoringEventHandler(downstreams) {
   }
 }
 
-StartMonitoringEventHandler.prototype = Object.create(BaseEventHandler.prototype);
-StartMonitoringEventHandler.prototype.constructor = StartMonitoringEventHandler;
+util.inherits(StartMonitoringEventHandler, BaseEventHandler);
 
 //http://clarkdave.net/2013/06/what-can-you-do-with-postgresql-and-json/
 //https://github.com/brianc/node-postgres/wiki/
 
+StartMonitoringEventHandler.prototype.name = 'Start monitoring';
 StartMonitoringEventHandler.prototype.handle = function (msg, callback) {
   var state = msg.state;
   pg.connect(this.dburl, function(err, client) {

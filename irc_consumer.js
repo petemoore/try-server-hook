@@ -1,20 +1,30 @@
 "use strict";
 
 var when = require('when');
+var util = require('util');
+var config = require('./config');
 
-var Connection = require('./msg_broker');
-var IRCSendEvents = require('./irc_send_events');
-var IRCEventHandler = require('./event_handlers/irc_sender');
-
+var Connection = require('./connection');
 var connection = new Connection();
-var ircSendEvents = new IRCSendEvents();
-var ircSender = new IRCEventHandler([], 'irc://irc.mozilla.org:6667', 'gertrude', ['#gaiabot']);
+var msgBroker = require('./msg_broker');
+
+var IRCSender = require('./event_handlers/irc_sender');
+var ircSender = new IRCSender();
 
 connection.open()
-  .then(ircSendEvents.bindConnection(connection))
-  .then(function() {
-    connection.createChannel().then(function (ch) {
-        ch.prefetch(1, true);
-        ircSendEvents.addConsumer(ircSender.makeAction(), ch, 'irc_message').done();
+  .then(msgBroker.assertSchema)
+  .then(function(conn) {
+    return conn.createChannel().then(function(ch) {
+      ch.prefetch(1);
+      ch.on('error', function(err) {
+        debug('AMQP Channel Error, exiting');
+        process.exit(1);
+      });
+      return when.all([
+        msgBroker.addConsumer(ch, 'irc_outgoing', ircSender)
+      ]);
     });
-  }).done()
+  })
+  .done();
+
+

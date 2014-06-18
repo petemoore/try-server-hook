@@ -1,0 +1,3 @@
+#!/bin/bash
+echo heroku $@ --app try-server-hook-staging
+heroku $@ --app try-server-hook-staging

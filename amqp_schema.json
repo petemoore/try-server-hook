@@ -1,0 +1,26 @@
+{
+  "prefix": "com.herokuapp.try-server-hook",
+  "msg_format": "application/json",
+  "exchanges": [
+    {"name": "incoming_github_events"},
+    {"name": "commit_to_gaia_try"},
+    {"name": "irc_send"},
+    {"name": "commit_notification"}
+  ],
+  "queues": [
+    {"name": "github_api_incoming"},
+    {"name": "to_commit"},
+    {"name": "irc_outgoing"},
+    {"name": "make_github_comment"},
+    {"name": "start_monitoring"},
+    {"name": "queue_irc"}
+  ],
+  "bindings": [
+    {"exchange": "incoming_github_events", "queue": "github_api_incoming"},
+    {"exchange": "commit_to_gaia_try", "queue": "to_commit"},
+    {"exchange": "irc_send", "queue": "irc_outgoing"},
+    {"exchange": "commit_notification", "queue": "make_github_comment"},
+    {"exchange": "commit_notification", "queue": "start_monitoring"},
+    {"exchange": "commit_notification", "queue": "queue_irc"}
+  ]
+}

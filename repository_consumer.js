@@ -1,33 +1,30 @@
 "use strict";
+
 var when = require('when');
+var util = require('util');
+var config = require('./config');
 
-var debug = require('debug')('try-server-hook:repository_consumer');
-
-var CommitEvents = require('./commit_events');
-var Connection = require('./msg_broker');
-var NotificationEvents = require('./notification_events');
+var Connection = require('./connection');
+var connection = new Connection();
+var msgBroker = require('./msg_broker');
 
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-
-var commitEvents = new CommitEvents();
-var notificationEvents = new NotificationEvents();
-var connection = new Connection();
-var commitEventHandler = new CommitEventHandler(notificationEvents);
-
-function exitOnClose () {
-  process.exit();
-}
+var commitEventHandler = new CommitEventHandler('to_commit');
 
 connection.open()
-  .then(commitEvents.bindConnection(connection))
-  .then(notificationEvents.bindConnection(connection))
-  .then(
-    function() {
-      connection.createChannel().then(function (ch) {
-        ch.prefetch(1, true);
-        commitEvents.addConsumer(commitEventHandler.makeAction(), ch, 'gaia_try_commit');
-      } );
-    }
-  )
-  .done()
+  .then(msgBroker.assertSchema)
+  .then(function(conn) {
+    return conn.createChannel().then(function(ch) {
+      ch.prefetch(1);
+      ch.on('error', function(err) {
+        debug('AMQP Channel Error, exiting');
+        process.exit(1);
+      });
+      return when.all([
+        msgBroker.addConsumer(ch, 'to_commit', commitEventHandler),
+      ]);
+    });
+  })
+  .done();
+
 
