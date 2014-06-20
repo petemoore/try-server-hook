@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 --header "X-GitHub-Event:pull_request" \
 --header "X-GitHub-Delivery:testing-guid" */
 app.post('/github/v3', function(req, res) {
+    req.accepts('application/json');
     var type = req.get('X-GitHub-Event');
     var deliveryId = req.get('X-GitHub-Delivery');
     var payload = { type: type, delivery_id: deliveryId, content: req.body };
@@ -53,15 +54,17 @@ app.post('/github/v3', function(req, res) {
 
     app.connection.open().then(function(conn) {
         function passed() {
+            debug('Inserted %s (%s)', type, deliveryId);
             res.send(200, success({ inserted: true }));
         }
         function failed(err) {
             console.log('ERROR Inserting Github Event');
             console.log(err.stack || err);
+            debug('Failed to insert %s (%s)', type, deliveryId);
             res.send(500, error(outcome.message || outcome));
         }
         msgBroker.insert(conn, 'incoming_github_events', payload).then(passed, failed).done();
-    });
+    }).done();
 });
 
 app.connection.on('close', function() {

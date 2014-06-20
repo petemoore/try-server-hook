@@ -17,7 +17,6 @@ function parseMsg(contentType, msg) {
   return when.promise(function(resolve, reject) {
     switch (contentType) {
       case 'application/json':
-        debug('Message type is JSON');
         parseMsgJson(msg).then(resolve, reject);
         break;
       default:
@@ -33,10 +32,9 @@ function parseMsgJson(msg) {
     try {
       var obj = JSON.parse(msg);
     } catch (e) {
-      debug('Failed to parse JSON: %s', e.stack);
+      debug('Failed to parse JSON: %s', e.stack || e);
       reject(e);
     }
-    debug('Parsed JSON successfully');
     resolve(obj);
   });
 }
@@ -61,6 +59,7 @@ function serialiseMsgJson(msg) {
     try {
       var jsons = JSON.stringify(msg);
     } catch (e) {
+      debug('Failed to serialise JSON: %s', e.stack || e);
       reject(e);
     }
     resolve(jsons);
@@ -99,12 +98,16 @@ function validateSchema(schema) {
 
 
 function wrap(name) {
-  return util.format('%s.%s', schema.prefix, name);
+  var wrapped = util.format('%s.%s', schema.prefix, name);
+  //debug('Wrapped %s -> %s', name, wrapped);
+  return wrapped;
 }
 
 
 function unwrap(name) {
-  return name.split(schema.prefix + '.');
+  var unwrapped = name.split(schema.prefix + '.')[0];
+  //debug('Unwrapped %s -> %s', name, unwrapped);
+  return unwrapped;
 }
 
 
@@ -137,13 +140,14 @@ function assertSchema(connection) {
         ch.close();
         debug('Asserted schema');
         resolve(connection);
-      });
+      }).done();
     });
   });
 }
 
 
 // For now, always persistent and to '' for routing key
+// Do insertions on their own channel
 function insert(connection, exchange, payload) {
   return when.promise(function(resolve, reject) {
     debug('Inserting message');
@@ -183,7 +187,7 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
       reject('Missing channel, queue, handler or handler.makeAction');
     }
     var actionName = handler.name || 'unnamed';
-    var action = handler.makeAction();
+    var action = handler.makeAction(channel);
     if (onChClose) {
       channel.on('close', onChClose);
     }

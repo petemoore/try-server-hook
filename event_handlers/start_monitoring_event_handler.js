@@ -2,6 +2,8 @@
 
 var config = require('../config');
 var pg = require('pg');
+var debug = require('debug')('try-server-hook:start_monitoring_event_handler');
+var util = require('util');
 
 var BaseEventHandler = require('./base_event');
 
@@ -28,13 +30,7 @@ StartMonitoringEventHandler.prototype.handle = function (msg, callback) {
     var insertSql = 'INSERT INTO gaia_try_monitor (hg_id, state, upstream) VALUES ($1, $2, $3)';
     client.query(insertSql, [msg.hg_id, msg.state, JSON.stringify(msg)], function (err, result) {
       if (err) {
-        var updateSql = 'UPDATE gaia_try_monitor SET state = \'started\' WHERE hg_id = $1';
-        client.query(updateSql, [msg.hg_id], function(err, result) {
-          if (err) {
-            return callback(err);
-          }
-          return callback(null); 
-        });
+        return callback(err);
       }
       console.log('Inserted commit into monitoring system');
       return callback(null);

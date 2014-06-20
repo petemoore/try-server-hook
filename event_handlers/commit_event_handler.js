@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
 var util = require('util');
 
 var BaseEventHandler = require('./base_event');
 var gaiaTry = require('../gaia_try');
+
 
 function CommitEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
@@ -22,7 +23,7 @@ CommitEventHandler.prototype.handle = function(msg, callback) {
     }
     msg['hg_id'] = hgId; 
     msg['state'] = 'submitted';
-    return callback(null, msg);
+    return callback(null, null, msg);
   });
 };
 
