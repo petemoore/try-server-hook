@@ -4,6 +4,8 @@ var util = require('util');
 var when = require('when');
 var debug = require('debug')('try-server-hook:pr_event_handler');
 var platformFiles = require('../misc/platform_files.js');
+var fork = require('child_process').fork;
+var path = require('path');
 
 var BaseEventHandler = require('./base_event');
 
@@ -85,6 +87,33 @@ PREventHandler.prototype.handle = function (msg, callback) {
     return callback(err, false);
   }
 
+  var child = fork(path.join(__dirname, '../misc/find_platform_files.js'));
+  
+  child.once('error', function(err) {
+    debug('Error while talking to child process that figures out building platform json files');
+    callback(err);
+  });
+
+  child.once('message', function(msg) {
+    child.kill();
+    if (msg.err) {
+      callback(err);
+    }
+    debug('Fetched platform file values for %s', pr.base_ref);
+    var commitMsg = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
+    var user = pr.who;
+    var contents = msg.contents;
+    contents['gaia.json'] = jsonForPR(pr);
+    return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
+  })
+
+  try {
+    child.send(pr.base_ref);
+  } catch (err) {
+    callback(err);
+  }
+
+/*
   var commitMsg = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
   var user = pr.who;
   debug('About to fetch platform files for %s', pr.base_ref);
@@ -96,6 +125,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
     contents['gaia.json'] = jsonForPR(pr);
     return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
   });
+*/
 };
 
 module.exports = PREventHandler;
