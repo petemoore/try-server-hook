@@ -13,6 +13,7 @@ var temp = require('temp');
 var rimraf = require('rimraf');
 
 var config = require('./config');
+//var hgId = require('./hg_id');
 
 // For now, we aren't using tmpfs backed storage because
 // it's limited to 5mb on heroku

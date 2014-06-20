@@ -1,6 +1,9 @@
 "use strict";
 
 var util = require('util');
+var when = require('when');
+var debug = require('debug')('try-server-hook:pr_event_handler');
+var platformFiles = require('../misc/platform_files.js');
 
 var BaseEventHandler = require('./base_event');
 
@@ -36,18 +39,20 @@ PREventHandler.prototype.parse = function (msg) {
   pr.action = msg.content.action;
   pr.number = msg.content.number;
   pr.who = msg.content.sender.login;
-  pr.base_owner = upstream_pr.base.repo.owner.login;
-  pr.base_name = upstream_pr.base.repo.name;
+  //pr.base_owner = upstream_pr.base.repo.owner.login;
+  //pr.base_name = upstream_pr.base.repo.name;
   pr.base_label = upstream_pr.base.label;
   pr.base_git_url = upstream_pr.base.repo.git_url;
   pr.base_clone_url = upstream_pr.base.repo.clone_url
   pr.base_sha = upstream_pr.base.sha;
+  pr.base_ref = upstream_pr.base.ref;
   pr.pr_label = upstream_pr.head.label;
   pr.pr_git_url = upstream_pr.head.repo.git_url;
   pr.pr_clone_url = upstream_pr.head.repo.clone_url;
   pr.pr_sha = upstream_pr.head.sha;
-  pr.pr_owner = upstream_pr.head.repo.owner.login;
-  pr.pr_name = upstream_pr.head.repo.name;
+  pr.pr_ref = upstream_pr.head.ref;
+  //pr.pr_owner = upstream_pr.head.repo.owner.login;
+  //pr.pr_name = upstream_pr.head.repo.name;
   return pr;
 }
 
@@ -66,22 +71,31 @@ PREventHandler.prototype.interesting = function (msg) {
   return false;
 }
 
+
 PREventHandler.prototype.handle = function (msg, callback) {
   if (!this.interesting(msg)) {
+    debug('Ignoring uninteresting event');
     return callback(null);
   }
 
   try {
     var pr = this.parse(msg);
-  } catch(e) {
-    return callback(e);
+  } catch(err) {
+    debug('Failed to parse Github message');
+    return callback(err, false);
   }
 
-  var commit_message = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
+  var commitMsg = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
   var user = pr.who;
-  var contents = jsonForPR(pr);
-
-  return callback(null, {user: user, commit_message: commit_message, contents: contents, pr: pr});
+  debug('About to fetch platform files for %s', pr.base_ref);
+  platformFiles.all(pr.base_ref, function(err, contents) {
+    if (err) {
+      return callback(err, true);
+    }
+    debug('Fetched platform files for %s', pr.base_ref);
+    contents['gaia.json'] = jsonForPR(pr);
+    return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
+  });
 };
 
 module.exports = PREventHandler;
