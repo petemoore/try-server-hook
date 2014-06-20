@@ -3,7 +3,9 @@
   "BITLY_API_USER": "your-username",
   "BITLY_API_KEY": "your-api-key",
   "GITHUB_API_USER": "your-username",
+  "GITHUB_API_REPO": "gaia",
   "GITHUB_API_KEY": "your-api-key",
+  "GITHUB_API_HMAC_SECRET": "your-hmac-key",
   "DATABASE_URL": "postgres://user:pass@localhost:5432/try-server-hook",
   "HG_USER": "gaiabld",
   "HG_KEY": "~/.ssh/user_rsa",
@@ -13,5 +15,7 @@
   "IRC_SERVER": "irc://irc.mozilla.org",
   "IRC_CHANNELS": ["#gaiabot"],
   "IRC_USER": "gertrude-dev",
+  "TBPL_HOST": "tbpl.mozilla.org",
+  "TBPL_TREE": "Staging-Gaia-Try",
   "PORT": 7040
 }

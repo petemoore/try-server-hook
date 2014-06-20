@@ -9,14 +9,14 @@ var connection = new Connection();
 var msgBroker = require('./msg_broker');
 
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-var commitEventHandler = new CommitEventHandler();
+var commitEventHandler = new CommitEventHandler('commit_notification');
 var IRCSender = require('./event_handlers/irc_sender');
 var ircSender = new IRCSender();
 
 connection.open()
   .then(msgBroker.assertSchema)
   .then(function(conn) {
-    return conn.createChannel().then(function(ch) {
+    return conn.createConfirmChannel().then(function(ch) {
       ch.prefetch(1);
       ch.on('error', function(err) {
         debug('AMQP Channel Error, exiting');

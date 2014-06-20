@@ -13,53 +13,54 @@ var BaseEventHandler = require('./base_event');
 //http://mikedeboer.github.io/node-github/
 
 
+//Not worth a template engine!
+function avatar(src, username, w, h) {
+  return util.format('<img src="%s" alt="%s" width="%dpx" height="%dpx" />',
+                      src, username, w || 50, h || 50);
+}
+
+function postStartPr(msg, callback) {
+  github.user.get({user: msg.pr.who}, function(err, result) {
+    if (err) {
+      return callback(err, true);
+    }
+    var fullName = result.name;
+    var profileUrl = result.html_url;
+    var avatarUrl = result.avatar_url;
+    var user = msg.pr.base_owner;
+    var repo = msg.pr.base_name;
+    var comment = util.format('[%s %s (%s)](%s) started tests. [Results](%s)',
+                              avatar(avatarUrl, msg.pr.who), fullName,
+                              msg.pr.who, profileUrl, tbpl.url({rev: msg.hg_id}));
+    var ghmsg = {
+      user: user,
+      repo: repo,
+      number: msg.pr.number,
+      body: comment
+    };
+    debug('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
+    github.issues.createComment(ghmsg, function(err, response){
+      if (err) {
+        return callback(err, true);
+      }
+      debug('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
+      return callback(null, null);
+    }); 
+  });
+}
+
 function GithubPostHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
 }
 
 util.inherits(GithubPostHandler, BaseEventHandler);
 
-function postToPr(msg, comment, callback) {
-  var user = msg.pr.base_owner;
-  var repo = msg.pr.base_name;
-  var ghmsg = {
-    user: user,
-    repo: repo,
-    number: msg.pr.number,
-    body: comment
-  };
-  debug('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
-  github.issues.createComment(ghmsg, function(err, response){
-    if (err) {
-      return callback(err, true);
-    }
-    debug('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
-    return callback(null);
-  }); 
-}
-
-function handleStartPR(msg, callback) {
-  var comment = util.format(
-      'Continuous Integration started. [Results](%s)',
-      tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id}));
-  postToPr(msg, comment, callback);
-}
-
-function handleFinishPR(msg, callback) {
-  var comment = util.format(
-      'Continuous Integration compeleted and %s. [Results](%s)',
-      msg.state,
-      tbpl.url({rev: msg.hg_id}));
-  postToPr(msg, comment, callback);
-}
-
-
 GithubPostHandler.prototype.name = "Post to Github Issue";
 
 GithubPostHandler.prototype.handle = function (msg, callback) {
   // Do shit
   if (msg.pr && !msg.finished) {
-    handleStartPR(msg, callback); 
+    postStartPr(msg, callback); 
   } else if (msg.pr && msg.finished && msg.state) {
     handleFinishPR(msg, callback);
   } else { 

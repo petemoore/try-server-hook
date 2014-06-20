@@ -1,8 +1,8 @@
 "use strict";
 
+var config = require('../config');
 var url = require('url');
 
-var tbplHostname = 'tbpl.mozilla.org'
 
 function makeUrl(opts) {
   var urlBits = {
@@ -10,6 +10,12 @@ function makeUrl(opts) {
     query: opts,
     slashes:true
   };
+
+  console.log(JSON.stringify(opts));
+  if (!opts || !opts.tree) {
+    opts.tree = config.get('TBPL_TREE');
+  }
+  var tbplHostname = config.get('TBPL_HOST') || 'tbpl.mozilla.org';
 
   if (tbplHostname.charAt(tbplHostname.length - 1) === '/') {
     urlBits.host = tbplHostname;

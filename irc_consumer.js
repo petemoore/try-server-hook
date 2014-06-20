@@ -14,7 +14,7 @@ var ircSender = new IRCSender();
 connection.open()
   .then(msgBroker.assertSchema)
   .then(function(conn) {
-    return conn.createChannel().then(function(ch) {
+    return conn.createConfirmChannel().then(function(ch) {
       ch.prefetch(1);
       ch.on('error', function(err) {
         debug('AMQP Channel Error, exiting');

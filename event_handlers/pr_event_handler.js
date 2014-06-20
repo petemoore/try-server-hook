@@ -42,8 +42,8 @@ PREventHandler.prototype.parse = function (msg) {
   pr.action = msg.content.action;
   pr.number = msg.content.number;
   pr.who = msg.content.sender.login;
-  //pr.base_owner = upstream_pr.base.repo.owner.login;
-  //pr.base_name = upstream_pr.base.repo.name;
+  pr.base_owner = upstream_pr.base.repo.owner.login;
+  pr.base_name = upstream_pr.base.repo.name;
   pr.base_label = upstream_pr.base.label;
   pr.base_git_url = upstream_pr.base.repo.git_url;
   pr.base_clone_url = upstream_pr.base.repo.clone_url
@@ -54,8 +54,8 @@ PREventHandler.prototype.parse = function (msg) {
   pr.pr_clone_url = upstream_pr.head.repo.clone_url;
   pr.pr_sha = upstream_pr.head.sha;
   pr.pr_ref = upstream_pr.head.ref;
-  //pr.pr_owner = upstream_pr.head.repo.owner.login;
-  //pr.pr_name = upstream_pr.head.repo.name;
+  pr.pr_owner = upstream_pr.head.repo.owner.login;
+  pr.pr_name = upstream_pr.head.repo.name;
   return pr;
 }
 
