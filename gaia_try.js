@@ -80,7 +80,9 @@ function handleErr(repo, err, retry, output, callback) {
   });
 }
 
-
+// This function should be altered to:
+//  * not use fs.existsSync
+//  * use promisedFs.exists
 function writeFiles(directory, contents) {
   var files = Object.keys(contents);
   var promises = [];
@@ -115,7 +117,7 @@ function commit(user, message, contents, callback) {
                             config.get('HG_USER'));
   var hgUrl = config.get('HG_REPOSITORY');
 
-  debug('Using %s to talk to %s', sshCmd, hgUrl);
+  debug('Using %s to clone %s', sshCmd, hgUrl);
 
   hg.clone(hgUrl, repoDir, {'--ssh': sshCmd}, function(err, output) {
     if (err) {

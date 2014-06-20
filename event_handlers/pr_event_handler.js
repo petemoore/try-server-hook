@@ -6,7 +6,7 @@ var debug = require('debug')('try-server-hook:pr_event_handler');
 var platformFiles = require('../misc/platform_files.js');
 var fork = require('child_process').fork;
 var path = require('path');
-var github = require('./misc/githubapi');
+var github = require('../misc/githubapi');
 
 var BaseEventHandler = require('./base_event');
 
@@ -74,6 +74,19 @@ PREventHandler.prototype.interesting = function (msg) {
   return false;
 }
 
+function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
+  github.user.get({user: ghUser}, function(err, result) {
+    if (err) {
+      debug('API Call to figure out username has failed');
+      return callback(err);
+    }
+    var fullName = result.name;
+    var commitMsg = util.format('Gaia PR#%d: %s (%s) %s <-- %s',
+                          number, fullName, ghUser, baseLabel, prBranch);
+    return callback(null, commitMsg);
+  });
+}
+
 
 PREventHandler.prototype.handle = function (msg, callback) {
   if (!this.interesting(msg)) {
@@ -88,31 +101,33 @@ PREventHandler.prototype.handle = function (msg, callback) {
     return callback(err, false);
   }
 
-  var child = fork(path.join(__dirname, '../misc/find_platform_files.js'));
+  makePrCommitMsg(pr.number, pr.base_label, pr.pr_ref, pr.who, function(err, commitMsg) {
+    var child = fork(path.join(__dirname, '../misc/find_platform_files.js'));
   
-  child.once('error', function(err) {
-    debug('Error while talking to child process that figures out building platform json files');
-    callback(err);
-  });
+    child.once('error', function(err) {
+      debug('Error while talking to child process that figures out building platform json files');
+      callback(err);
+    });
 
-  child.once('message', function(msg) {
-    child.kill();
-    if (msg.err) {
+    child.once('message', function(msg) {
+      child.kill();
+      if (msg.err) {
+        callback(err);
+      }
+      debug('Fetched platform file values for %s', pr.base_ref);
+      var user = pr.who;
+      var contents = msg.contents;
+      contents['gaia.json'] = jsonForPR(pr);
+      return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
+    })
+    
+    try {
+      child.send(pr.base_ref);
+    } catch (err) {
+      child.kill();
       callback(err);
     }
-    debug('Fetched platform file values for %s', pr.base_ref);
-    var commitMsg = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
-    var user = pr.who;
-    var contents = msg.contents;
-    contents['gaia.json'] = jsonForPR(pr);
-    return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
-  })
-
-  try {
-    child.send(pr.base_ref);
-  } catch (err) {
-    callback(err);
-  }
+  });
 };
 
 module.exports = PREventHandler;
