@@ -3,7 +3,7 @@
 var debug = require('debug')('try-server-hook:github_post_handler');
 var util = require('util');
 var config = require('../config');
-var GithubAPI = require('github');
+var github = require('../misc/githubapi');
 
 var tbpl = require('../misc/tbpl');
 
@@ -15,15 +15,11 @@ var BaseEventHandler = require('./base_event');
 
 function GithubPostHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
-  this.username = config.get('GITHUB_API_USER');
-  this.apiKey = config.get('GITHUB_API_KEY');
-  this.github = new GithubAPI({
-    version: '3.0.0'
-  });
-  this.github.authenticate({type: 'oauth', token: this.apiKey});
 }
 
-function postToPr(github, msg, comment, callback) {
+util.inherits(GithubPostHandler, BaseEventHandler);
+
+function postToPr(msg, comment, callback) {
   var user = msg.pr.base_owner;
   var repo = msg.pr.base_name;
   var ghmsg = {
@@ -42,31 +38,30 @@ function postToPr(github, msg, comment, callback) {
   }); 
 }
 
-function handleStartPR(github, msg, callback) {
+function handleStartPR(msg, callback) {
   var comment = util.format(
       'Continuous Integration started. [Results](%s)',
       tbpl.url({tree: 'Gaia-Try', rev: msg.hg_id}));
-  postToPr(github, msg, comment, callback);
+  postToPr(msg, comment, callback);
 }
 
-function handleFinishPR(github, msg, callback) {
+function handleFinishPR(msg, callback) {
   var comment = util.format(
       'Continuous Integration compeleted and %s. [Results](%s)',
       msg.state,
       tbpl.url({rev: msg.hg_id}));
-  postToPr(github, msg, comment, callback);
+  postToPr(msg, comment, callback);
 }
 
-util.inherits(GithubPostHandler, BaseEventHandler);
 
 GithubPostHandler.prototype.name = "Post to Github Issue";
 
 GithubPostHandler.prototype.handle = function (msg, callback) {
   // Do shit
   if (msg.pr && !msg.finished) {
-    handleStartPR(this.github, msg, callback); 
+    handleStartPR(msg, callback); 
   } else if (msg.pr && msg.finished && msg.state) {
-    handleFinishPR(this.github, msg, callback);
+    handleFinishPR(msg, callback);
   } else { 
     return callback(new Error('I only know how to handle Pull Requests right now'));
   }

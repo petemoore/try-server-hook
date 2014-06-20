@@ -6,6 +6,7 @@ var debug = require('debug')('try-server-hook:pr_event_handler');
 var platformFiles = require('../misc/platform_files.js');
 var fork = require('child_process').fork;
 var path = require('path');
+var github = require('./misc/githubapi');
 
 var BaseEventHandler = require('./base_event');
 
@@ -112,20 +113,6 @@ PREventHandler.prototype.handle = function (msg, callback) {
   } catch (err) {
     callback(err);
   }
-
-/*
-  var commitMsg = util.format('Gaia PR#%d: %s <-- %s', pr.number, pr.base_label, pr.pr_label);
-  var user = pr.who;
-  debug('About to fetch platform files for %s', pr.base_ref);
-  platformFiles.all(pr.base_ref, function(err, contents) {
-    if (err) {
-      return callback(err, true);
-    }
-    debug('Fetched platform files for %s', pr.base_ref);
-    contents['gaia.json'] = jsonForPR(pr);
-    return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
-  });
-*/
 };
 
 module.exports = PREventHandler;
