@@ -1,54 +1,61 @@
 "use strict";
 
 var debug = require('debug')('try-server-hook:base_event');
+var msgBroker = require('../msg_broker');
 var when = require('when');
 
 function BaseEventHandler(downstream) {
-  if (downstream instanceof Array) {
+  if (typeof downstream === 'undefined') {
+    this.downstreams = [];
+  } else if (downstream instanceof Array) {
     this.downstreams = downstream;
   } else {
     this.downstreams = [downstream];
   }
-
+  debug('Downstreams for this handler: %s', this.downstreams.join(', '));
 }
 
 BaseEventHandler.prototype = {
   name: 'Base Event',
   handle: function (msg, callback) {
-    callback(new Error('Handler not implemented'));
+    callback(new Error('Handler not implemented'), false);
   },
-  makeAction: function (msg, callback) {
-    return function (msg, callback) {
-      var new_callback = function (err, msg) {
+  makeAction: function (channel) {
+    if (!channel) {
+      debug('Missing channel to use for downstream messages');
+      throw new Error('Missing channel to use for downstream messages');
+    }
+    return function (msg, realCallback) {
+      var interceptor = function (err, retry, dsMsg) {
         debug('Invoking intercepting callback for %s', this.name);
         if (err) {
           debug('Error in intercepting callback for %s', this.name);
-          return callback(err)
+          return realCallback(err, retry)
         }
 
-        if (!msg) {
-          debug('Not sending downstream message because it\'s falsy');
-          return callback(null);
-        }
+        if (!dsMsg) {
+          debug('No downstream message to send from %s', this.name);
+          return realCallback(null, null, dsMsg);
+        } 
 
-        var promises = []
+        var promises = [];
         this.downstreams.forEach(function (ds) {
-          debug('Sending message to downstream %s', ds);
-          promises.push(ds.insertJson(msg));
+          debug('Will send to downstream %s', ds);
+          promises.push(msgBroker.insertCh(channel, ds, dsMsg));
         });
         when.all(promises).then(
-            function () {
-              debug('Downstream event handler insertions complete!');
-              return callback(null, msg);
-            },
-            function (err) {
-              debug('Error sending a message downstream');
-              return callback(err);
-            }
-        );
+          function () {
+            debug('Downstream event handler insertions complete!');
+            return realCallback(null, null, dsMsg);
+          },
+          function (dsErr) {
+            debug('Error sending downstream messages');
+            return realCallback(dsErr, retry);
+          }
+        ).done();
       }.bind(this);
       debug('Handling %s event', this.name);
-      this.handle(msg, new_callback);
+      this.handle(msg, interceptor);
     }.bind(this);
   }
 }

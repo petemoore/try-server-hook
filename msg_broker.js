@@ -163,16 +163,41 @@ function insert(connection, exchange, payload) {
         contentType: msgFormat
       };
       connection.createConfirmChannel().then(function(ch) {
-        ch.publish(wrap(exchange), '', new Buffer(msg), pubOpts, function(err, ok) {
-          if (err) {
-            debug('Failed to insert msg');
-            reject(err);
-          }
-          debug('Inserted message');
-          ch.close().then(function() { resolve(connection); });
+          return insertCh(ch, exchange, payload).then(function() {
+            return ch.close().then(function() { resolve(connection); });
+          });
         });
-      });
+      }).done();
     });
+}
+
+// For now, always persistent and to '' for routing key
+// Do insertions on existing channel
+function insertCh(ch, exchange, payload) {
+  return when.promise(function(resolve, reject) {
+    var msgFormat = schema.msg_format;
+    serialiseMsg(msgFormat, payload).then(function(msg) {
+      debug('Serialised payload');
+      if (typeof msg !== 'string') {
+        reject('Message must serialise to string');
+      }
+      var pubOpts = {
+        persistent: true,
+        mandatory: true,
+        contentType: msgFormat
+      };
+      debug('Publishing to exchange %s', exchange);
+      console.log(exchange);
+      console.log(ch);
+      ch.publish(wrap(exchange), '', new Buffer(msg, 'utf-8'), pubOpts, function(err, ok) {
+        if (err) {
+          debug('Failed to insert msg');
+          reject(err);
+        }
+        debug('Published to %s exchange', exchange);
+        resolve(ch);
+      });
+    }).done();
   });
 }
 
@@ -202,33 +227,32 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
       if (!msg) {
         debug('%s consumer cancelled', actionName);
       }
-      parseMsg(msg.properties.contentType, msg.content).then(function(obj) {
-        debug('About to invoke %s action', actionName);
-        action(obj, function(err, retry) {
-          if (err) {
-            debug('Failure in %s', actionName);
-            debug(err.stack || err);
-            channel.reject(msg, retry);
-          } else {
-            debug('Success in %s', actionName);
-            channel.ack(msg);
-          }
-        });
-      },
-      function(err) {
-        debug('Failure parsing a %s message for %s', msg.properties.contentType, actionName);
-        debug(err.stack);
-        channel.reject(msg, false);
-      });
+
+      parseMsg(msg.properties.contentType, msg.content).then(
+        function(obj) {
+          debug('Parsed message for %s consumer', actionName);
+
+          // Actually call the action!
+          action(obj, function(err, retry, dsMsg) {
+            if (err) {
+              debug('Rejecting %s because of failure, %sretrying', actionName, retry ? '': 'NOT ');
+              channel.reject(msg, retry);
+            } else {
+              debug('Successfully processed %s', actionName);
+              channel.ack(msg);
+            }
+          });
+
+        },
+        function(err) {
+          debug('Error parsing message for %s consumer', actionName); 
+          channel.reject(msg, false);
+        }).done();
     }
     channel.consume(wrap(queue), consumer, {noAck: false}).then(function(tagObj) {
-      debug('Created %s consumer', actionName);
+      debug('Created %s consumer %s', actionName, tagObj.consumerTag);
       resolve(tagObj);
     }, reject);
-    /*channel.consume(wrap(queue), consumer, {noAck: false}).then(function(tabObj) {
-      debug('Created a %s consumer', actionName);
-      resolve(tagObj);
-    }, reject).done();*/
   });
 }
 
@@ -237,5 +261,6 @@ module.exports = {
   unwrap: unwrap,
   assertSchema: assertSchema,
   insert: insert,
+  insertCh: insertCh,
   addConsumer: addConsumer
 };

@@ -75,8 +75,8 @@ app.connection.on('close', function() {
 function setupConsumers(connection) {
   msgBroker.assertSchema(connection)
   .then(function () { 
-    return connection.createChannel().then(function(ch) {
-      ch.prefetch(1);
+    return connection.createConfirmChannel().then(function(ch) {
+      ch.prefetch(5);
       // Reset consumers if they error out
       ch.on('error', function(err) {
         debug('Encountered channel error, resetting consumers');
