@@ -19,7 +19,7 @@ CommitEventHandler.prototype.handle = function(msg, callback) {
   }
   gaiaTry.commit(msg.user, msg.commit_message, msg.contents, function(err, retry, hgId) {
     if (err) {
-      return callback(err, !!retry)
+      return callback(err, retry)
     }
     msg['hg_id'] = hgId; 
     msg['state'] = 'submitted';

@@ -92,7 +92,11 @@ function writeFiles(directory, contents) {
         debug('Found new file %s', fileName);
         newFiles.push(fileName);
       }
-      promises.push(promisedFs.writeFile(fullFileName, JSON.stringify(contents[fileName])));
+      var stringToWrite = contents[fileName];
+      if (typeof stringToWrite === 'object') {
+        stringToWrite = JSON.stringify(stringToWrite, null, '  ');
+      }
+      promises.push(promisedFs.writeFile(fullFileName, stringToWrite));
   });
   return when.all(promises).then(function() { return when.resolve(newFiles)});
 }

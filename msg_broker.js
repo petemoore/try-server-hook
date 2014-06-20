@@ -187,8 +187,6 @@ function insertCh(ch, exchange, payload) {
         contentType: msgFormat
       };
       debug('Publishing to exchange %s', exchange);
-      console.log(exchange);
-      console.log(ch);
       ch.publish(wrap(exchange), '', new Buffer(msg, 'utf-8'), pubOpts, function(err, ok) {
         if (err) {
           debug('Failed to insert msg');
@@ -235,8 +233,27 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
           // Actually call the action!
           action(obj, function(err, retry, dsMsg) {
             if (err) {
-              debug('Rejecting %s because of failure, %sretrying', actionName, retry ? '': 'NOT ');
-              channel.reject(msg, retry);
+              if (retry) {
+                var doRetry;
+                if (!msg.retry) {
+                  msg.retry = 5;
+                  debug('First failure, retrying %s', actionName);
+                  doRetry = true;
+                } else {
+                  msg.retry--;
+                  if (msg.retry > 0) {
+                    debug('%s has %d retries left', actionName, msg.retry);
+                    doRetry = true;
+                  } else {
+                    debug('%s has exhausted all retries, rejecting', msg.retry);
+                    doRetry = false;
+                  }
+                }
+              } else {
+                debug('Rejecting a %s, not retrying', actionName);
+                doRetry = false;
+              }
+              channel.reject(msg, doRetry);
             } else {
               debug('Successfully processed %s', actionName);
               channel.ack(msg);

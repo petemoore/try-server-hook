@@ -9,7 +9,7 @@ var connection = new Connection();
 var msgBroker = require('./msg_broker');
 
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-var commitEventHandler = new CommitEventHandler('to_commit');
+var commitEventHandler = new CommitEventHandler();
 var IRCSender = require('./event_handlers/irc_sender');
 var ircSender = new IRCSender();
 

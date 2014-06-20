@@ -10,13 +10,8 @@ var jsdom = require('jsdom');
 var bbToRealPlatform = {
   'linux32_gecko': 'linux-i686',
   'linux64_gecko': 'linux-x86_64',
+  'linux64_gecko-debug': 'linux-x86_64',
   'macosx64_gecko': 'mac64',
-};
-
-var realPlatformToBB = {
-  'linux-i686': 'linux32_gecko',
-  'linux-x86_64': 'linux64_gecko',
-  'mac64': 'macosx64_gecko',
 };
 
 var platformToSuffix = {
@@ -234,7 +229,7 @@ function mapB2GVerToGeckoRepo(b2gVer, callback) {
 //  * getURLs('v1.3t', 'linux-x86_64',
 //  * getURLs('v2.0', 'linux-x86_64',
 //  * getURLs('master', 'linux-x86_64',
-function getURLs(b2gVer, platform, callback) {
+function getURLs(b2gVer, bbPlatform, callback) {
   var buildURL;
   var testsURL;
   mapB2GVerToGeckoRepo(b2gVer, function (err, repoPath) {
@@ -246,9 +241,10 @@ function getURLs(b2gVer, platform, callback) {
     var ftpBranch = branchBits[branchBits.length - 1];
     var opts = {
       branch: ftpBranch,
-      bbPlatform: realPlatformToBB[platform],
+      bbPlatform: bbPlatform,
       findingLatest: true,
     };
+    var platform = bbToRealPlatform[bbPlatform];
     debug('%s has repo path of %s', b2gVer, repoPath);
     buildBundleURL(opts, function (err, dURL) {
       if (err) {
@@ -272,14 +268,14 @@ function getURLs(b2gVer, platform, callback) {
           opts.timestamp = latestDir;
           opts.fileSuffix = platformToSuffix[platform];
           buildBundleURL(opts, function(err, bURL) {
-            debug('Browser url is %s', bURL);
+            debug('Browser URL for %s with %s is %s', bbPlatform, b2gVer, bURL);
             if (err) {
               return callback(err);
             }
             buildURL = bURL;
             opts.fileSuffix = '.tests.zip';
             buildBundleURL(opts, function(err, tURL) {
-              debug('Tests url is %s', tURL);
+              debug('Tests URL for %s with %s is %s', b2gVer, bbPlatform, tURL);
               if (err) {
                 return callback(err);
               }
@@ -303,13 +299,13 @@ function all(b2gVer, callback) {
     });
   }
   var allFiles = {};
-  var platforms = ['linux-i686', 'linux-x86_64', 'mac64'];
+  var platforms = Object.keys(bbToRealPlatform);
   async.map(platforms, x, function(err, results) {
     if (err) {
       return callback(err);
     }
     results.forEach(function(e,idx) {
-      allFiles[platforms[idx] + '.json'] = e;
+      allFiles[platforms[idx].replace(/_gecko(-debug)?$/,'$1') + '.json'] = e;
     });
     return callback(null, allFiles);
   });

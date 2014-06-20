@@ -4,10 +4,17 @@ start-server:
 start-consumer:
 	node consumer.js
 
+reset: reset-rabbitmq reset-gaia-try
+	@echo New rabbit and gaia-try repo!
+
 reset-rabbitmq:
 	rabbitmqctl stop_app
 	rabbitmqctl reset
 	rabbitmqctl start_app
+
+reset-gaia-try:
+	ssh hg.mozilla.org edit gaia-try delete YES
+	ssh hg.mozilla.org clone gaia-try integration/gaia-try
 
 lint:
 	gjslint --recurse . \
