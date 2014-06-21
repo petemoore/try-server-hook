@@ -19,6 +19,7 @@ function Config (options) {
 Config.prototype = {
   get: function (key) {
     if (!this.options) {
+      debug('Trying to get a config var before we\'ve read the file');
       return undefined;
     } else if (process.env[key]) {
       debug('Reading %s from environment', key);
@@ -27,6 +28,21 @@ Config.prototype = {
       debug('Reading %s from a file', key);
       return this.options[key]
     }
+  },
+  getBool: function(key) {
+    var raw = this.get(key);
+    if (typeof raw === 'boolean') {
+      return raw;
+    } else if (typeof raw === 'string') {
+      if (raw === '0' || raw === 'false') {
+        return false;
+      } else if (raw === '1' || raw === 'true') {
+        return true;
+      }
+    } else if (typeof raw === 'number') {
+      return raw != 0;
+    }
+    throw new Error('Can\'t figure out whether ' + raw + ' is truthy');
   }
 };
 
@@ -50,8 +66,15 @@ function update() {
 update();
 
 fs.watch(configDir, {persistent: false}, function(action, filename) {
-  debug('Reloading config because defaults file %s %s', filename, action);
-  update();
+  if (filename) {
+    if (filename === path.basename(defaultsFile) || filename === path.basename(envFile)){
+      debug('Reloading config because defaults file %s %s', filename, action);
+      update();
+    }
+  } else {
+    debug('Reloading config because some file changed in config/ and I don\'t know which');
+    update();
+  }
 });
 
 

@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var debug = require('debug')('try-server-hook:app');
 var msgBroker = require('./msg_broker');
+var crypto = require('crypto');
 
 var config = require('./config');
 
@@ -26,8 +27,53 @@ function success(msg) {
 }
 
 var app = express();
-app.use(express.json());
-app.use(express.urlencoded());
+
+function githubHmacAuthenticator(fatal) {
+  return function(req, res, next) {
+    if (!req.get('X-Hub-Signature')) {
+      next();
+    }
+    var headerBits = req.get('X-Hub-Signature').split('=');
+    if (headerBits.length !== 2) {
+      next('This message has a Github Signature but it\'s invalid');
+    }
+    var algo = headerBits[0];
+    var originDigest = headerBits[1];
+    var hmacKey = config.get('GITHUB_API_HMAC_KEY');
+    var hmac = crypto.createHmac(algo, hmacKey);
+    var data = '';
+
+    req.on('data', function(chunk) {
+      debug('chunkitychunkchunk');
+      hmac.update(chunk); 
+      data += chunk;
+    });
+
+    req.on('end', function() {
+      try {
+        req.body = JSON.parse(data);
+      } catch (e) {
+        next(e);
+      }
+      req.computedHmacDigest = hmac.digest('hex');
+      debug('Computed HMAC for request using %s to be %s', algo, req.computedHmacDigest);
+      debug('Expected HMAC to be %s', originDigest);
+      if (req.computedHmacDigest === originDigest) {
+        debug('HMAC Authenticated');
+        next();
+      } else if (fatal) {
+        next('HMAC Authentication failure');
+      } else {
+        debug('Ignoring HMAC Failure');
+        next();
+      }
+    });
+  }
+}
+
+app.use(githubHmacAuthenticator(config.getBool('GITHUB_API_REQUIRE_HMAC')));
+//app.use(express.json());
+//app.use(express.urlencoded());
 
 app.connection = new Connection();
 
@@ -48,7 +94,23 @@ app.post('/github/v3', function(req, res) {
     req.accepts('application/json');
     var type = req.get('X-GitHub-Event');
     var deliveryId = req.get('X-GitHub-Delivery');
-    var payload = { type: type, delivery_id: deliveryId, content: req.body };
+    var payload = {type: type, delivery_id: deliveryId, content: req.body};
+    var hmacInfo = req.get('X-Hub-Signature').split('=');
+    try {
+      var hmacAlgo = hmacInfo[0]; 
+      var hmacDigest = hmacInfo[1];
+    } catch (e) {
+      debug('Error doing HMAC Authentication');
+      debug(e.stack || e);
+      res.send(500, error('Failed HMAC Authentication'));
+    }
+
+  
+    if (req.computedHmacDigest === hmacDigest) {
+      debug('HMAC authentication is successful');
+    } else {
+      debug('HMAC authentication failed, request: %s computed: %s', hmacDigest, req.computedHmacDigest || 'not computed');
+    }
 
     debug('Inserting a %s (%s) event into queue', type, deliveryId);
 
