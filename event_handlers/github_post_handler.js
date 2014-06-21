@@ -20,7 +20,7 @@ function avatar(src, username, w, h) {
 }
 
 function postStartPr(msg, callback) {
-  github.user.get({user: msg.pr.who}, function(err, result) {
+  github.user.getFrom({user: msg.pr.who}, function(err, result) {
     if (err) {
       return callback(err, true);
     }

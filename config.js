@@ -6,7 +6,9 @@ var path = require('path');
 
 var configDir = path.join(__dirname, 'config');
 var defaultsFile = path.join(configDir, 'default.json');
-var envFile = path.join(configDir, process.env.NODE_ENV || 'local' + '.json');
+var environment = process.env.NODE_ENV || 'local';
+var envFile = path.join(configDir, environment + '.json');
+debug('Environment: %s', environment);
 
 var watchingEnvFile = false;
 

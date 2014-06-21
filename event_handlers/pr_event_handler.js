@@ -75,7 +75,7 @@ PREventHandler.prototype.interesting = function (msg) {
 }
 
 function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
-  github.user.get({user: ghUser}, function(err, result) {
+  github.user.getFrom({user: ghUser}, function(err, result) {
     if (err) {
       debug('API Call to figure out username has failed');
       return callback(err);
