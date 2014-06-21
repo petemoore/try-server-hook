@@ -6,6 +6,7 @@ var path = require('path');
 var debug = require('debug')('try-server-hook:app');
 var msgBroker = require('./msg_broker');
 var crypto = require('crypto');
+var morgan = require('morgan');
 
 var config = require('./config');
 
@@ -31,7 +32,8 @@ var app = express();
 function githubHmacAuthenticator(fatal) {
   return function(req, res, next) {
     if (!req.get('X-Hub-Signature')) {
-      next();
+      debug('Ignoring HMAC for request because it lacks a signature');
+      return next();
     }
     var headerBits = req.get('X-Hub-Signature').split('=');
     if (headerBits.length !== 2) {
@@ -62,7 +64,7 @@ function githubHmacAuthenticator(fatal) {
         debug('HMAC Authenticated');
         next();
       } else if (fatal) {
-        next('HMAC Authentication failure');
+        next(error('HMAC Authentication failure'));
       } else {
         debug('Ignoring HMAC Failure');
         next();
@@ -71,6 +73,7 @@ function githubHmacAuthenticator(fatal) {
   }
 }
 
+app.use(morgan());
 app.use(githubHmacAuthenticator(config.getBool('GITHUB_API_REQUIRE_HMAC')));
 //app.use(express.json());
 //app.use(express.urlencoded());
