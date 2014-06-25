@@ -37,25 +37,25 @@ util.inherits(PREventHandler, BaseEventHandler);
 PREventHandler.prototype.name = 'Incoming Github API Message';
 PREventHandler.prototype.parse = function (msg) {
   var pr = {};
-  var upstream_pr = msg.content.pull_request;
+  var upstreamPr = msg.content.pull_request;
   pr.type = 'pull_request';
   pr.action = msg.content.action;
   pr.number = msg.content.number;
   pr.who = msg.content.sender.login;
-  pr.base_owner = upstream_pr.base.repo.owner.login;
-  pr.base_name = upstream_pr.base.repo.name;
-  pr.base_label = upstream_pr.base.label;
-  pr.base_git_url = upstream_pr.base.repo.git_url;
-  pr.base_clone_url = upstream_pr.base.repo.clone_url
-  pr.base_sha = upstream_pr.base.sha;
-  pr.base_ref = upstream_pr.base.ref;
-  pr.pr_label = upstream_pr.head.label;
-  pr.pr_git_url = upstream_pr.head.repo.git_url;
-  pr.pr_clone_url = upstream_pr.head.repo.clone_url;
-  pr.pr_sha = upstream_pr.head.sha;
-  pr.pr_ref = upstream_pr.head.ref;
-  pr.pr_owner = upstream_pr.head.repo.owner.login;
-  pr.pr_name = upstream_pr.head.repo.name;
+  pr.base_owner = upstreamPr.base.repo.owner.login;
+  pr.base_name = upstreamPr.base.repo.name;
+  pr.base_label = upstreamPr.base.label;
+  pr.base_git_url = upstreamPr.base.repo.git_url;
+  pr.base_clone_url = upstreamPr.base.repo.clone_url
+  pr.base_sha = upstreamPr.base.sha;
+  pr.base_ref = upstreamPr.base.ref;
+  pr.pr_label = upstreamPr.head.label;
+  pr.pr_git_url = upstreamPr.head.repo.git_url;
+  pr.pr_clone_url = upstreamPr.head.repo.clone_url;
+  pr.pr_sha = upstreamPr.head.sha;
+  pr.pr_ref = upstreamPr.head.ref;
+  pr.pr_owner = upstreamPr.head.repo.owner.login;
+  pr.pr_name = upstreamPr.head.repo.name;
   return pr;
 }
 

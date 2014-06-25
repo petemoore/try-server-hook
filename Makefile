@@ -25,12 +25,12 @@ send-pr:
 	curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
 		--header "Content-Type:application/json" \
 		--header "X-GitHub-Event:pull_request" \
-		--header "X-Hub-Signature:john" \
+		--header "X-Hub-Signature:sha1=john" \
 		--header "X-GitHub-Delivery:testing-guid"
 
 send-push:
 	curl -X POST -d @sample_push_payload.json http://localhost:7040/github/v3 \
 		--header "Content-Type:application/json" \
-		--header "X-GitHub-Event:pull_request" \
+		--header "X-GitHub-Event:push" \
 		--header "X-Hub-Signature:sha1=john" \
 		--header "X-GitHub-Delivery:testing-guid"

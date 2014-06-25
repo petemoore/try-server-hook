@@ -1,59 +1,4193 @@
 {
-    "after": "1b79c97da87fbc6e9631d001945d6fad2a4e383c",
-    "before": "0000000000000000000000000000000000000000",
-    "commits": [],
-    "compare": "https://github.com/jhford/test-repo/compare/new2",
-    "created": true,
-    "deleted": false,
-    "forced": true,
-    "head_commit": {
-        "added": [
-            "file"
-        ],
-        "author": {
-            "email": "john@johnford.info",
-            "name": "John Ford",
-            "username": "jhford"
-        },
-        "committer": {
-            "email": "john@johnford.info",
-            "name": "John Ford",
-            "username": "jhford"
-        },
-        "distinct": true,
-        "id": "1b79c97da87fbc6e9631d001945d6fad2a4e383c",
-        "message": "first comit",
-        "modified": [],
-        "removed": [],
-        "timestamp": "2014-04-08T14:05:21-07:00",
-        "url": "https://github.com/jhford/test-repo/commit/1b79c97da87fbc6e9631d001945d6fad2a4e383c"
+  "ref": "refs/heads/master",
+  "after": "0dd22e62b96d59fb403f1a8282bc09fa25a8f182",
+  "before": "c0709e95fa79e35913e3e6788e80cd874d29990e",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "compare": "https://github.com/try-server-hook/gaia/compare/c0709e95fa79...0dd22e62b96d",
+  "commits": [
+    {
+      "id": "24e584ba6b77b5b0930044997a96035cbb03f844",
+      "distinct": true,
+      "message": "Bug 1021777 - Set multiple search engines by default",
+      "timestamp": "2014-06-09T11:58:47+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/24e584ba6b77b5b0930044997a96035cbb03f844",
+      "author": {
+        "name": "Ben Francis",
+        "email": "ben@tola.me.uk",
+        "username": "benfrancis"
+      },
+      "committer": {
+        "name": "Ben Francis",
+        "email": "ben@tola.me.uk",
+        "username": "benfrancis"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/browser/build/default.json",
+        "customization/browser.json"
+      ]
     },
-    "pusher": {
+    {
+      "id": "e34eb95552e7593f12ccf4fb571a579430f19405",
+      "distinct": true,
+      "message": "Bug 1020744 - [Dialer][Flame] Enter more than 19 digits in dialer, back delete button moved couple pixels to the left",
+      "timestamp": "2014-06-10T09:01:19+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e34eb95552e7593f12ccf4fb571a579430f19405",
+      "author": {
+        "name": "Paco Rampas",
+        "email": "pacorampas@gmail.com",
+        "username": "pacorampas"
+      },
+      "committer": {
+        "name": "Paco Rampas",
+        "email": "pacorampas@gmail.com",
+        "username": "pacorampas"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/style/dialer/keypad.css"
+      ]
+    },
+    {
+      "id": "ae6be505724b9d155ea2c3b08f99423566489c07",
+      "distinct": true,
+      "message": "Bug 1023124 - [Flame][Keyboard] - Missing images",
+      "timestamp": "2014-06-10T12:44:31+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ae6be505724b9d155ea2c3b08f99423566489c07",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "apps/keyboard/style/images/divider@2.25x.png",
+        "apps/keyboard/style/images/divider@2x.png",
+        "apps/keyboard/style/images/icon_close@2.25x.png",
+        "apps/keyboard/style/images/icon_close@2x.png",
+        "apps/keyboard/style/images/icon_dismiss@2.25x.png",
+        "apps/keyboard/style/images/icon_dismiss@2x.png",
+        "apps/keyboard/style/images/icon_extend@2.25x.png",
+        "apps/keyboard/style/images/icon_extend@2x.png"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/style/images/divider.png",
+        "apps/keyboard/style/images/divider@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2x.png",
+        "apps/keyboard/style/images/icon_close.png",
+        "apps/keyboard/style/images/icon_close@1.5x.png",
+        "apps/keyboard/style/images/icon_dismiss.png",
+        "apps/keyboard/style/images/icon_dismiss@1.5x.png",
+        "apps/keyboard/style/images/icon_extend.png",
+        "apps/keyboard/style/images/icon_extend@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2x.png",
+        "apps/keyboard/style/keyboard.css"
+      ]
+    },
+    {
+      "id": "9a6a2f09fa3771c7959a871297503c771669bf32",
+      "distinct": true,
+      "message": "Bug 1018042 - [Settings] Pass available size as number to l10n.js",
+      "timestamp": "2014-06-11T12:59:35+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/9a6a2f09fa3771c7959a871297503c771669bf32",
+      "author": {
+        "name": "Francesco Lodolo (:flod)",
+        "email": "flod@lodolo.net",
+        "username": "flodolo"
+      },
+      "committer": {
+        "name": "Francesco Lodolo (:flod)",
+        "email": "flod@lodolo.net",
+        "username": "flodolo"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/js/utils.js"
+      ]
+    },
+    {
+      "id": "7dcc5c72d1627479a915b61fa421d03e5fd67168",
+      "distinct": true,
+      "message": "Bug 1020961 - [Collection app] Loading progress indicator and Connectivity message [r=amirn, kgrandon]",
+      "timestamp": "2014-06-11T16:03:27+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/7dcc5c72d1627479a915b61fa421d03e5fd67168",
+      "author": {
+        "name": "Ran Ben Aharon",
+        "email": "ran@ranbena.com",
+        "username": "ranbena"
+      },
+      "committer": {
+        "name": "Ran Ben Aharon",
+        "email": "ran@ranbena.com",
+        "username": "ranbena"
+      },
+      "added": [
+        "apps/collection/js/view_apps.js",
+        "apps/collection/js/view_bg.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/js/view_collection.js",
+        "apps/collection/locales/collection.en-US.properties",
+        "apps/collection/style/css/view.css",
+        "apps/collection/view.html"
+      ]
+    },
+    {
+      "id": "ac3f203460e32dbd064fcd7fef8ff17342de1e1f",
+      "distinct": true,
+      "message": "Bug 1015412 - [FMRadio] Implement new startup loading events",
+      "timestamp": "2014-06-11T11:18:52-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ac3f203460e32dbd064fcd7fef8ff17342de1e1f",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/fm/js/fm.js",
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "a2f3a69608b3ba3c646207bd4a0b380a3257a375",
+      "distinct": true,
+      "message": "Bug 1020342 - Update marionette client in gaiatest to 0.7.9",
+      "timestamp": "2014-06-11T18:03:15+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/a2f3a69608b3ba3c646207bd4a0b380a3257a375",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/requirements.txt"
+      ]
+    },
+    {
+      "id": "1f527798bb2358e965ea626c5edd7234567020e5",
+      "distinct": true,
+      "message": "Bug 1022941 - [email] On language change, cached timestamps do not change to new language",
+      "timestamp": "2014-06-11T10:24:49-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/1f527798bb2358e965ea626c5edd7234567020e5",
+      "author": {
+        "name": "Alex Wissmann",
+        "email": "awiss@mozilla.com"
+      },
+      "committer": {
+        "name": "Alex Wissmann",
+        "email": "awiss@mozilla.com"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/mail_common.js"
+      ]
+    },
+    {
+      "id": "84eb57870864f96ef09caf76f4d1c4e692133651",
+      "distinct": true,
+      "message": "Bug 1004251 - (resubmitted) Add resend verification email to firefox accounts. r=ferjm,arthurcc",
+      "timestamp": "2014-06-11T10:46:17-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/84eb57870864f96ef09caf76f4d1c4e692133651",
+      "author": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "committer": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/firefox_accounts.html",
+        "apps/settings/js/firefox_accounts/panel.js",
+        "apps/settings/locales/settings.en-US.properties",
+        "apps/settings/style/settings.css",
+        "apps/settings/test/unit/firefox_accounts_panel_test.js",
+        "apps/settings/test/unit/mock_fx_accounts_iac_helper.js",
+        "apps/system/js/fxa_client.js",
+        "apps/system/js/fxa_manager.js",
+        "apps/system/test/unit/fxa_client_test.js",
+        "apps/system/test/unit/fxa_iac_client_test.js",
+        "apps/system/test/unit/fxa_manager_test.js",
+        "apps/system/test/unit/mock_fxa_client.js",
+        "shared/js/fxa_iac_client.js"
+      ]
+    },
+    {
+      "id": "580733cf14170dd01c4cfdf48de122146e10464d",
+      "distinct": true,
+      "message": "Bug 1005760 - [email] on language change, cached card templates not updated",
+      "timestamp": "2014-06-11T12:22:49-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/580733cf14170dd01c4cfdf48de122146e10464d",
+      "author": {
+        "name": "Alex Wissmann",
+        "email": "awiss@mozilla.com"
+      },
+      "committer": {
+        "name": "Alex Wissmann",
+        "email": "awiss@mozilla.com"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/tmpl.js"
+      ]
+    },
+    {
+      "id": "e8325666079c55fde05882a0fb7aa17314a8e920",
+      "distinct": true,
+      "message": "Bug 1015385 - [Camera] Implement new startup loading events",
+      "timestamp": "2014-06-11T15:47:14-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e8325666079c55fde05882a0fb7aa17314a8e920",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/camera/js/app.js"
+      ]
+    },
+    {
+      "id": "a18014caa0a091f79674403343e538352747411b",
+      "distinct": true,
+      "message": "Bug 1023714 - [vertical homescreen] Cancel button is not localized after a long press on the homescreen",
+      "timestamp": "2014-06-11T14:31:19-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/a18014caa0a091f79674403343e538352747411b",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+        "apps/verticalhome/locales/homescreen.fr.properties"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/test/unit/contextmenu_test.js",
+        "apps/collection/test/unit/view_collection_test.js",
+        "apps/verticalhome/index.html",
+        "apps/verticalhome/locales/locales.ini",
+        "apps/verticalhome/test/marionette/lib/home2.js",
+        "apps/verticalhome/test/marionette/localization_test.js",
+        "shared/elements/gaia_menu/script.js"
+      ]
+    },
+    {
+      "id": "fff8a38c7b8ea00a42068e468531118f69d16487",
+      "distinct": true,
+      "message": "Bug 976024 - Unique Set Size in the Developer HUD. r=21",
+      "timestamp": "2014-06-12T00:33:19+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/fff8a38c7b8ea00a42068e468531118f69d16487",
+      "author": {
+        "name": "Jan Keromnes",
+        "email": "janx@linux.com",
+        "username": "jankeromnes"
+      },
+      "committer": {
+        "name": "Jan Keromnes",
+        "email": "janx@linux.com",
+        "username": "jankeromnes"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/developer_hud.html",
+        "apps/settings/locales/settings.en-US.properties",
+        "apps/settings/style/lists.css",
+        "apps/system/js/devtools/developer_hud.js",
+        "apps/system/test/unit/developer_hud_test.js",
+        "build/config/common-settings.json"
+      ]
+    },
+    {
+      "id": "643a2d0b24b1590d990579bb1fe6241878905215",
+      "distinct": true,
+      "message": "Bug 1024239 - [video] New menu on video is not localized",
+      "timestamp": "2014-06-11T17:33:44-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/643a2d0b24b1590d990579bb1fe6241878905215",
+      "author": {
+        "name": "TheoChevalier",
+        "email": "theo.chevalier11@gmail.com",
+        "username": "TheoChevalier"
+      },
+      "committer": {
+        "name": "TheoChevalier",
+        "email": "theo.chevalier11@gmail.com",
+        "username": "TheoChevalier"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/video/index.html",
+        "apps/video/locales/video.en-US.properties"
+      ]
+    },
+    {
+      "id": "31a8856afd878b1f6af9f303073d2b917df8dbbe",
+      "distinct": true,
+      "message": "Bug 880670 - [email/activesync] some ActiveSync implementations blacklist Mozilla in the user-agent string and return a 440 status code",
+      "timestamp": "2014-06-11T21:25:22-05:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/31a8856afd878b1f6af9f303073d2b917df8dbbe",
+      "author": {
+        "name": "Jim Porter",
+        "email": "jporter@mozilla.com",
+        "username": "jimporter"
+      },
+      "committer": {
+        "name": "Jim Porter",
+        "email": "jporter@mozilla.com",
+        "username": "jimporter"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/ext/mailapi/activesync/protocollayer.js"
+      ]
+    },
+    {
+      "id": "3536502bbac071083e1d9c84149d8b18f24639e0",
+      "distinct": true,
+      "message": "Bug 1016255 - Video played from Gallery goes back to gallery view on Pressing left top corner,no back button visible though ;r=reviews",
+      "timestamp": "2014-06-12T11:44:20+05:30",
+      "url": "https://github.com/try-server-hook/gaia/commit/3536502bbac071083e1d9c84149d8b18f24639e0",
+      "author": {
+        "name": "amitav-anand",
+        "email": "amitav.anand@accenture.com",
+        "username": "amitav-anand"
+      },
+      "committer": {
+        "name": "amitav-anand",
+        "email": "amitav.anand@accenture.com",
+        "username": "amitav-anand"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/gallery/style/gallery.css"
+      ]
+    },
+    {
+      "id": "e647d9251a6c1b73b28ee1a8bf5d977f60d76b05",
+      "distinct": true,
+      "message": "Bug 1017506 - [Settings][Bluetooth] The un-pair devices dialog(modal) could be closed by clicking on places other than the buttons",
+      "timestamp": "2014-06-12T15:15:12+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e647d9251a6c1b73b28ee1a8bf5d977f60d76b05",
+      "author": {
+        "name": "ian-liu",
+        "email": "iliu@mozilla.com",
+        "username": "ian-liu"
+      },
+      "committer": {
+        "name": "ian-liu",
+        "email": "iliu@mozilla.com",
+        "username": "ian-liu"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/bluetooth.html",
+        "apps/settings/js/bluetooth.js"
+      ]
+    },
+    {
+      "id": "fb6cda9d6c7eccc1deec6bb32e9b4ff59a677783",
+      "distinct": true,
+      "message": "Bug 1016278 - get /test/unit/_proxy.html and _sandbox in httpd extension",
+      "timestamp": "2014-06-12T16:12:31+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/fb6cda9d6c7eccc1deec6bb32e9b4ff59a677783",
+      "author": {
+        "name": "Yuren Ju",
+        "email": "yurenju@gmail.com",
+        "username": "yurenju"
+      },
+      "committer": {
+        "name": "Yuren Ju",
+        "email": "yurenju@gmail.com",
+        "username": "yurenju"
+      },
+      "added": [
+
+      ],
+      "removed": [
+        "build/test-agent-bootstrap.js"
+      ],
+      "modified": [
+        "Makefile",
+        "dev_apps/test-agent/common/test/agent.js",
+        "tools/extensions/httpd/bootstrap.js",
+        "tools/extensions/httpd/content/httpd.js"
+      ]
+    },
+    {
+      "id": "37a330d0f57205ee479e59446df6499a7d280a3f",
+      "distinct": true,
+      "message": "Bug 1024330 - [Everything.me] Device context for Partners API:\n * send ctx param to API\n * device.js simpler with getters\n * observe window.languagechange and use navigator.language instead of settings[\"language.current\"]",
+      "timestamp": "2014-06-12T11:39:43+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/37a330d0f57205ee479e59446df6499a7d280a3f",
+      "author": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "committer": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/create.html",
+        "apps/collection/view.html",
+        "apps/search/index.html",
+        "shared/js/everythingme/api.js",
+        "shared/js/everythingme/device.js"
+      ]
+    },
+    {
+      "id": "28093eb9cc883e4640faae8d9f2e4dfdd201cd3d",
+      "distinct": true,
+      "message": "Bug 1015094 - [NFC][Contacts] Contact cannot updated via NFC more than twice r=jmcf",
+      "timestamp": "2014-06-12T09:39:48+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/28093eb9cc883e4640faae8d9f2e4dfdd201cd3d",
+      "author": {
+        "name": "Francisco Jordano",
+        "email": "arcturus@ardeenelinfierno.com",
+        "username": "arcturus"
+      },
+      "committer": {
+        "name": "Francisco Jordano",
+        "email": "fjordano@mozilla.com"
+      },
+      "added": [
+        "apps/communications/contacts/test/unit/mock_contacts_adapt_and_merge.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/contacts/js/activities.js",
+        "apps/communications/contacts/test/unit/vcard_parsing_test.js",
+        "shared/js/contacts/import/utilities/vcard_parser.js",
+        "shared/js/fb/fb_reader_utils.js"
+      ]
+    },
+    {
+      "id": "924bdb908cad6b2525be943868d5cceef6bdd43a",
+      "distinct": true,
+      "message": "Bug 1022781 - Remove unnecessary plural form in Conference Call header",
+      "timestamp": "2014-06-12T10:54:04+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/924bdb908cad6b2525be943868d5cceef6bdd43a",
+      "author": {
+        "name": "Francesco Lodolo (:flod)",
+        "email": "flod@lodolo.net",
+        "username": "flodolo"
+      },
+      "committer": {
+        "name": "Francesco Lodolo (:flod)",
+        "email": "flod@lodolo.net",
+        "username": "flodolo"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/callscreen/js/conference_group_handler.js",
+        "apps/callscreen/test/unit/conference_group_handler_test.js",
+        "apps/communications/dialer/locales/dialer.en-US.properties"
+      ]
+    },
+    {
+      "id": "3f13527bfd848ae553dd122acf6aed4fac936651",
+      "distinct": true,
+      "message": "Bug 984340 - Enable sdcard tests on desktop B2G. r=bsilverberg",
+      "timestamp": "2014-06-12T10:54:46+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/3f13527bfd848ae553dd122acf6aed4fac936651",
+      "author": {
+        "name": "Dave Hunt",
+        "email": "dave.hunt@gmail.com",
+        "username": "davehunt"
+      },
+      "committer": {
+        "name": "Dave Hunt",
+        "email": "dave.hunt@gmail.com",
+        "username": "davehunt"
+      },
+      "added": [
+        "tests/python/gaia-ui-tests/gaiatest/file_manager.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_file_manager.py"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/README.md",
+        "tests/python/gaia-ui-tests/gaiatest/apps/contacts/regions/settings_form.py",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_camera.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_video_playback.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_add_photo_to_contact.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_import_contacts_from_sdcard.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_crop_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_delete_image.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_edit_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_view.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/music/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/test_settings_media_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_3gp_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_mp4_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogg_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogv_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_webm_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_cleanup_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_resources.py"
+      ]
+    },
+    {
+      "id": "730f87c2a410543ba2c142590696258fa64c4646",
+      "distinct": true,
+      "message": "Update README.md of settings app",
+      "timestamp": "2014-06-12T18:35:30+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/730f87c2a410543ba2c142590696258fa64c4646",
+      "author": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "committer": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/README.md"
+      ]
+    },
+    {
+      "id": "f5d67596740de7df3fefa4d2a4df12d9f4719528",
+      "distinct": true,
+      "message": "Bug 1024295 - [bb][header] Missing images",
+      "timestamp": "2014-06-12T13:56:33+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/f5d67596740de7df3fefa4d2a4df12d9f4719528",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "shared/elements/gaia_header/images/icons/add@2x.png",
+        "shared/elements/gaia_header/images/icons/compose@2x.png",
+        "shared/elements/gaia_header/images/icons/down@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down@2.25x.png",
+        "shared/elements/gaia_header/images/icons/down@2x.png",
+        "shared/elements/gaia_header/images/icons/edit@2x.png",
+        "shared/elements/gaia_header/images/icons/options@2x.png",
+        "shared/elements/gaia_header/images/icons/reply.png@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply@2x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2x.png",
+        "shared/elements/gaia_header/images/icons/send@2x.png",
+        "shared/elements/gaia_header/images/icons/up@1.5x.png",
+        "shared/elements/gaia_header/images/icons/up@2.25x.png",
+        "shared/elements/gaia_header/images/icons/up@2x.png",
+        "shared/elements/gaia_header/images/icons/user@2x.png",
+        "shared/style/headers/images/icons/add@2x.png",
+        "shared/style/headers/images/icons/down@2.25x.png",
+        "shared/style/headers/images/icons/edit@2x.png",
+        "shared/style/headers/images/icons/options@2x.png",
+        "shared/style/headers/images/icons/reply.png@2.25x.png",
+        "shared/style/headers/images/icons/reply_all@2.25x.png",
+        "shared/style/headers/images/icons/up@2.25x.png",
+        "shared/style/headers/images/icons/user@2x.png"
+      ],
+      "removed": [
+        "shared/elements/gaia_header/images/icons/clear.png",
+        "shared/elements/gaia_header/images/icons/clear@1.5x.png",
+        "shared/style/headers/images/icons/clear.png",
+        "shared/style/headers/images/icons/clear@1.5x.png"
+      ],
+      "modified": [
+        "shared/elements/gaia_header/images/icons/add.png",
+        "shared/elements/gaia_header/images/icons/back.png",
+        "shared/elements/gaia_header/images/icons/back@1.5x.png",
+        "shared/elements/gaia_header/images/icons/back@2.25x.png",
+        "shared/elements/gaia_header/images/icons/back@2x.png",
+        "shared/elements/gaia_header/images/icons/close@2.25x.png",
+        "shared/elements/gaia_header/images/icons/compose.png",
+        "shared/elements/gaia_header/images/icons/compose@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down.png",
+        "shared/elements/gaia_header/images/icons/edit.png",
+        "shared/elements/gaia_header/images/icons/edit@1.5x.png",
+        "shared/elements/gaia_header/images/icons/menu@2.25x.png",
+        "shared/elements/gaia_header/images/icons/menu@2x.png",
+        "shared/elements/gaia_header/images/icons/options.png",
+        "shared/elements/gaia_header/images/icons/options@1.5x.png",
+        "shared/elements/gaia_header/images/icons/reply_all.png",
+        "shared/elements/gaia_header/images/icons/up.png",
+        "shared/elements/gaia_header/images/icons/user@1.5x.png",
+        "shared/style/headers/images/icons/add.png",
+        "shared/style/headers/images/icons/back.png",
+        "shared/style/headers/images/icons/back@1.5x.png",
+        "shared/style/headers/images/icons/back@2.25x.png",
+        "shared/style/headers/images/icons/back@2x.png",
+        "shared/style/headers/images/icons/close@2.25x.png",
+        "shared/style/headers/images/icons/compose.png",
+        "shared/style/headers/images/icons/compose@1.5x.png",
+        "shared/style/headers/images/icons/down.png",
+        "shared/style/headers/images/icons/edit.png",
+        "shared/style/headers/images/icons/edit@1.5x.png",
+        "shared/style/headers/images/icons/menu@2.25x.png",
+        "shared/style/headers/images/icons/menu@2x.png",
+        "shared/style/headers/images/icons/options.png",
+        "shared/style/headers/images/icons/options@1.5x.png",
+        "shared/style/headers/images/icons/reply_all.png",
+        "shared/style/headers/images/icons/up.png",
+        "shared/style/headers/images/icons/user@1.5x.png"
+      ]
+    },
+    {
+      "id": "0ccbcb4f5862da038616f7dd37bfb77cc0e8e25e",
+      "distinct": true,
+      "message": "Merge pull request #20412 from pivanov/bug-1024295\n\nBug 1024295 - [bb][header] Missing images",
+      "timestamp": "2014-06-12T14:33:17+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0ccbcb4f5862da038616f7dd37bfb77cc0e8e25e",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "shared/elements/gaia_header/images/icons/add@2x.png",
+        "shared/elements/gaia_header/images/icons/compose@2x.png",
+        "shared/elements/gaia_header/images/icons/down@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down@2.25x.png",
+        "shared/elements/gaia_header/images/icons/down@2x.png",
+        "shared/elements/gaia_header/images/icons/edit@2x.png",
+        "shared/elements/gaia_header/images/icons/options@2x.png",
+        "shared/elements/gaia_header/images/icons/reply.png@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply@2x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2x.png",
+        "shared/elements/gaia_header/images/icons/send@2x.png",
+        "shared/elements/gaia_header/images/icons/up@1.5x.png",
+        "shared/elements/gaia_header/images/icons/up@2.25x.png",
+        "shared/elements/gaia_header/images/icons/up@2x.png",
+        "shared/elements/gaia_header/images/icons/user@2x.png",
+        "shared/style/headers/images/icons/add@2x.png",
+        "shared/style/headers/images/icons/down@2.25x.png",
+        "shared/style/headers/images/icons/edit@2x.png",
+        "shared/style/headers/images/icons/options@2x.png",
+        "shared/style/headers/images/icons/reply.png@2.25x.png",
+        "shared/style/headers/images/icons/reply_all@2.25x.png",
+        "shared/style/headers/images/icons/up@2.25x.png",
+        "shared/style/headers/images/icons/user@2x.png"
+      ],
+      "removed": [
+        "shared/elements/gaia_header/images/icons/clear.png",
+        "shared/elements/gaia_header/images/icons/clear@1.5x.png",
+        "shared/style/headers/images/icons/clear.png",
+        "shared/style/headers/images/icons/clear@1.5x.png"
+      ],
+      "modified": [
+        "shared/elements/gaia_header/images/icons/add.png",
+        "shared/elements/gaia_header/images/icons/back.png",
+        "shared/elements/gaia_header/images/icons/back@1.5x.png",
+        "shared/elements/gaia_header/images/icons/back@2.25x.png",
+        "shared/elements/gaia_header/images/icons/back@2x.png",
+        "shared/elements/gaia_header/images/icons/close@2.25x.png",
+        "shared/elements/gaia_header/images/icons/compose.png",
+        "shared/elements/gaia_header/images/icons/compose@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down.png",
+        "shared/elements/gaia_header/images/icons/edit.png",
+        "shared/elements/gaia_header/images/icons/edit@1.5x.png",
+        "shared/elements/gaia_header/images/icons/menu@2.25x.png",
+        "shared/elements/gaia_header/images/icons/menu@2x.png",
+        "shared/elements/gaia_header/images/icons/options.png",
+        "shared/elements/gaia_header/images/icons/options@1.5x.png",
+        "shared/elements/gaia_header/images/icons/reply_all.png",
+        "shared/elements/gaia_header/images/icons/up.png",
+        "shared/elements/gaia_header/images/icons/user@1.5x.png",
+        "shared/style/headers/images/icons/add.png",
+        "shared/style/headers/images/icons/back.png",
+        "shared/style/headers/images/icons/back@1.5x.png",
+        "shared/style/headers/images/icons/back@2.25x.png",
+        "shared/style/headers/images/icons/back@2x.png",
+        "shared/style/headers/images/icons/close@2.25x.png",
+        "shared/style/headers/images/icons/compose.png",
+        "shared/style/headers/images/icons/compose@1.5x.png",
+        "shared/style/headers/images/icons/down.png",
+        "shared/style/headers/images/icons/edit.png",
+        "shared/style/headers/images/icons/edit@1.5x.png",
+        "shared/style/headers/images/icons/menu@2.25x.png",
+        "shared/style/headers/images/icons/menu@2x.png",
+        "shared/style/headers/images/icons/options.png",
+        "shared/style/headers/images/icons/options@1.5x.png",
+        "shared/style/headers/images/icons/reply_all.png",
+        "shared/style/headers/images/icons/up.png",
+        "shared/style/headers/images/icons/user@1.5x.png"
+      ]
+    },
+    {
+      "id": "eb3a21e6b5fd911ca9847d6a62f9d111dccc0956",
+      "distinct": true,
+      "message": "Merge pull request #20290 from EverythingMe/1020961-indications\n\nBug 1020961 - [Collection app] Loading progress indicator and Connectivity message",
+      "timestamp": "2014-06-12T14:33:44+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/eb3a21e6b5fd911ca9847d6a62f9d111dccc0956",
+      "author": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "committer": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "added": [
+        "apps/collection/js/view_apps.js",
+        "apps/collection/js/view_bg.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/js/view_collection.js",
+        "apps/collection/locales/collection.en-US.properties",
+        "apps/collection/style/css/view.css",
+        "apps/collection/view.html"
+      ]
+    },
+    {
+      "id": "a97b9637799fb7b97b52bda0c460ef626402f850",
+      "distinct": true,
+      "message": "Bug 1016432 - [Search] Fix unit tests with a newer mocha r=kgrandon",
+      "timestamp": "2014-06-12T13:50:24+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/a97b9637799fb7b97b52bda0c460ef626402f850",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/search/test/unit/providers/places_test.js"
+      ]
+    },
+    {
+      "id": "5ec64e1fa9fe611e007fe0ea018ef2766d6c1254",
+      "distinct": true,
+      "message": "Merge pull request #20146 from jankeromnes/uss\n\nBug 976024 - Unique Set Size in the Developer HUD. r=21",
+      "timestamp": "2014-06-12T14:08:53+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/5ec64e1fa9fe611e007fe0ea018ef2766d6c1254",
+      "author": {
+        "name": "Jan Keromnes",
+        "email": "janx@linux.com",
+        "username": "jankeromnes"
+      },
+      "committer": {
+        "name": "Jan Keromnes",
+        "email": "janx@linux.com",
+        "username": "jankeromnes"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/developer_hud.html",
+        "apps/settings/locales/settings.en-US.properties",
+        "apps/settings/style/lists.css",
+        "apps/system/js/devtools/developer_hud.js",
+        "apps/system/test/unit/developer_hud_test.js",
+        "build/config/common-settings.json"
+      ]
+    },
+    {
+      "id": "5e97ea9fde191a67e86229d2c017dc0839b6b05b",
+      "distinct": true,
+      "message": "Bug 1022445 - Matching numbers screen results is not properly localized. r=etienne r=gandalf",
+      "timestamp": "2014-06-12T14:35:13+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/5e97ea9fde191a67e86229d2c017dc0839b6b05b",
+      "author": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "committer": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/dialer/js/suggestion_bar.js",
+        "apps/communications/dialer/test/unit/suggestion_bar_test.js",
+        "shared/js/l10n.js"
+      ]
+    },
+    {
+      "id": "e5531a524d0d730abcebb8507ec0b73bb4c0a3da",
+      "distinct": true,
+      "message": "Merge pull request #20363 from zacc/bug_1020342\n\nBug 1020342 - Update marionette client in gaiatest to 0.7.9",
+      "timestamp": "2014-06-12T13:36:39+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e5531a524d0d730abcebb8507ec0b73bb4c0a3da",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/requirements.txt"
+      ]
+    },
+    {
+      "id": "eb5b999efaad112f2dbfcf6122bade2ffc8fb361",
+      "distinct": true,
+      "message": "Merge pull request #20357 from flodolo/bug1018042\n\nBug 1018042 - [Settings] Pass available size as number to l10n.js",
+      "timestamp": "2014-06-12T05:47:25-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/eb5b999efaad112f2dbfcf6122bade2ffc8fb361",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/js/utils.js"
+      ]
+    },
+    {
+      "id": "4c3d7a868beb9b3be190b1068fc26da143407433",
+      "distinct": true,
+      "message": "Merge pull request #20393 from TheoChevalier/video-menu-l10n\n\nBug 1024239 - [video] New menu on video is not localized",
+      "timestamp": "2014-06-12T05:54:16-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/4c3d7a868beb9b3be190b1068fc26da143407433",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/video/index.html",
+        "apps/video/locales/video.en-US.properties"
+      ]
+    },
+    {
+      "id": "f6bfeadd0374bbdfca36490af542159d4c4403d5",
+      "distinct": true,
+      "message": "Bug 1022132 - Disable test_a11y_unlock_to_homescreen.py on TBPL",
+      "timestamp": "2014-06-12T14:37:11+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/f6bfeadd0374bbdfca36490af542159d4c4403d5",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "080027d50696ad4e003d44f899257f3b9f7aed98",
+      "distinct": true,
+      "message": "Revert \"Bug 973443 - [settings] refactor Display panel with AMD pattern\" for intermittent test failures\n\nThis reverts commit e1d028cb91ad1f05ddb6fcfff411369e21074280.",
+      "timestamp": "2014-06-12T14:54:39+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/080027d50696ad4e003d44f899257f3b9f7aed98",
+      "author": {
+        "name": "Ed Morley",
+        "email": "emorley@mozilla.com",
+        "username": "edmorley"
+      },
+      "committer": {
+        "name": "Ed Morley",
+        "email": "emorley@mozilla.com",
+        "username": "edmorley"
+      },
+      "added": [
+        "apps/settings/js/display.js",
+        "apps/settings/js/wallpaper.js"
+      ],
+      "removed": [
+        "apps/settings/js/panels/display/display.js",
+        "apps/settings/js/panels/display/panel.js",
+        "apps/settings/js/panels/display/wallpaper.js",
+        "apps/settings/test/unit/panels/display/display_test.js",
+        "apps/settings/test/unit/panels/display/wallpaper_test.js",
+        "shared/test/unit/mocks/mock_omadrm_fl.js"
+      ],
+      "modified": [
+        "apps/settings/build/settings.build.jslike",
+        "apps/settings/elements/display.html",
+        "apps/settings/index.html",
+        "apps/settings/js/config/require.js",
+        "apps/settings/js/modules/mvvm/observable.js",
+        "apps/settings/style/lists.css",
+        "apps/settings/style/settings.css",
+        "apps/settings/style/settings_large.css",
+        "apps/settings/test/marionette/app/regions/display.js",
+        "apps/settings/test/marionette/tests/display_settings_test.js",
+        "apps/settings/test/unit/setup.js",
+        "build/jshint/xfail.list",
+        "shared/js/omadrm/fl.js",
+        "shared/js/settings_url.js",
+        "shared/test/unit/mocks/mock_moz_activity.js",
+        "shared/test/unit/mocks/mock_settings_url.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/settings/regions/display.py"
+      ]
+    },
+    {
+      "id": "e3d1660fd4feb921772774bd5ca962e4f33bacee",
+      "distinct": true,
+      "message": "Bug 1021732 - Update test_privileged_app_contacts_prompt to match new prompt behaviour",
+      "timestamp": "2014-06-12T15:44:39+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e3d1660fd4feb921772774bd5ca962e4f33bacee",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_contacts_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "8050e58bfd94ecbdcbc2debdfd0bad51c99275fd",
+      "distinct": true,
+      "message": "Bug 1024516 - Update test_privileged_app_audio_prompt and video_prompt to match new prompt behaviour",
+      "timestamp": "2014-06-12T15:52:04+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/8050e58bfd94ecbdcbc2debdfd0bad51c99275fd",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_audio_capture_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_video_capture_prompt.py"
+      ]
+    },
+    {
+      "id": "a73d0a678809d4abec80fe5f2c2d4f6726c9e49e",
+      "distinct": true,
+      "message": "Merge pull request #20414 from EverythingMe/1024330-ctx\n\nBug 1024330 - [Everything.me] Device context for Partners API",
+      "timestamp": "2014-06-12T18:25:46+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/a73d0a678809d4abec80fe5f2c2d4f6726c9e49e",
+      "author": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "committer": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/create.html",
+        "apps/collection/view.html",
+        "apps/search/index.html",
+        "shared/js/everythingme/api.js",
+        "shared/js/everythingme/device.js"
+      ]
+    },
+    {
+      "id": "478c69fc2174d97c7fb1c927a206e5bb588089d1",
+      "distinct": true,
+      "message": "Bug 1018214 - adding a number of gaia ui tests for status bar and utility tray accessibility. r=Bebe",
+      "timestamp": "2014-06-12T11:28:28-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/478c69fc2174d97c7fb1c927a206e5bb588089d1",
+      "author": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "committer": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "added": [
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/status_bar.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_notifications.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_settings.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_visibility.py"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/atoms/accessibility.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/utility_tray.py",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "04f6d08b66d28849b8e0920b69633ad656c58a8d",
+      "distinct": true,
+      "message": "Merge pull request #20168 from justindarc/bug1015412\n\nBug 1015412 - [FMRadio] Implement new startup loading events",
+      "timestamp": "2014-06-12T11:31:55-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/04f6d08b66d28849b8e0920b69633ad656c58a8d",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/fm/js/fm.js",
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "bfcda8438de817c5df6f096f9f3488adaa7ee452",
+      "distinct": true,
+      "message": "Merge pull request #20378 from justindarc/bug1015385\n\nBug 1015385 - [Camera] Implement new startup loading events",
+      "timestamp": "2014-06-12T11:37:12-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/bfcda8438de817c5df6f096f9f3488adaa7ee452",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/camera/js/app.js"
+      ]
+    },
+    {
+      "id": "7762bfef1d6326634dc7c2ecf0332bf5c3476f3c",
+      "distinct": true,
+      "message": "Bug 1024542 - [Messages] in the desktop-fallback for mozContacts, wait to get the blob before returning anything r=schung",
+      "timestamp": "2014-06-12T17:50:33+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/7762bfef1d6326634dc7c2ecf0332bf5c3476f3c",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/sms/js/desktop-only/contacts.js"
+      ]
+    },
+    {
+      "id": "f931296117046c58426de5a29d032cb0019e7021",
+      "distinct": true,
+      "message": "Bug 1024280 - Fix awful error where we dont pass blobs during packaged app install during penidng",
+      "timestamp": "2014-06-12T08:51:18-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/f931296117046c58426de5a29d032cb0019e7021",
+      "author": {
+        "name": "James Lal",
+        "email": "james@lightsofapollo.com",
+        "username": "lightsofapollo"
+      },
+      "committer": {
+        "name": "James Lal",
+        "email": "james@lightsofapollo.com",
+        "username": "lightsofapollo"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/js/items/icon.js"
+      ]
+    },
+    {
+      "id": "0dd795f6914d9caa4c8f66baec9858d5641ba256",
+      "distinct": true,
+      "message": "Bug 1021735 - [Flame] Investigate and fix failure in test_import_contacts_from_sdcard.py",
+      "timestamp": "2014-06-12T17:13:01+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0dd795f6914d9caa4c8f66baec9858d5641ba256",
+      "author": {
+        "name": "Viorela Ioia",
+        "email": "viorelaioia@gmail.com",
+        "username": "viorelaioia"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/apps/contacts/regions/settings_form.py"
+      ]
+    },
+    {
+      "id": "90777363ed0a4e6d32612074a12fb2c73c353a25",
+      "distinct": true,
+      "message": "Merge pull request #20382 from KevinGrandon/bug_1023714_vertical_cancel_localization\n\nBug 1023714 - [vertical homescreen] Cancel button is not localized after a long press on the homescreen",
+      "timestamp": "2014-06-12T09:26:33-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/90777363ed0a4e6d32612074a12fb2c73c353a25",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+        "apps/verticalhome/locales/homescreen.fr.properties"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/test/unit/contextmenu_test.js",
+        "apps/collection/test/unit/view_collection_test.js",
+        "apps/verticalhome/index.html",
+        "apps/verticalhome/locales/locales.ini",
+        "apps/verticalhome/test/marionette/lib/home2.js",
+        "apps/verticalhome/test/marionette/localization_test.js",
+        "shared/elements/gaia_menu/script.js"
+      ]
+    },
+    {
+      "id": "f7bdf9572e1ce29acc5823ae5673b2c63fea1cdd",
+      "distinct": true,
+      "message": "Merge pull request #20450 from lightsofapollo/1024280\n\nBug 1024280 - Fix awful error where we dont pass blobs during package app install during pending",
+      "timestamp": "2014-06-12T09:47:04-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/f7bdf9572e1ce29acc5823ae5673b2c63fea1cdd",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/js/items/icon.js"
+      ]
+    },
+    {
+      "id": "a3e92ae1f823edcb18aa7271dd5919fbde98a831",
+      "distinct": true,
+      "message": "Merge pull request #20389 from arcturus/bug-1015094\n\nBug 1015094 - [NFC][Contacts] Contact cannot updated via NFC more than twice r=jmcf",
+      "timestamp": "2014-06-12T17:56:35+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/a3e92ae1f823edcb18aa7271dd5919fbde98a831",
+      "author": {
+        "name": "Francisco Jordano",
+        "email": "arcturus@ardeenelinfierno.com",
+        "username": "arcturus"
+      },
+      "committer": {
+        "name": "Francisco Jordano",
+        "email": "arcturus@ardeenelinfierno.com",
+        "username": "arcturus"
+      },
+      "added": [
+        "apps/communications/contacts/test/unit/mock_contacts_adapt_and_merge.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/contacts/js/activities.js",
+        "apps/communications/contacts/test/unit/vcard_parsing_test.js",
+        "shared/js/contacts/import/utilities/vcard_parser.js",
+        "shared/js/fb/fb_reader_utils.js"
+      ]
+    },
+    {
+      "id": "024e1f50bc5e5d4d1c20fdad903854f047bcb931",
+      "distinct": true,
+      "message": "Bug 1021710 - updating accessibility.js to use standard marionette timeout instead of it's arbitrary one when retrieving an accessible object.",
+      "timestamp": "2014-06-12T14:33:15-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/024e1f50bc5e5d4d1c20fdad903854f047bcb931",
+      "author": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "committer": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/atoms/accessibility.js"
+      ]
+    },
+    {
+      "id": "d1296e46851ceaca902e8ec88cec207a13828bba",
+      "distinct": true,
+      "message": "Bug 1024652 - commented out part of the test_a11y_phone_call_log test that tests contact action menu until long press is supported.",
+      "timestamp": "2014-06-12T14:41:10-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/d1296e46851ceaca902e8ec88cec207a13828bba",
+      "author": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "committer": {
+        "name": "Yura Zenevich",
+        "email": "yzenevich@mozilla.com",
+        "username": "yzen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/phone/test_a11y_phone_call_log.py"
+      ]
+    },
+    {
+      "id": "0706c668bf52133ecb2eca1eaa57e07448626f83",
+      "distinct": true,
+      "message": "Bug 1015867 - [Messages] The editable composer should take more space r=schung",
+      "timestamp": "2014-06-12T20:57:32+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0706c668bf52133ecb2eca1eaa57e07448626f83",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/sms/index.html",
+        "apps/sms/js/thread_ui.js",
+        "apps/sms/style/composer.css"
+      ]
+    },
+    {
+      "id": "1d4d176ec6563ad5ae47f04a82a06db73a151e27",
+      "distinct": true,
+      "message": "Merge pull request #20383 from 6a68/resubmit-bug-1004251-fxa-resend-email\n\nBug 1004251 - (resubmitted) Add resend verification email to firefox acc...",
+      "timestamp": "2014-06-12T12:11:37-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/1d4d176ec6563ad5ae47f04a82a06db73a151e27",
+      "author": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "committer": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/firefox_accounts.html",
+        "apps/settings/js/firefox_accounts/panel.js",
+        "apps/settings/locales/settings.en-US.properties",
+        "apps/settings/style/settings.css",
+        "apps/settings/test/unit/firefox_accounts_panel_test.js",
+        "apps/settings/test/unit/mock_fx_accounts_iac_helper.js",
+        "apps/system/js/fxa_client.js",
+        "apps/system/js/fxa_manager.js",
+        "apps/system/test/unit/fxa_client_test.js",
+        "apps/system/test/unit/fxa_iac_client_test.js",
+        "apps/system/test/unit/fxa_manager_test.js",
+        "apps/system/test/unit/mock_fxa_client.js",
+        "shared/js/fxa_iac_client.js"
+      ]
+    },
+    {
+      "id": "43a4e7f3710d727c4aa9581f48318456d627a399",
+      "distinct": true,
+      "message": "Merge pull request #20397 from jimporter/email-as-user-agent\n\nBug 880670 - [email/activesync] some ActiveSync implementations blacklis...",
+      "timestamp": "2014-06-12T14:54:29-05:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/43a4e7f3710d727c4aa9581f48318456d627a399",
+      "author": {
+        "name": "Jim Porter",
+        "email": "jporter@mozilla.com",
+        "username": "jimporter"
+      },
+      "committer": {
+        "name": "Jim Porter",
+        "email": "jporter@mozilla.com",
+        "username": "jimporter"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/ext/mailapi/activesync/protocollayer.js"
+      ]
+    },
+    {
+      "id": "2176f4144451a50c0229f6965518f347c0909a14",
+      "distinct": true,
+      "message": "Merge pull request #20436 from julienw/1016432-fix-search-tests\n\nBug 1016432 - [Search] Fix unit tests with a newer mocha r=kgrandon",
+      "timestamp": "2014-06-12T22:22:27+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/2176f4144451a50c0229f6965518f347c0909a14",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/search/test/unit/providers/places_test.js"
+      ]
+    },
+    {
+      "id": "ed3c6e1b0a8648590107826a5207c9464551ba47",
+      "distinct": true,
+      "message": "Bug 1023817 - [vertical] Several app names are truncated because of font-size r=me f=flod",
+      "timestamp": "2014-06-12T13:50:40-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ed3c6e1b0a8648590107826a5207c9464551ba47",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/style.css"
+      ]
+    },
+    {
+      "id": "5b4b4fc17a8e4a513a977f7062ea3e65d26ce268",
+      "distinct": true,
+      "message": "Merge pull request #20267 from pacorampas/delete-button-moved-1020744\n\nBug 1020744 - [Dialer][Flame] Enter more than 19 digits in dialer, back delete button moved couple pixels to the left",
+      "timestamp": "2014-06-12T14:09:58-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/5b4b4fc17a8e4a513a977f7062ea3e65d26ce268",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/style/dialer/keypad.css"
+      ]
+    },
+    {
+      "id": "c9e2c12e0d8ec5145ef24dde0828b6d85fcd0383",
+      "distinct": true,
+      "message": "Bug 1023198 - Sort Gu tests after os.walk for determinism, jgriffin",
+      "timestamp": "2014-06-12T17:27:14-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c9e2c12e0d8ec5145ef24dde0828b6d85fcd0383",
+      "author": {
+        "name": "Andrew Halberstadt",
+        "email": "halbersa@gmail.com",
+        "username": "ahal"
+      },
+      "committer": {
+        "name": "Andrew Halberstadt",
+        "email": "halbersa@gmail.com",
+        "username": "ahal"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-unit-tests/gaia_unit_test/main.py"
+      ]
+    },
+    {
+      "id": "07acf217305a9c13bc25cc34f84fb4a180360d7b",
+      "distinct": true,
+      "message": "Bug 1021428 - Show error when FMD button is clicked without network connection r=arthurcc",
+      "timestamp": "2014-06-12T14:38:17-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/07acf217305a9c13bc25cc34f84fb4a180360d7b",
+      "author": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "committer": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/js/findmydevice.js",
+        "apps/settings/locales/settings.en-US.properties"
+      ]
+    },
+    {
+      "id": "5f3d2edc8fc9c69c995975164f97f81d360f5d7b",
+      "distinct": true,
+      "message": "Merge pull request #20456 from KevinGrandon/bug_1023817_vertical_font_sizing\n\nBug 1023817 - [vertical] Several app names are truncated because of font-size",
+      "timestamp": "2014-06-12T15:00:12-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/5f3d2edc8fc9c69c995975164f97f81d360f5d7b",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/style.css"
+      ]
+    },
+    {
+      "id": "62ddaf8660ef8ad811fe999afa31f55fd8e81642",
+      "distinct": true,
+      "message": "Bug 1024753 - [Camera] Add Camera app to whitelistedUnifiedApps",
+      "timestamp": "2014-06-12T18:27:38-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/62ddaf8660ef8ad811fe999afa31f55fd8e81642",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "01818db51fe199ed7b74b6b7e7518cc72feba5f3",
+      "distinct": true,
+      "message": "Merge pull request #20254 from awiss/lang-date\n\nBug 1022941 - [email] On language change, cached timestamps do not change to new language. r=jrburke",
+      "timestamp": "2014-06-12T15:54:34-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/01818db51fe199ed7b74b6b7e7518cc72feba5f3",
+      "author": {
+        "name": "Marcus Cavanaugh",
+        "email": "m@mcav.com",
+        "username": "mcav"
+      },
+      "committer": {
+        "name": "Marcus Cavanaugh",
+        "email": "m@mcav.com",
+        "username": "mcav"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/mail_common.js"
+      ]
+    },
+    {
+      "id": "6b1cad2e5756caa48218ef5b527d96c6058de431",
+      "distinct": true,
+      "message": "Merge pull request #20251 from awiss/lang-tmpl\n\nBug 1005760 - [email] on language change, cached card templates not updated. r=jrburke",
+      "timestamp": "2014-06-12T15:56:47-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/6b1cad2e5756caa48218ef5b527d96c6058de431",
+      "author": {
+        "name": "Marcus Cavanaugh",
+        "email": "m@mcav.com",
+        "username": "mcav"
+      },
+      "committer": {
+        "name": "Marcus Cavanaugh",
+        "email": "m@mcav.com",
+        "username": "mcav"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/tmpl.js"
+      ]
+    },
+    {
+      "id": "8c533eaec4ec65298dd31f6d6c89a6f8e7ef8258",
+      "distinct": true,
+      "message": "Merge pull request #20391 from 6a68/bug-1021428-fmd-offline-error\n\nBug 1021428 - Show error when FMD button is clicked without network connection",
+      "timestamp": "2014-06-12T16:44:42-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/8c533eaec4ec65298dd31f6d6c89a6f8e7ef8258",
+      "author": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "committer": {
+        "name": "Jared Hirsch",
+        "email": "ohai@6a68.net",
+        "username": "6a68"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/js/findmydevice.js",
+        "apps/settings/locales/settings.en-US.properties"
+      ]
+    },
+    {
+      "id": "b8d320ec4e71f9315e875861793b0fb72cb95e07",
+      "distinct": true,
+      "message": "Merge pull request #20410 from amitav-anand/backbtn_1016255\n\nBug 1016255 - Video played from Gallery goes back to gallery view on Pre... r=djf",
+      "timestamp": "2014-06-12T17:00:45-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/b8d320ec4e71f9315e875861793b0fb72cb95e07",
+      "author": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "committer": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/gallery/style/gallery.css"
+      ]
+    },
+    {
+      "id": "397ecc006c088da321bc68c1f2f79a2274da7797",
+      "distinct": true,
+      "message": "Bug 837674: add app startup time instrumentation\n\nadd gallery to the list of apps in the startup events performance test",
+      "timestamp": "2014-06-12T17:11:43-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/397ecc006c088da321bc68c1f2f79a2274da7797",
+      "author": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "committer": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/gallery/index.html",
+        "apps/gallery/js/gallery.js",
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "aa125bd4f448c65c94fca678ead21f6e68d239fc",
+      "distinct": true,
+      "message": "Merge pull request #20415 from ian-liu/bluetooth/bug1017506_unpair_devices_dialog_could_be_closed_by_clicking_on_places_other_than_the_buttons\n\nBug 1017506 - [Settings][Bluetooth] The un-pair devices dialog(modal) could be closed by clicking on places other than the buttons, r=arthur",
+      "timestamp": "2014-06-13T10:19:36+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/aa125bd4f448c65c94fca678ead21f6e68d239fc",
+      "author": {
+        "name": "Ian Liu",
+        "email": "iliu@mozilla.com",
+        "username": "ian-liu"
+      },
+      "committer": {
+        "name": "Ian Liu",
+        "email": "iliu@mozilla.com",
+        "username": "ian-liu"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/settings/elements/bluetooth.html",
+        "apps/settings/js/bluetooth.js"
+      ]
+    },
+    {
+      "id": "ea748a0b69f22fdce7317d45ce2a7d03f5d3999e",
+      "distinct": true,
+      "message": "Merge pull request #20461 from justindarc/bug1024753\n\nBug 1024753 - [Camera] Add Camera app to whitelistedUnifiedApps",
+      "timestamp": "2014-06-13T01:16:03-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ea748a0b69f22fdce7317d45ce2a7d03f5d3999e",
+      "author": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "committer": {
+        "name": "Justin D'Arcangelo",
+        "email": "justindarc@gmail.com",
+        "username": "justindarc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "0292de95f1073ad0651f911e0f2bdbc4b492dc79",
+      "distinct": true,
+      "message": "Bug 1023140 - [Email] Missing images",
+      "timestamp": "2014-06-13T09:15:54+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0292de95f1073ad0651f911e0f2bdbc4b492dc79",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "apps/email/style/images/default@2.25x.png",
+        "apps/email/style/images/default@2x.png",
+        "apps/email/style/images/gradient@2.25x.png",
+        "apps/email/style/images/gradient@2x.png",
+        "apps/email/style/images/icons/actionicon_attachments@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient_press@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_removeattachment@2.25x.png",
+        "apps/email/style/images/icons/arrow_down@2.25x.png",
+        "apps/email/style/images/icons/arrow_down_press@2.25x.png",
+        "apps/email/style/images/icons/arrow_up@2.25x.png",
+        "apps/email/style/images/icons/arrow_up_press@2.25x.png",
+        "apps/email/style/images/icons/delete@2.25x.png",
+        "apps/email/style/images/icons/download@2.25x.png",
+        "apps/email/style/images/icons/edit-mode@2.25x.png",
+        "apps/email/style/images/icons/folder_icon@2.25x.png",
+        "apps/email/style/images/icons/folder_icon_press@2.25x.png",
+        "apps/email/style/images/icons/forward@2.25x.png",
+        "apps/email/style/images/icons/icon_default@2.25x.png",
+        "apps/email/style/images/icons/icon_image@2.25x.png",
+        "apps/email/style/images/icons/icon_music@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_pending@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_sending@2.25x.png",
+        "apps/email/style/images/icons/icon_video@2.25x.png",
+        "apps/email/style/images/icons/mark@2.25x.png",
+        "apps/email/style/images/icons/message-list-attachment@2.25x.png",
+        "apps/email/style/images/icons/message-list-star@2.25x.png",
+        "apps/email/style/images/icons/move@2.25x.png",
+        "apps/email/style/images/icons/refresh@2.25x.png",
+        "apps/email/style/images/icons/remove_message@2.25x.png",
+        "apps/email/style/images/icons/reply-all@2.25x.png",
+        "apps/email/style/images/icons/reply@2.25x.png",
+        "apps/email/style/images/icons/search@2.25x.png",
+        "apps/email/style/images/icons/settings_icon@2.25x.png",
+        "apps/email/style/images/icons/settings_icon_press@2.25x.png",
+        "apps/email/style/images/icons/star@2.25x.png",
+        "apps/email/style/images/icons/star_on@2.25x.png",
+        "apps/email/style/images/icons/undo@2.25x.png",
+        "apps/email/style/images/pattern@1.5x.png",
+        "apps/email/style/images/pattern@2.25x.png",
+        "apps/email/style/images/pattern@2x.png",
+        "apps/email/style/images/ui/dark_header@1.5x.png",
+        "apps/email/style/images/ui/dark_header@2.25x.png",
+        "apps/email/style/images/ui/dark_header@2x.png",
+        "apps/email/style/images/ui/separator-large@2.25x.png",
+        "apps/email/style/images/ui/separator@2.25x.png"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/style/images/gradient@1.5x.png",
+        "apps/email/style/images/icons/star_on.png",
+        "apps/email/style/images/icons/star_on@1.5x.png",
+        "apps/email/style/images/icons/star_on@2x.png"
+      ]
+    },
+    {
+      "id": "673f796e5fdc0146c8c20bea763fdaadeb1ab6c1",
+      "distinct": true,
+      "message": "Merge pull request #20289 from pivanov/bug-1023140\n\nBug 1023140 - [Email] Missing images",
+      "timestamp": "2014-06-13T09:16:16+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/673f796e5fdc0146c8c20bea763fdaadeb1ab6c1",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "apps/email/style/images/default@2.25x.png",
+        "apps/email/style/images/default@2x.png",
+        "apps/email/style/images/gradient@2.25x.png",
+        "apps/email/style/images/gradient@2x.png",
+        "apps/email/style/images/icons/actionicon_attachments@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient_press@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_removeattachment@2.25x.png",
+        "apps/email/style/images/icons/arrow_down@2.25x.png",
+        "apps/email/style/images/icons/arrow_down_press@2.25x.png",
+        "apps/email/style/images/icons/arrow_up@2.25x.png",
+        "apps/email/style/images/icons/arrow_up_press@2.25x.png",
+        "apps/email/style/images/icons/delete@2.25x.png",
+        "apps/email/style/images/icons/download@2.25x.png",
+        "apps/email/style/images/icons/edit-mode@2.25x.png",
+        "apps/email/style/images/icons/folder_icon@2.25x.png",
+        "apps/email/style/images/icons/folder_icon_press@2.25x.png",
+        "apps/email/style/images/icons/forward@2.25x.png",
+        "apps/email/style/images/icons/icon_default@2.25x.png",
+        "apps/email/style/images/icons/icon_image@2.25x.png",
+        "apps/email/style/images/icons/icon_music@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_pending@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_sending@2.25x.png",
+        "apps/email/style/images/icons/icon_video@2.25x.png",
+        "apps/email/style/images/icons/mark@2.25x.png",
+        "apps/email/style/images/icons/message-list-attachment@2.25x.png",
+        "apps/email/style/images/icons/message-list-star@2.25x.png",
+        "apps/email/style/images/icons/move@2.25x.png",
+        "apps/email/style/images/icons/refresh@2.25x.png",
+        "apps/email/style/images/icons/remove_message@2.25x.png",
+        "apps/email/style/images/icons/reply-all@2.25x.png",
+        "apps/email/style/images/icons/reply@2.25x.png",
+        "apps/email/style/images/icons/search@2.25x.png",
+        "apps/email/style/images/icons/settings_icon@2.25x.png",
+        "apps/email/style/images/icons/settings_icon_press@2.25x.png",
+        "apps/email/style/images/icons/star@2.25x.png",
+        "apps/email/style/images/icons/star_on@2.25x.png",
+        "apps/email/style/images/icons/undo@2.25x.png",
+        "apps/email/style/images/pattern@1.5x.png",
+        "apps/email/style/images/pattern@2.25x.png",
+        "apps/email/style/images/pattern@2x.png",
+        "apps/email/style/images/ui/dark_header@1.5x.png",
+        "apps/email/style/images/ui/dark_header@2.25x.png",
+        "apps/email/style/images/ui/dark_header@2x.png",
+        "apps/email/style/images/ui/separator-large@2.25x.png",
+        "apps/email/style/images/ui/separator@2.25x.png"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/style/images/gradient@1.5x.png",
+        "apps/email/style/images/icons/star_on.png",
+        "apps/email/style/images/icons/star_on@1.5x.png",
+        "apps/email/style/images/icons/star_on@2x.png"
+      ]
+    },
+    {
+      "id": "c36639c10cc304d5dcccad0ec0e63c867af6319e",
+      "distinct": true,
+      "message": "Bug 1024873 - Init all layouts exposed in Keyboards",
+      "timestamp": "2014-06-13T14:33:59+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c36639c10cc304d5dcccad0ec0e63c867af6319e",
+      "author": {
+        "name": "Timothy Guan-tin Chien",
+        "email": "timdream@gmail.com",
+        "username": "timdream"
+      },
+      "committer": {
+        "name": "Timothy Guan-tin Chien",
+        "email": "timdream@gmail.com",
+        "username": "timdream"
+      },
+      "added": [
+        "apps/keyboard/test/unit/fake-layouts/foo2.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/js/keyboard/layout_manager.js",
+        "apps/keyboard/test/unit/keyboard/layout_manager_test.js"
+      ]
+    },
+    {
+      "id": "0905395339414feb099182c65f5c912a834eed82",
+      "distinct": true,
+      "message": "Merge pull request #20012 from julienw/1015867-max-height-composer\n\nBug 1015867 - [Messages] The editable composer should take more space r=...",
+      "timestamp": "2014-06-13T08:48:50+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0905395339414feb099182c65f5c912a834eed82",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/sms/index.html",
+        "apps/sms/js/thread_ui.js",
+        "apps/sms/style/composer.css"
+      ]
+    },
+    {
+      "id": "598f95dfc3379fb98478e0bbd84db95613985a79",
+      "distinct": true,
+      "message": "Merge pull request #20449 from julienw/1024542-wait-blob-loading-before-answering\n\nBug 1024542 - [Messages] in the desktop-fallback for mozContacts, wait t...",
+      "timestamp": "2014-06-13T09:11:52+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/598f95dfc3379fb98478e0bbd84db95613985a79",
+      "author": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "committer": {
+        "name": "Julien Wajsberg",
+        "email": "felash@gmail.com",
+        "username": "julienw"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/sms/js/desktop-only/contacts.js"
+      ]
+    },
+    {
+      "id": "2ba4556782ed6a4f85e3de91be89bf587666a743",
+      "distinct": true,
+      "message": "Merge pull request #20352 from yurenju/remove-test-agent-bootstrap\n\nBug 1016278 - get /test/unit/_proxy.html and _sandbox in httpd extension r=@timdream",
+      "timestamp": "2014-06-13T15:21:14+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/2ba4556782ed6a4f85e3de91be89bf587666a743",
+      "author": {
+        "name": "Yuren Ju",
+        "email": "yurenju@gmail.com",
+        "username": "yurenju"
+      },
+      "committer": {
+        "name": "Yuren Ju",
+        "email": "yurenju@gmail.com",
+        "username": "yurenju"
+      },
+      "added": [
+
+      ],
+      "removed": [
+        "build/test-agent-bootstrap.js"
+      ],
+      "modified": [
+        "Makefile",
+        "dev_apps/test-agent/common/test/agent.js",
+        "tools/extensions/httpd/bootstrap.js",
+        "tools/extensions/httpd/content/httpd.js"
+      ]
+    },
+    {
+      "id": "65cbbba2d67d14873ac456e9cedec4116d097208",
+      "distinct": true,
+      "message": "Bug 1021548 - Importing second time from SIM card yields to errors in the console and contacts are not updated",
+      "timestamp": "2014-06-13T09:44:54+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/65cbbba2d67d14873ac456e9cedec4116d097208",
+      "author": {
+        "name": "José Manuel Cantera",
+        "email": "jmcanterafonseca@gmail.com",
+        "username": "jmcanterafonseca"
+      },
+      "committer": {
+        "name": "José Manuel Cantera",
+        "email": "jmcanterafonseca@gmail.com",
+        "username": "jmcanterafonseca"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/contacts/test/unit/import/import_sim_contacts_test.js",
+        "shared/js/contacts/import/utilities/import_sim_contacts.js"
+      ]
+    },
+    {
+      "id": "67cf2a337afced0e822e9d32d3374e07aa6c0fd3",
+      "distinct": true,
+      "message": "Bug 1015255 - Don't leak other localizations during buildtime optimizations. r=gandalf",
+      "timestamp": "2014-06-13T10:03:27+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/67cf2a337afced0e822e9d32d3374e07aa6c0fd3",
+      "author": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "committer": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "build/l10n.js",
+        "build/webapp-optimize.js"
+      ]
+    },
+    {
+      "id": "4f4250ecae50d2ddd8accc46f50b1f13035f969f",
+      "distinct": true,
+      "message": "Bug 1020152 - Generate pre_installed_collections.json in build time. r=yurenju",
+      "timestamp": "2014-06-13T10:15:51+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/4f4250ecae50d2ddd8accc46f50b1f13035f969f",
+      "author": {
+        "name": "Albert",
+        "email": "acperez@tid.es",
+        "username": "acperez"
+      },
+      "committer": {
+        "name": "Albert",
+        "email": "acperez@tid.es",
+        "username": "acperez"
+      },
+      "added": [
+        "apps/collection/build/build.js",
+        "build/homescreen-manager.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/verticalhome/build/build.js",
+        "apps/verticalhome/build/default-homescreens.json",
+        "build/test/integration/build.test.js"
+      ]
+    },
+    {
+      "id": "4aaa14888e862e0980642a7c2db71865d3c773d8",
+      "distinct": true,
+      "message": "Merge pull request #20441 from stasm/1015255-bamba\n\nBug 1015255 - Don't leak other localizations during buildtime optimization. r=gandalf",
+      "timestamp": "2014-06-13T10:22:52+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/4aaa14888e862e0980642a7c2db71865d3c773d8",
+      "author": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "committer": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "build/l10n.js",
+        "build/webapp-optimize.js"
+      ]
+    },
+    {
+      "id": "e2b8b19fcab7b3ce14926fbfe74e7b477e58fd21",
+      "distinct": true,
+      "message": "Bug 1019493 - IAC: remove |manifestURLs| from rules. r=gene",
+      "timestamp": "2014-06-13T16:23:46+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/e2b8b19fcab7b3ce14926fbfe74e7b477e58fd21",
+      "author": {
+        "name": "Sean Lin",
+        "email": "selin@selin-pc.(none)"
+      },
+      "committer": {
+        "name": "Sean Lin",
+        "email": "selin@selin-pc.(none)"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "dev_apps/test-iac-publisher/js/test.js"
+      ]
+    },
+    {
+      "id": "4e7393f85b59c643a22c8db1e4a7868cc9d5ad04",
+      "distinct": true,
+      "message": "Merge pull request #20272 from pivanov/bug-1023124\n\nBug 1023124 - [Flame][Keyboard] - Missing images",
+      "timestamp": "2014-06-13T11:34:54+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/4e7393f85b59c643a22c8db1e4a7868cc9d5ad04",
+      "author": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "committer": {
+        "name": "Pavel Ivanov",
+        "email": "pivanov@mozilla.com",
+        "username": "pivanov"
+      },
+      "added": [
+        "apps/keyboard/style/images/divider@2.25x.png",
+        "apps/keyboard/style/images/divider@2x.png",
+        "apps/keyboard/style/images/icon_close@2.25x.png",
+        "apps/keyboard/style/images/icon_close@2x.png",
+        "apps/keyboard/style/images/icon_dismiss@2.25x.png",
+        "apps/keyboard/style/images/icon_dismiss@2x.png",
+        "apps/keyboard/style/images/icon_extend@2.25x.png",
+        "apps/keyboard/style/images/icon_extend@2x.png"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/style/images/divider.png",
+        "apps/keyboard/style/images/divider@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2x.png",
+        "apps/keyboard/style/images/icon_close.png",
+        "apps/keyboard/style/images/icon_close@1.5x.png",
+        "apps/keyboard/style/images/icon_dismiss.png",
+        "apps/keyboard/style/images/icon_dismiss@1.5x.png",
+        "apps/keyboard/style/images/icon_extend.png",
+        "apps/keyboard/style/images/icon_extend@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2x.png",
+        "apps/keyboard/style/keyboard.css"
+      ]
+    },
+    {
+      "id": "c422a1dc892a01698a9318bfd609d6c6d6ff314e",
+      "distinct": true,
+      "message": "Bug 1013739 - [Dolphin][Flame][FFOS 1.4]Long touch the build-in keyboard\nand income a call or alarm,the key touching is invalid.\n - Reset the state when the keyboard is hidden.",
+      "timestamp": "2014-06-13T16:53:55+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c422a1dc892a01698a9318bfd609d6c6d6ff314e",
+      "author": {
+        "name": "Rudy Lu",
+        "email": "me@rudy.lu",
+        "username": "RudyLu"
+      },
+      "committer": {
+        "name": "Rudy Lu",
+        "email": "me@rudy.lu",
+        "username": "RudyLu"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/js/keyboard.js"
+      ]
+    },
+    {
+      "id": "ea85b75149f1944594fa28d176419a7f2850f38c",
+      "distinct": true,
+      "message": "Bug 1024847 - Remove battery.js from the list of lazy loading",
+      "timestamp": "2014-06-13T16:55:48+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ea85b75149f1944594fa28d176419a7f2850f38c",
+      "author": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "committer": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "added": [
+        "apps/settings/js/panels/root/battery_item.js",
+        "apps/settings/test/unit/panels/root/battery_item_test.js"
+      ],
+      "removed": [
+        "apps/settings/js/battery.js"
+      ],
+      "modified": [
+        "apps/settings/elements/root.html",
+        "apps/settings/js/config/require.js",
+        "apps/settings/js/panels/root/panel.js",
+        "apps/settings/js/panels/root/root.js",
+        "apps/settings/style/icons.css",
+        "apps/settings/test/marionette/app/app.js",
+        "apps/settings/test/marionette/app/regions/root.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/settings/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_settings.py"
+      ]
+    },
+    {
+      "id": "b79bfe96a6bbdd089295499792e593d861127306",
+      "distinct": true,
+      "message": "Bug 851963 - [email] iOS mail client attached images may be treated as embedded images that cannot be viewed because there is no referencing text/html part. r=asuth\n\nland https://github.com/mozilla-b2g/gaia-email-libs-and-more/pull/309",
+      "timestamp": "2014-06-13T05:09:51-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/b79bfe96a6bbdd089295499792e593d861127306",
+      "author": {
+        "name": "Andrew Sutherland",
+        "email": "asutherland@asutherland.org",
+        "username": "asutherland"
+      },
+      "committer": {
+        "name": "Andrew Sutherland",
+        "email": "asutherland@asutherland.org",
+        "username": "asutherland"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/ext/mailapi/chewlayer.js",
+        "apps/email/js/ext/mailapi/composite/configurator.js",
+        "apps/email/js/ext/mailapi/pop3/probe.js",
+        "apps/email/js/ext/pop3/pop3.js"
+      ]
+    },
+    {
+      "id": "c1ac1076459c8fd2572c5ac3db55e468980ada68",
+      "distinct": true,
+      "message": "Merge pull request #20488 from asutherland/email-ios-images\n\nBug 851963 - [email] iOS mail client attached images may be treated as embedded images that cannot be viewed because there is no referencing text/html part. r=asuth",
+      "timestamp": "2014-06-13T05:22:22-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c1ac1076459c8fd2572c5ac3db55e468980ada68",
+      "author": {
+        "name": "Andrew Sutherland",
+        "email": "asutherland@asutherland.org",
+        "username": "asutherland"
+      },
+      "committer": {
+        "name": "Andrew Sutherland",
+        "email": "asutherland@asutherland.org",
+        "username": "asutherland"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/email/js/ext/mailapi/chewlayer.js",
+        "apps/email/js/ext/mailapi/composite/configurator.js",
+        "apps/email/js/ext/mailapi/pop3/probe.js",
+        "apps/email/js/ext/pop3/pop3.js"
+      ]
+    },
+    {
+      "id": "d83401b349ce012e5d9d07e8196c07de6e31a28a",
+      "distinct": true,
+      "message": "Merge pull request #20338 from acperez/bug-1020152\n\nBug 1020152 - Generate pre_installed_collections.json in build time. r=yurenju",
+      "timestamp": "2014-06-13T11:28:48+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/d83401b349ce012e5d9d07e8196c07de6e31a28a",
+      "author": {
+        "name": "Albert",
+        "email": "acperez@tid.es",
+        "username": "acperez"
+      },
+      "committer": {
+        "name": "Albert",
+        "email": "acperez@tid.es",
+        "username": "acperez"
+      },
+      "added": [
+        "apps/collection/build/build.js",
+        "build/homescreen-manager.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/verticalhome/build/build.js",
+        "apps/verticalhome/build/default-homescreens.json",
+        "build/test/integration/build.test.js"
+      ]
+    },
+    {
+      "id": "74c33aab2621fcbf9c5d01e1aff0599fb7787390",
+      "distinct": true,
+      "message": "Merge pull request #20479 from timdream/keyboard-layout-two-exposed\n\nBug 1024873 - Init all layouts exposed in Keyboards, r=rudyl",
+      "timestamp": "2014-06-13T17:36:40+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/74c33aab2621fcbf9c5d01e1aff0599fb7787390",
+      "author": {
+        "name": "Timothy Guan-tin Chien",
+        "email": "timdream@gmail.com",
+        "username": "timdream"
+      },
+      "committer": {
+        "name": "Timothy Guan-tin Chien",
+        "email": "timdream@gmail.com",
+        "username": "timdream"
+      },
+      "added": [
+        "apps/keyboard/test/unit/fake-layouts/foo2.js"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/js/keyboard/layout_manager.js",
+        "apps/keyboard/test/unit/keyboard/layout_manager_test.js"
+      ]
+    },
+    {
+      "id": "c50c34df825452389c3d775d171c2c7835ce748d",
+      "distinct": true,
+      "message": "Merge pull request #20349 from stasm/1022445-matching-numbers\n\nBug 1022445 - Matching numbers screen results is not properly localized. r=etienne r=gandalf",
+      "timestamp": "2014-06-13T11:58:04+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c50c34df825452389c3d775d171c2c7835ce748d",
+      "author": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "committer": {
+        "name": "Staś Małolepszy",
+        "email": "stas@mozilla.com",
+        "username": "stasm"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/dialer/js/suggestion_bar.js",
+        "apps/communications/dialer/test/unit/suggestion_bar_test.js",
+        "shared/js/l10n.js"
+      ]
+    },
+    {
+      "id": "f95fa5082acf858835ed5e77e133869cf44cf259",
+      "distinct": true,
+      "message": "Merge pull request #20485 from RudyLu/keyboard/Bug1013739-persistent_alternativeMenu_master\n\nBug 1013739 - [Dolphin][Flame][FFOS 1.4]Long touch the build-in keyboard\r\nr=timdream",
+      "timestamp": "2014-06-13T18:11:57+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/f95fa5082acf858835ed5e77e133869cf44cf259",
+      "author": {
+        "name": "Rudy Lu",
+        "email": "me@rudy.lu",
+        "username": "RudyLu"
+      },
+      "committer": {
+        "name": "Rudy Lu",
+        "email": "me@rudy.lu",
+        "username": "RudyLu"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/keyboard/js/keyboard.js"
+      ]
+    },
+    {
+      "id": "3eba4be4ddc442d5f8da9d8600903979ff776c1a",
+      "distinct": true,
+      "message": "Merge pull request #20480 from crh0716/1024847\n\nBug 1024847 - Remove battery.js from the list of lazy loading r=eragon",
+      "timestamp": "2014-06-13T18:36:39+08:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/3eba4be4ddc442d5f8da9d8600903979ff776c1a",
+      "author": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "committer": {
+        "name": "Arthur Chen",
+        "email": "crh0716@gmail.com",
+        "username": "crh0716"
+      },
+      "added": [
+        "apps/settings/js/panels/root/battery_item.js",
+        "apps/settings/test/unit/panels/root/battery_item_test.js"
+      ],
+      "removed": [
+        "apps/settings/js/battery.js"
+      ],
+      "modified": [
+        "apps/settings/elements/root.html",
+        "apps/settings/js/config/require.js",
+        "apps/settings/js/panels/root/panel.js",
+        "apps/settings/js/panels/root/root.js",
+        "apps/settings/style/icons.css",
+        "apps/settings/test/marionette/app/app.js",
+        "apps/settings/test/marionette/app/regions/root.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/settings/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_settings.py"
+      ]
+    },
+    {
+      "id": "07ab0bb6a6b26f4b0a2aaafb0c725f20464440de",
+      "distinct": true,
+      "message": "Merge pull request #20232 from jmcanterafonseca/fix_import_sim_dups_2\n\nBug 1021548 - Importing second time from SIM card yields to errors in th...",
+      "timestamp": "2014-06-13T13:00:03+02:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/07ab0bb6a6b26f4b0a2aaafb0c725f20464440de",
+      "author": {
+        "name": "Jose M. Cantera",
+        "email": "jmcanterafonseca@gmail.com",
+        "username": "jmcanterafonseca"
+      },
+      "committer": {
+        "name": "Jose M. Cantera",
+        "email": "jmcanterafonseca@gmail.com",
+        "username": "jmcanterafonseca"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/communications/contacts/test/unit/import/import_sim_contacts_test.js",
+        "shared/js/contacts/import/utilities/import_sim_contacts.js"
+      ]
+    },
+    {
+      "id": "40f66e55044dbb6b882d51cd7bd5ee2548aa2269",
+      "distinct": true,
+      "message": "Merge pull request #20154 from benfrancis/1021777\n\nBug 1021777 - Set multiple search engines by default r=daleharvey",
+      "timestamp": "2014-06-13T13:19:44+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/40f66e55044dbb6b882d51cd7bd5ee2548aa2269",
+      "author": {
+        "name": "Ben Francis",
+        "email": "ben@tola.me.uk",
+        "username": "benfrancis"
+      },
+      "committer": {
+        "name": "Ben Francis",
+        "email": "ben@tola.me.uk",
+        "username": "benfrancis"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/browser/build/default.json",
+        "customization/browser.json"
+      ]
+    },
+    {
+      "id": "692f77946303ad68bbec453bf651f1c9a297bb87",
+      "distinct": true,
+      "message": "Bug 1024992 - Change Flame device name from 'msm8610' to 'flame'",
+      "timestamp": "2014-06-13T15:22:25+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/692f77946303ad68bbec453bf651f1c9a297bb87",
+      "author": {
+        "name": "Viorela Ioia",
+        "email": "viorelaioia@gmail.com",
+        "username": "viorelaioia"
+      },
+      "committer": {
+        "name": "Viorela Ioia",
+        "email": "viorelaioia@gmail.com",
+        "username": "viorelaioia"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini"
+      ]
+    },
+    {
+      "id": "4ead57d94eefb7adece9ad6012a773a482c5a504",
+      "distinct": true,
+      "message": "Merge pull request #20497 from viorelaioia/bug_1024992\n\nBug 1024992 - Change Flame device name from 'msm8610' to 'flame'",
+      "timestamp": "2014-06-13T13:28:13+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/4ead57d94eefb7adece9ad6012a773a482c5a504",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini"
+      ]
+    },
+    {
+      "id": "9f6e945b3ba88afb21e0213278fe300ded4e650e",
+      "distinct": true,
+      "message": "Merge pull request #20482 from seanyhlin/bug-1019493\n\nBug 1019493 - IAC: remove |manifestURLs| from rules. Fix correspondent Gaia UI testing.",
+      "timestamp": "2014-06-13T05:41:51-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/9f6e945b3ba88afb21e0213278fe300ded4e650e",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "dev_apps/test-iac-publisher/js/test.js"
+      ]
+    },
+    {
+      "id": "d4d31ceea43a72ac318347d5b22a5e31e5e750bb",
+      "distinct": true,
+      "message": "Merge pull request #20422 from flodolo/bug1022781\n\nBug 1022781 - Remove unnecessary plural form in Conference Call header",
+      "timestamp": "2014-06-13T05:54:07-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/d4d31ceea43a72ac318347d5b22a5e31e5e750bb",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/callscreen/js/conference_group_handler.js",
+        "apps/callscreen/test/unit/conference_group_handler_test.js",
+        "apps/communications/dialer/locales/dialer.en-US.properties"
+      ]
+    },
+    {
+      "id": "163c6aec16e666b415409b4a1862121cf758b5eb",
+      "distinct": true,
+      "message": "Revert \"Merge pull request #20256 from DouglasSherk/1019546-dialer-contacts-overlap\"\n\nThis reverts commit c0b942c20e9b9d887401ffc19eac8b3d8c7dd30f, reversing\nchanges made to 641f7d1ac37d4321f69ccb0db4ac3aedcaddadfd.",
+      "timestamp": "2014-06-13T08:58:40-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/163c6aec16e666b415409b4a1862121cf758b5eb",
+      "author": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "committer": {
+        "name": "Ryan VanderMeulen",
+        "email": "rvandermeulen@mozilla.com",
+        "username": "rvandermeulen"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/style/dialer/keypad.css"
+      ]
+    },
+    {
+      "id": "6405d9ba1eedf1e28f690ae9cc511180d796e02f",
+      "distinct": true,
+      "message": "Merge pull request #20458 from ahal/gu-determinism\n\nBug 1023198 - Sort Gu tests after os.walk for determinism, jgriffin",
+      "timestamp": "2014-06-13T09:03:28-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/6405d9ba1eedf1e28f690ae9cc511180d796e02f",
+      "author": {
+        "name": "Andrew Halberstadt",
+        "email": "halbersa@gmail.com",
+        "username": "ahal"
+      },
+      "committer": {
+        "name": "Andrew Halberstadt",
+        "email": "halbersa@gmail.com",
+        "username": "ahal"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-unit-tests/gaia_unit_test/main.py"
+      ]
+    },
+    {
+      "id": "8a774e885ba67ec97ef413651ac7facd3b9e7dfd",
+      "distinct": true,
+      "message": "Merge pull request #20444 from zacc/bug_1024516\n\nBug 1024516 - Update test_privileged_app_audio_prompt and video_prompt t...",
+      "timestamp": "2014-06-13T16:14:34+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/8a774e885ba67ec97ef413651ac7facd3b9e7dfd",
+      "author": {
+        "name": "chirarobert",
+        "email": "robert.chira@softvision.ro",
+        "username": "chirarobert"
+      },
+      "committer": {
+        "name": "chirarobert",
+        "email": "robert.chira@softvision.ro",
+        "username": "chirarobert"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_audio_capture_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_video_capture_prompt.py"
+      ]
+    },
+    {
+      "id": "0bbeecfc239f0c3ab027be631b187f2dd9ca80be",
+      "distinct": true,
+      "message": "Merge pull request #20443 from zacc/bug_1021732\n\nBug 1021732 - Update test_privileged_app_contacts_prompt to match new pr...",
+      "timestamp": "2014-06-13T16:16:40+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0bbeecfc239f0c3ab027be631b187f2dd9ca80be",
+      "author": {
+        "name": "chirarobert",
+        "email": "robert.chira@softvision.ro",
+        "username": "chirarobert"
+      },
+      "committer": {
+        "name": "chirarobert",
+        "email": "robert.chira@softvision.ro",
+        "username": "chirarobert"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_contacts_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "031d872f6fcab8038c45941803054af062cd93ba",
+      "distinct": true,
+      "message": "Merge pull request #20453 from yzen/bug-1024652\n\nBug 1024652 - commented out part of the test_a11y_phone_call_log test th...",
+      "timestamp": "2014-06-13T17:16:36+03:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/031d872f6fcab8038c45941803054af062cd93ba",
+      "author": {
+        "name": "viorelaioia",
+        "email": "viorelaioia@gmail.com",
+        "username": "viorelaioia"
+      },
+      "committer": {
+        "name": "viorelaioia",
+        "email": "viorelaioia@gmail.com",
+        "username": "viorelaioia"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/phone/test_a11y_phone_call_log.py"
+      ]
+    },
+    {
+      "id": "ac161f044999a36d7e4b1587953c8b7d6e5c33b7",
+      "distinct": true,
+      "message": "Merge remote-tracking branch 'davehunt/bug_984340'\n\nConflicts:\n\ttests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini",
+      "timestamp": "2014-06-13T16:25:14+01:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ac161f044999a36d7e4b1587953c8b7d6e5c33b7",
+      "author": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "committer": {
+        "name": "Zac",
+        "email": "zcampbell@mozilla.com",
+        "username": "zacc"
+      },
+      "added": [
+        "tests/python/gaia-ui-tests/gaiatest/file_manager.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_file_manager.py"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/python/gaia-ui-tests/README.md",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_camera.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_video_playback.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_add_photo_to_contact.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_import_contacts_from_sdcard.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_crop_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_delete_image.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_edit_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_view.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/music/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/test_settings_media_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_3gp_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_mp4_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogg_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogv_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_webm_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_cleanup_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_resources.py"
+      ]
+    },
+    {
+      "id": "c44e1c7136f67893c4bfe912b21288250ca36145",
+      "distinct": true,
+      "message": "Bug 1022976 - [Collection] Intermittent adding records does not work r=amirn",
+      "timestamp": "2014-06-13T08:44:15-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/c44e1c7136f67893c4bfe912b21288250ca36145",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+        "apps/collection/test/unit/collections_database_test.js",
+        "shared/js/uuid.js"
+      ],
+      "removed": [
+        "apps/calendar/js/ext/uuid.js"
+      ],
+      "modified": [
+        ".jshintignore",
+        "apps/calendar/index.html",
+        "apps/calendar/js/caldav_worker.js",
+        "apps/calendar/js/load_config.js",
+        "apps/calendar/test/unit/db_test.js",
+        "apps/calendar/test/unit/provider/caldav_pull_events_test.js",
+        "apps/calendar/test/unit/service/caldav_test.js",
+        "apps/collection/create.html",
+        "apps/collection/setup.html",
+        "apps/collection/testpage/testpage.html",
+        "shared/js/collections_database.js"
+      ]
+    },
+    {
+      "id": "90104fe4916c83a32e7d005e567c56fa0efda98c",
+      "distinct": true,
+      "message": "Bug 1019289 - Update FTU tutorial videos. r=me",
+      "timestamp": "2014-06-13T09:34:39-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/90104fe4916c83a32e7d005e567c56fa0efda98c",
+      "author": {
+        "name": "Sam Foster",
+        "email": "sfoster@mozilla.com",
+        "username": "sfoster"
+      },
+      "committer": {
+        "name": "Sam Foster",
+        "email": "sfoster@mozilla.com",
+        "username": "sfoster"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/ftu/style/images/tutorial/Notifications.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@2x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@2x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@2x.mp4"
+      ]
+    },
+    {
+      "id": "fe4842aa5af8bdb432c10ad10b41d2c97a2894bc",
+      "distinct": true,
+      "message": "Merge pull request #20158 from yzen/bug-1018214\n\nBug 1018214, Bug 1021710 - utility tray gaia-ui tests with some tweaks to hopefully avoid intermittents.",
+      "timestamp": "2014-06-13T12:52:34-04:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/fe4842aa5af8bdb432c10ad10b41d2c97a2894bc",
+      "author": {
+        "name": "Yura Zenevich",
+        "email": "yura.zenevich@gmail.com",
+        "username": "yzen"
+      },
+      "committer": {
+        "name": "Yura Zenevich",
+        "email": "yura.zenevich@gmail.com",
+        "username": "yzen"
+      },
+      "added": [
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/status_bar.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_notifications.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_settings.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_visibility.py"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "tests/atoms/accessibility.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/utility_tray.py",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "b964ea0bfe6948da16bdd1b5db7ec93593235fa1",
+      "distinct": true,
+      "message": "Merge pull request #20390 from davidflanagan/bug837674\n\nBug 837674: add app startup time instrumentation r=Eli",
+      "timestamp": "2014-06-13T10:19:14-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/b964ea0bfe6948da16bdd1b5db7ec93593235fa1",
+      "author": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "committer": {
+        "name": "David Flanagan",
+        "email": "dflanagan@mozilla.com",
+        "username": "davidflanagan"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/gallery/index.html",
+        "apps/gallery/js/gallery.js",
+        "tests/performance/startup_events_test.js"
+      ]
+    },
+    {
+      "id": "d0fc0505d4257b80a49acd8ffa7155d6c7023632",
+      "distinct": true,
+      "message": "Merge pull request #20451 from KevinGrandon/bug_1022976_collection_multi_create\n\nBug 1022976 - [Collection] Intermittent adding records does not work",
+      "timestamp": "2014-06-13T10:23:28-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/d0fc0505d4257b80a49acd8ffa7155d6c7023632",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+        "apps/collection/test/unit/collections_database_test.js",
+        "shared/js/uuid.js"
+      ],
+      "removed": [
+        "apps/calendar/js/ext/uuid.js"
+      ],
+      "modified": [
+        ".jshintignore",
+        "apps/calendar/index.html",
+        "apps/calendar/js/caldav_worker.js",
+        "apps/calendar/js/load_config.js",
+        "apps/calendar/test/unit/db_test.js",
+        "apps/calendar/test/unit/provider/caldav_pull_events_test.js",
+        "apps/calendar/test/unit/service/caldav_test.js",
+        "apps/collection/create.html",
+        "apps/collection/setup.html",
+        "apps/collection/testpage/testpage.html",
+        "shared/js/collections_database.js"
+      ]
+    },
+    {
+      "id": "ffd184a6a18ec7ccca780bee2f8f1b6eb3476f2d",
+      "distinct": true,
+      "message": "Bug 1024745 - [Vertical Homescreen] Marketplace app shows the default icon if the download has been paused r=lightsofapollo",
+      "timestamp": "2014-06-13T10:28:10-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/ffd184a6a18ec7ccca780bee2f8f1b6eb3476f2d",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/verticalhome/test/marionette/app_retry_icon_fetch.js",
+        "apps/verticalhome/test/marionette/lib/home2.js",
+        "shared/elements/gaia_grid/js/items/icon.js"
+      ]
+    },
+    {
+      "id": "537032a53cb4824ff237756bbdfcea8f5cd276ab",
+      "distinct": true,
+      "message": "Merge pull request #20462 from KevinGrandon/bug_1024745_vertical_resume_download_icon\n\nBug 1024745 - [Vertical Homescreen] Marketplace app shows the default icon if the download has been paused",
+      "timestamp": "2014-06-13T10:28:27-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/537032a53cb4824ff237756bbdfcea8f5cd276ab",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/verticalhome/test/marionette/app_retry_icon_fetch.js",
+        "apps/verticalhome/test/marionette/lib/home2.js",
+        "shared/elements/gaia_grid/js/items/icon.js"
+      ]
+    },
+    {
+      "id": "d20c8ee7100891d6349d26f4e87fafcbd6254518",
+      "distinct": true,
+      "message": "Bug 1024387 - [Collection App] Basic background support for Collection icons r=ranbena",
+      "timestamp": "2014-06-13T10:41:17-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/d20c8ee7100891d6349d26f4e87fafcbd6254518",
+      "author": {
+        "name": "Amir Nissim",
+        "email": "amirnissim@gmail.com",
+        "username": "amirnissim"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/collection/js/create_collection.js",
+        "apps/collection/js/objects.js",
+        "apps/collection/js/view_apps.js",
+        "apps/collection/js/view_bg.js",
+        "apps/collection/js/view_collection.js",
+        "apps/collection/style/css/base.css",
+        "apps/collection/style/css/view.css",
+        "shared/js/everythingme/api.js"
+      ]
+    },
+    {
+      "id": "7b9c362e91d1a9c7e2fe0c0b03067f88499bdd93",
+      "distinct": true,
+      "message": "Bug 1023011 - (vertical-homescreen) Implement pressed state visual for App Icons r=lightsofapollo",
+      "timestamp": "2014-06-13T11:20:53-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/7b9c362e91d1a9c7e2fe0c0b03067f88499bdd93",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/js/grid_view.js",
+        "shared/elements/gaia_grid/style.css"
+      ]
+    },
+    {
+      "id": "9f0b56fefb4c17cf9cf7da1ed4665255272160a0",
+      "distinct": true,
+      "message": "Merge pull request #20388 from KevinGrandon/bug_1023011_vertical_pressed_state\n\nBug 1023011 - (vertical-homescreen) Implement pressed state visual for App Icons",
+      "timestamp": "2014-06-13T11:22:22-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/9f0b56fefb4c17cf9cf7da1ed4665255272160a0",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "shared/elements/gaia_grid/js/grid_view.js",
+        "shared/elements/gaia_grid/style.css"
+      ]
+    },
+    {
+      "id": "526d768a21e8d6179e151e3ba4a27f30c55798e2",
+      "distinct": true,
+      "message": "Merge pull request #20506 from sfoster/bug-1019289-videos\n\nBug 1019289 - Update FTU tutorial videos. r=me",
+      "timestamp": "2014-06-13T11:42:57-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/526d768a21e8d6179e151e3ba4a27f30c55798e2",
+      "author": {
+        "name": "Sam Foster",
+        "email": "sam@sam-i-am.com",
+        "username": "sfoster"
+      },
+      "committer": {
+        "name": "Sam Foster",
+        "email": "sam@sam-i-am.com",
+        "username": "sfoster"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "apps/ftu/style/images/tutorial/Notifications.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@2x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@2x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@2x.mp4"
+      ]
+    },
+    {
+      "id": "259f517689d26e3b6099a97be5696453e27ac2ed",
+      "distinct": true,
+      "message": "Revert \"Merge pull request #20158 from yzen/bug-1018214\"\n\nThis reverts commit fe4842aa5af8bdb432c10ad10b41d2c97a2894bc, reversing\nchanges made to ac161f044999a36d7e4b1587953c8b7d6e5c33b7.",
+      "timestamp": "2014-06-13T12:21:16-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/259f517689d26e3b6099a97be5696453e27ac2ed",
+      "author": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "committer": {
+        "name": "Kevin Grandon",
+        "email": "kevingrandon@yahoo.com",
+        "username": "KevinGrandon"
+      },
+      "added": [
+
+      ],
+      "removed": [
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/status_bar.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_notifications.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_settings.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/test_a11y_utility_tray_visibility.py"
+      ],
+      "modified": [
+        "tests/atoms/accessibility.js",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/apps/system/regions/utility_tray.py",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini"
+      ]
+    },
+    {
+      "id": "cd81fe3a2609986952fac98b3ca19dee80ebd7ff",
+      "distinct": true,
+      "message": "Testing!",
+      "timestamp": "2014-06-13T13:51:48-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/cd81fe3a2609986952fac98b3ca19dee80ebd7ff",
+      "author": {
+        "name": "John Ford",
         "email": "john@johnford.info",
-        "name": "jhford"
+        "username": "jhford"
+      },
+      "committer": {
+        "name": "John Ford",
+        "email": "john@johnford.info",
+        "username": "jhford"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "README.md"
+      ]
     },
-    "ref": "refs/heads/new2",
-    "repository": {
-        "created_at": 1396991044,
-        "description": "Testing github hooks",
-        "fork": false,
-        "forks": 0,
-        "has_downloads": true,
-        "has_issues": true,
-        "has_wiki": true,
-        "id": 18574917,
-        "master_branch": "master",
-        "name": "test-repo",
-        "open_issues": 0,
-        "owner": {
-            "email": "john@johnford.info",
-            "name": "jhford"
-        },
-        "private": false,
-        "pushed_at": 1396991680,
-        "size": 0,
-        "stargazers": 0,
-        "url": "https://github.com/jhford/test-repo",
-        "watchers": 0
+    {
+      "id": "0dd22e62b96d59fb403f1a8282bc09fa25a8f182",
+      "distinct": true,
+      "message": "Merge pull request #2 from jhford/master\n\nTesting pull request",
+      "timestamp": "2014-06-20T20:51:05-07:00",
+      "url": "https://github.com/try-server-hook/gaia/commit/0dd22e62b96d59fb403f1a8282bc09fa25a8f182",
+      "author": {
+        "name": "Gaia Try Hook",
+        "email": "try-server-hook@users.noreply.github.com",
+        "username": "try-server-hook"
+      },
+      "committer": {
+        "name": "Gaia Try Hook",
+        "email": "try-server-hook@users.noreply.github.com",
+        "username": "try-server-hook"
+      },
+      "added": [
+        "apps/collection/build/build.js",
+        "apps/collection/js/view_apps.js",
+        "apps/collection/js/view_bg.js",
+        "apps/collection/test/unit/collections_database_test.js",
+        "apps/communications/contacts/test/unit/mock_contacts_adapt_and_merge.js",
+        "apps/email/style/images/default@2.25x.png",
+        "apps/email/style/images/default@2x.png",
+        "apps/email/style/images/gradient@2.25x.png",
+        "apps/email/style/images/gradient@2x.png",
+        "apps/email/style/images/icons/actionicon_attachments@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_addrecipient_press@2.25x.png",
+        "apps/email/style/images/icons/actionicon_email_removeattachment@2.25x.png",
+        "apps/email/style/images/icons/arrow_down@2.25x.png",
+        "apps/email/style/images/icons/arrow_down_press@2.25x.png",
+        "apps/email/style/images/icons/arrow_up@2.25x.png",
+        "apps/email/style/images/icons/arrow_up_press@2.25x.png",
+        "apps/email/style/images/icons/delete@2.25x.png",
+        "apps/email/style/images/icons/download@2.25x.png",
+        "apps/email/style/images/icons/edit-mode@2.25x.png",
+        "apps/email/style/images/icons/folder_icon@2.25x.png",
+        "apps/email/style/images/icons/folder_icon_press@2.25x.png",
+        "apps/email/style/images/icons/forward@2.25x.png",
+        "apps/email/style/images/icons/icon_default@2.25x.png",
+        "apps/email/style/images/icons/icon_image@2.25x.png",
+        "apps/email/style/images/icons/icon_music@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_pending@2.25x.png",
+        "apps/email/style/images/icons/icon_outbox_sending@2.25x.png",
+        "apps/email/style/images/icons/icon_video@2.25x.png",
+        "apps/email/style/images/icons/mark@2.25x.png",
+        "apps/email/style/images/icons/message-list-attachment@2.25x.png",
+        "apps/email/style/images/icons/message-list-star@2.25x.png",
+        "apps/email/style/images/icons/move@2.25x.png",
+        "apps/email/style/images/icons/refresh@2.25x.png",
+        "apps/email/style/images/icons/remove_message@2.25x.png",
+        "apps/email/style/images/icons/reply-all@2.25x.png",
+        "apps/email/style/images/icons/reply@2.25x.png",
+        "apps/email/style/images/icons/search@2.25x.png",
+        "apps/email/style/images/icons/settings_icon@2.25x.png",
+        "apps/email/style/images/icons/settings_icon_press@2.25x.png",
+        "apps/email/style/images/icons/star@2.25x.png",
+        "apps/email/style/images/icons/star_on@2.25x.png",
+        "apps/email/style/images/icons/undo@2.25x.png",
+        "apps/email/style/images/pattern@1.5x.png",
+        "apps/email/style/images/pattern@2.25x.png",
+        "apps/email/style/images/pattern@2x.png",
+        "apps/email/style/images/ui/dark_header@1.5x.png",
+        "apps/email/style/images/ui/dark_header@2.25x.png",
+        "apps/email/style/images/ui/dark_header@2x.png",
+        "apps/email/style/images/ui/separator-large@2.25x.png",
+        "apps/email/style/images/ui/separator@2.25x.png",
+        "apps/keyboard/style/images/divider@2.25x.png",
+        "apps/keyboard/style/images/divider@2x.png",
+        "apps/keyboard/style/images/icon_close@2.25x.png",
+        "apps/keyboard/style/images/icon_close@2x.png",
+        "apps/keyboard/style/images/icon_dismiss@2.25x.png",
+        "apps/keyboard/style/images/icon_dismiss@2x.png",
+        "apps/keyboard/style/images/icon_extend@2.25x.png",
+        "apps/keyboard/style/images/icon_extend@2x.png",
+        "apps/keyboard/test/unit/fake-layouts/foo2.js",
+        "apps/settings/js/display.js",
+        "apps/settings/js/panels/root/battery_item.js",
+        "apps/settings/js/wallpaper.js",
+        "apps/settings/test/unit/panels/root/battery_item_test.js",
+        "apps/verticalhome/locales/homescreen.fr.properties",
+        "build/homescreen-manager.js",
+        "shared/elements/gaia_header/images/icons/add@2x.png",
+        "shared/elements/gaia_header/images/icons/compose@2x.png",
+        "shared/elements/gaia_header/images/icons/down@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down@2.25x.png",
+        "shared/elements/gaia_header/images/icons/down@2x.png",
+        "shared/elements/gaia_header/images/icons/edit@2x.png",
+        "shared/elements/gaia_header/images/icons/options@2x.png",
+        "shared/elements/gaia_header/images/icons/reply.png@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply@2x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2.25x.png",
+        "shared/elements/gaia_header/images/icons/reply_all@2x.png",
+        "shared/elements/gaia_header/images/icons/send@2x.png",
+        "shared/elements/gaia_header/images/icons/up@1.5x.png",
+        "shared/elements/gaia_header/images/icons/up@2.25x.png",
+        "shared/elements/gaia_header/images/icons/up@2x.png",
+        "shared/elements/gaia_header/images/icons/user@2x.png",
+        "shared/js/uuid.js",
+        "shared/style/headers/images/icons/add@2x.png",
+        "shared/style/headers/images/icons/down@2.25x.png",
+        "shared/style/headers/images/icons/edit@2x.png",
+        "shared/style/headers/images/icons/options@2x.png",
+        "shared/style/headers/images/icons/reply.png@2.25x.png",
+        "shared/style/headers/images/icons/reply_all@2.25x.png",
+        "shared/style/headers/images/icons/up@2.25x.png",
+        "shared/style/headers/images/icons/user@2x.png",
+        "tests/python/gaia-ui-tests/gaiatest/file_manager.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_file_manager.py"
+      ],
+      "removed": [
+        "apps/settings/js/battery.js",
+        "apps/settings/js/panels/display/display.js",
+        "apps/settings/js/panels/display/panel.js",
+        "apps/settings/js/panels/display/wallpaper.js",
+        "apps/settings/test/unit/panels/display/display_test.js",
+        "apps/settings/test/unit/panels/display/wallpaper_test.js",
+        "build/test-agent-bootstrap.js",
+        "shared/elements/gaia_header/images/icons/clear.png",
+        "shared/elements/gaia_header/images/icons/clear@1.5x.png",
+        "apps/calendar/js/ext/uuid.js",
+        "shared/style/headers/images/icons/clear.png",
+        "shared/style/headers/images/icons/clear@1.5x.png",
+        "shared/test/unit/mocks/mock_omadrm_fl.js"
+      ],
+      "modified": [
+        ".jshintignore",
+        "Makefile",
+        "README.md",
+        "apps/browser/build/default.json",
+        "apps/calendar/index.html",
+        "apps/calendar/js/caldav_worker.js",
+        "apps/calendar/js/load_config.js",
+        "apps/calendar/test/unit/db_test.js",
+        "apps/calendar/test/unit/provider/caldav_pull_events_test.js",
+        "apps/calendar/test/unit/service/caldav_test.js",
+        "apps/callscreen/js/conference_group_handler.js",
+        "apps/callscreen/test/unit/conference_group_handler_test.js",
+        "apps/camera/js/app.js",
+        "apps/collection/create.html",
+        "apps/collection/js/create_collection.js",
+        "apps/collection/js/objects.js",
+        "apps/collection/js/view_collection.js",
+        "apps/collection/locales/collection.en-US.properties",
+        "apps/collection/setup.html",
+        "apps/collection/style/css/base.css",
+        "apps/collection/style/css/view.css",
+        "apps/collection/test/unit/contextmenu_test.js",
+        "apps/collection/test/unit/view_collection_test.js",
+        "apps/collection/testpage/testpage.html",
+        "apps/collection/view.html",
+        "apps/communications/contacts/js/activities.js",
+        "apps/communications/contacts/test/unit/import/import_sim_contacts_test.js",
+        "apps/communications/contacts/test/unit/vcard_parsing_test.js",
+        "apps/communications/dialer/js/suggestion_bar.js",
+        "apps/communications/dialer/locales/dialer.en-US.properties",
+        "apps/communications/dialer/test/unit/suggestion_bar_test.js",
+        "apps/email/js/ext/mailapi/activesync/protocollayer.js",
+        "apps/email/js/ext/mailapi/chewlayer.js",
+        "apps/email/js/ext/mailapi/composite/configurator.js",
+        "apps/email/js/ext/mailapi/pop3/probe.js",
+        "apps/email/js/ext/pop3/pop3.js",
+        "apps/email/js/mail_common.js",
+        "apps/email/js/tmpl.js",
+        "apps/email/style/images/gradient@1.5x.png",
+        "apps/email/style/images/icons/star_on.png",
+        "apps/email/style/images/icons/star_on@1.5x.png",
+        "apps/email/style/images/icons/star_on@2x.png",
+        "apps/fm/js/fm.js",
+        "apps/ftu/style/images/tutorial/Notifications.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Notifications@2x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/Sheets@2x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@1.5x.mp4",
+        "apps/ftu/style/images/tutorial/VerticalScroll@2x.mp4",
+        "apps/gallery/index.html",
+        "apps/gallery/js/gallery.js",
+        "apps/gallery/style/gallery.css",
+        "apps/keyboard/js/keyboard.js",
+        "apps/keyboard/js/keyboard/layout_manager.js",
+        "apps/keyboard/style/images/divider.png",
+        "apps/keyboard/style/images/divider@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_alternate_keyboard@2x.png",
+        "apps/keyboard/style/images/icon_close.png",
+        "apps/keyboard/style/images/icon_close@1.5x.png",
+        "apps/keyboard/style/images/icon_dismiss.png",
+        "apps/keyboard/style/images/icon_dismiss@1.5x.png",
+        "apps/keyboard/style/images/icon_extend.png",
+        "apps/keyboard/style/images/icon_extend@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@1.5x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2.25x.png",
+        "apps/keyboard/style/images/icon_hide_keyboard@2x.png",
+        "apps/keyboard/style/keyboard.css",
+        "apps/keyboard/test/unit/keyboard/layout_manager_test.js",
+        "apps/search/index.html",
+        "apps/search/test/unit/providers/places_test.js",
+        "apps/settings/README.md",
+        "apps/settings/build/settings.build.jslike",
+        "apps/settings/elements/bluetooth.html",
+        "apps/settings/elements/developer_hud.html",
+        "apps/settings/elements/display.html",
+        "apps/settings/elements/firefox_accounts.html",
+        "apps/settings/elements/root.html",
+        "apps/settings/index.html",
+        "apps/settings/js/bluetooth.js",
+        "apps/settings/js/config/require.js",
+        "apps/settings/js/findmydevice.js",
+        "apps/settings/js/firefox_accounts/panel.js",
+        "apps/settings/js/modules/mvvm/observable.js",
+        "apps/settings/js/panels/root/panel.js",
+        "apps/settings/js/panels/root/root.js",
+        "apps/settings/js/utils.js",
+        "apps/settings/locales/settings.en-US.properties",
+        "apps/settings/style/icons.css",
+        "apps/settings/style/lists.css",
+        "apps/settings/style/settings.css",
+        "apps/settings/style/settings_large.css",
+        "apps/settings/test/marionette/app/app.js",
+        "apps/settings/test/marionette/app/regions/display.js",
+        "apps/settings/test/marionette/app/regions/root.js",
+        "apps/settings/test/marionette/tests/display_settings_test.js",
+        "apps/settings/test/unit/firefox_accounts_panel_test.js",
+        "apps/settings/test/unit/mock_fx_accounts_iac_helper.js",
+        "apps/settings/test/unit/setup.js",
+        "apps/sms/index.html",
+        "apps/sms/js/desktop-only/contacts.js",
+        "apps/sms/js/thread_ui.js",
+        "apps/sms/style/composer.css",
+        "apps/system/js/devtools/developer_hud.js",
+        "apps/system/js/fxa_client.js",
+        "apps/system/js/fxa_manager.js",
+        "apps/system/test/unit/developer_hud_test.js",
+        "apps/system/test/unit/fxa_client_test.js",
+        "apps/system/test/unit/fxa_iac_client_test.js",
+        "apps/system/test/unit/fxa_manager_test.js",
+        "apps/system/test/unit/mock_fxa_client.js",
+        "apps/verticalhome/build/build.js",
+        "apps/verticalhome/build/default-homescreens.json",
+        "apps/verticalhome/index.html",
+        "apps/verticalhome/locales/locales.ini",
+        "apps/verticalhome/test/marionette/app_retry_icon_fetch.js",
+        "apps/verticalhome/test/marionette/lib/home2.js",
+        "apps/verticalhome/test/marionette/localization_test.js",
+        "apps/video/index.html",
+        "apps/video/locales/video.en-US.properties",
+        "build/config/common-settings.json",
+        "build/jshint/xfail.list",
+        "build/l10n.js",
+        "build/test/integration/build.test.js",
+        "build/webapp-optimize.js",
+        "customization/browser.json",
+        "dev_apps/test-agent/common/test/agent.js",
+        "dev_apps/test-iac-publisher/js/test.js",
+        "shared/elements/gaia_grid/js/grid_view.js",
+        "shared/elements/gaia_grid/js/items/icon.js",
+        "shared/elements/gaia_grid/style.css",
+        "shared/elements/gaia_header/images/icons/add.png",
+        "shared/elements/gaia_header/images/icons/back.png",
+        "shared/elements/gaia_header/images/icons/back@1.5x.png",
+        "shared/elements/gaia_header/images/icons/back@2.25x.png",
+        "shared/elements/gaia_header/images/icons/back@2x.png",
+        "shared/elements/gaia_header/images/icons/close@2.25x.png",
+        "shared/elements/gaia_header/images/icons/compose.png",
+        "shared/elements/gaia_header/images/icons/compose@1.5x.png",
+        "shared/elements/gaia_header/images/icons/down.png",
+        "shared/elements/gaia_header/images/icons/edit.png",
+        "shared/elements/gaia_header/images/icons/edit@1.5x.png",
+        "shared/elements/gaia_header/images/icons/menu@2.25x.png",
+        "shared/elements/gaia_header/images/icons/menu@2x.png",
+        "shared/elements/gaia_header/images/icons/options.png",
+        "shared/elements/gaia_header/images/icons/options@1.5x.png",
+        "shared/elements/gaia_header/images/icons/reply_all.png",
+        "shared/elements/gaia_header/images/icons/up.png",
+        "shared/elements/gaia_header/images/icons/user@1.5x.png",
+        "shared/elements/gaia_menu/script.js",
+        "shared/js/collections_database.js",
+        "shared/js/contacts/import/utilities/import_sim_contacts.js",
+        "shared/js/contacts/import/utilities/vcard_parser.js",
+        "shared/js/everythingme/api.js",
+        "shared/js/everythingme/device.js",
+        "shared/js/fb/fb_reader_utils.js",
+        "shared/js/fxa_iac_client.js",
+        "shared/js/l10n.js",
+        "shared/js/omadrm/fl.js",
+        "shared/js/settings_url.js",
+        "shared/style/dialer/keypad.css",
+        "shared/style/headers/images/icons/add.png",
+        "shared/style/headers/images/icons/back.png",
+        "shared/style/headers/images/icons/back@1.5x.png",
+        "shared/style/headers/images/icons/back@2.25x.png",
+        "shared/style/headers/images/icons/back@2x.png",
+        "shared/style/headers/images/icons/close@2.25x.png",
+        "shared/style/headers/images/icons/compose.png",
+        "shared/style/headers/images/icons/compose@1.5x.png",
+        "shared/style/headers/images/icons/down.png",
+        "shared/style/headers/images/icons/edit.png",
+        "shared/style/headers/images/icons/edit@1.5x.png",
+        "shared/style/headers/images/icons/menu@2.25x.png",
+        "shared/style/headers/images/icons/menu@2x.png",
+        "shared/style/headers/images/icons/options.png",
+        "shared/style/headers/images/icons/options@1.5x.png",
+        "shared/style/headers/images/icons/reply_all.png",
+        "shared/style/headers/images/icons/up.png",
+        "shared/style/headers/images/icons/user@1.5x.png",
+        "shared/test/unit/mocks/mock_moz_activity.js",
+        "shared/test/unit/mocks/mock_settings_url.js",
+        "tests/performance/startup_events_test.js",
+        "tests/python/gaia-ui-tests/README.md",
+        "tests/python/gaia-ui-tests/gaiatest/apps/contacts/regions/settings_form.py",
+        "tests/python/gaia-ui-tests/gaiatest/apps/settings/app.py",
+        "tests/python/gaia-ui-tests/gaiatest/apps/settings/regions/display.py",
+        "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/phone/test_a11y_phone_call_log.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_camera.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_settings.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_video_playback.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_add_photo_to_contact.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_import_contacts_from_sdcard.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_crop_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_delete_image.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_edit_photo.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_flick.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_view.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/music/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/test_settings_media_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_audio_capture_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_contacts_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_video_capture_prompt.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_3gp_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_mp4_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogg_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogv_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_webm_video.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/manifest.ini",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_cleanup_storage.py",
+        "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_resources.py",
+        "tests/python/gaia-ui-tests/requirements.txt",
+        "tests/python/gaia-unit-tests/gaia_unit_test/main.py",
+        "tools/extensions/httpd/bootstrap.js",
+        "tools/extensions/httpd/content/httpd.js"
+      ]
     }
+  ],
+  "head_commit": {
+    "id": "0dd22e62b96d59fb403f1a8282bc09fa25a8f182",
+    "distinct": true,
+    "message": "Merge pull request #2 from jhford/master\n\nTesting pull request",
+    "timestamp": "2014-06-20T20:51:05-07:00",
+    "url": "https://github.com/try-server-hook/gaia/commit/0dd22e62b96d59fb403f1a8282bc09fa25a8f182",
+    "author": {
+      "name": "Gaia Try Hook",
+      "email": "try-server-hook@users.noreply.github.com",
+      "username": "try-server-hook"
+    },
+    "committer": {
+      "name": "Gaia Try Hook",
+      "email": "try-server-hook@users.noreply.github.com",
+      "username": "try-server-hook"
+    },
+    "added": [
+      "apps/collection/build/build.js",
+      "apps/collection/js/view_apps.js",
+      "apps/collection/js/view_bg.js",
+      "apps/collection/test/unit/collections_database_test.js",
+      "apps/communications/contacts/test/unit/mock_contacts_adapt_and_merge.js",
+      "apps/email/style/images/default@2.25x.png",
+      "apps/email/style/images/default@2x.png",
+      "apps/email/style/images/gradient@2.25x.png",
+      "apps/email/style/images/gradient@2x.png",
+      "apps/email/style/images/icons/actionicon_attachments@2.25x.png",
+      "apps/email/style/images/icons/actionicon_email_addrecipient@2.25x.png",
+      "apps/email/style/images/icons/actionicon_email_addrecipient_press@2.25x.png",
+      "apps/email/style/images/icons/actionicon_email_removeattachment@2.25x.png",
+      "apps/email/style/images/icons/arrow_down@2.25x.png",
+      "apps/email/style/images/icons/arrow_down_press@2.25x.png",
+      "apps/email/style/images/icons/arrow_up@2.25x.png",
+      "apps/email/style/images/icons/arrow_up_press@2.25x.png",
+      "apps/email/style/images/icons/delete@2.25x.png",
+      "apps/email/style/images/icons/download@2.25x.png",
+      "apps/email/style/images/icons/edit-mode@2.25x.png",
+      "apps/email/style/images/icons/folder_icon@2.25x.png",
+      "apps/email/style/images/icons/folder_icon_press@2.25x.png",
+      "apps/email/style/images/icons/forward@2.25x.png",
+      "apps/email/style/images/icons/icon_default@2.25x.png",
+      "apps/email/style/images/icons/icon_image@2.25x.png",
+      "apps/email/style/images/icons/icon_music@2.25x.png",
+      "apps/email/style/images/icons/icon_outbox_pending@2.25x.png",
+      "apps/email/style/images/icons/icon_outbox_sending@2.25x.png",
+      "apps/email/style/images/icons/icon_video@2.25x.png",
+      "apps/email/style/images/icons/mark@2.25x.png",
+      "apps/email/style/images/icons/message-list-attachment@2.25x.png",
+      "apps/email/style/images/icons/message-list-star@2.25x.png",
+      "apps/email/style/images/icons/move@2.25x.png",
+      "apps/email/style/images/icons/refresh@2.25x.png",
+      "apps/email/style/images/icons/remove_message@2.25x.png",
+      "apps/email/style/images/icons/reply-all@2.25x.png",
+      "apps/email/style/images/icons/reply@2.25x.png",
+      "apps/email/style/images/icons/search@2.25x.png",
+      "apps/email/style/images/icons/settings_icon@2.25x.png",
+      "apps/email/style/images/icons/settings_icon_press@2.25x.png",
+      "apps/email/style/images/icons/star@2.25x.png",
+      "apps/email/style/images/icons/star_on@2.25x.png",
+      "apps/email/style/images/icons/undo@2.25x.png",
+      "apps/email/style/images/pattern@1.5x.png",
+      "apps/email/style/images/pattern@2.25x.png",
+      "apps/email/style/images/pattern@2x.png",
+      "apps/email/style/images/ui/dark_header@1.5x.png",
+      "apps/email/style/images/ui/dark_header@2.25x.png",
+      "apps/email/style/images/ui/dark_header@2x.png",
+      "apps/email/style/images/ui/separator-large@2.25x.png",
+      "apps/email/style/images/ui/separator@2.25x.png",
+      "apps/keyboard/style/images/divider@2.25x.png",
+      "apps/keyboard/style/images/divider@2x.png",
+      "apps/keyboard/style/images/icon_close@2.25x.png",
+      "apps/keyboard/style/images/icon_close@2x.png",
+      "apps/keyboard/style/images/icon_dismiss@2.25x.png",
+      "apps/keyboard/style/images/icon_dismiss@2x.png",
+      "apps/keyboard/style/images/icon_extend@2.25x.png",
+      "apps/keyboard/style/images/icon_extend@2x.png",
+      "apps/keyboard/test/unit/fake-layouts/foo2.js",
+      "apps/settings/js/display.js",
+      "apps/settings/js/panels/root/battery_item.js",
+      "apps/settings/js/wallpaper.js",
+      "apps/settings/test/unit/panels/root/battery_item_test.js",
+      "apps/verticalhome/locales/homescreen.fr.properties",
+      "build/homescreen-manager.js",
+      "shared/elements/gaia_header/images/icons/add@2x.png",
+      "shared/elements/gaia_header/images/icons/compose@2x.png",
+      "shared/elements/gaia_header/images/icons/down@1.5x.png",
+      "shared/elements/gaia_header/images/icons/down@2.25x.png",
+      "shared/elements/gaia_header/images/icons/down@2x.png",
+      "shared/elements/gaia_header/images/icons/edit@2x.png",
+      "shared/elements/gaia_header/images/icons/options@2x.png",
+      "shared/elements/gaia_header/images/icons/reply.png@2.25x.png",
+      "shared/elements/gaia_header/images/icons/reply@2x.png",
+      "shared/elements/gaia_header/images/icons/reply_all@2.25x.png",
+      "shared/elements/gaia_header/images/icons/reply_all@2x.png",
+      "shared/elements/gaia_header/images/icons/send@2x.png",
+      "shared/elements/gaia_header/images/icons/up@1.5x.png",
+      "shared/elements/gaia_header/images/icons/up@2.25x.png",
+      "shared/elements/gaia_header/images/icons/up@2x.png",
+      "shared/elements/gaia_header/images/icons/user@2x.png",
+      "shared/js/uuid.js",
+      "shared/style/headers/images/icons/add@2x.png",
+      "shared/style/headers/images/icons/down@2.25x.png",
+      "shared/style/headers/images/icons/edit@2x.png",
+      "shared/style/headers/images/icons/options@2x.png",
+      "shared/style/headers/images/icons/reply.png@2.25x.png",
+      "shared/style/headers/images/icons/reply_all@2.25x.png",
+      "shared/style/headers/images/icons/up@2.25x.png",
+      "shared/style/headers/images/icons/user@2x.png",
+      "tests/python/gaia-ui-tests/gaiatest/file_manager.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_file_manager.py"
+    ],
+    "removed": [
+      "apps/settings/js/battery.js",
+      "apps/settings/js/panels/display/display.js",
+      "apps/settings/js/panels/display/panel.js",
+      "apps/settings/js/panels/display/wallpaper.js",
+      "apps/settings/test/unit/panels/display/display_test.js",
+      "apps/settings/test/unit/panels/display/wallpaper_test.js",
+      "build/test-agent-bootstrap.js",
+      "shared/elements/gaia_header/images/icons/clear.png",
+      "shared/elements/gaia_header/images/icons/clear@1.5x.png",
+      "apps/calendar/js/ext/uuid.js",
+      "shared/style/headers/images/icons/clear.png",
+      "shared/style/headers/images/icons/clear@1.5x.png",
+      "shared/test/unit/mocks/mock_omadrm_fl.js"
+    ],
+    "modified": [
+      ".jshintignore",
+      "Makefile",
+      "README.md",
+      "apps/browser/build/default.json",
+      "apps/calendar/index.html",
+      "apps/calendar/js/caldav_worker.js",
+      "apps/calendar/js/load_config.js",
+      "apps/calendar/test/unit/db_test.js",
+      "apps/calendar/test/unit/provider/caldav_pull_events_test.js",
+      "apps/calendar/test/unit/service/caldav_test.js",
+      "apps/callscreen/js/conference_group_handler.js",
+      "apps/callscreen/test/unit/conference_group_handler_test.js",
+      "apps/camera/js/app.js",
+      "apps/collection/create.html",
+      "apps/collection/js/create_collection.js",
+      "apps/collection/js/objects.js",
+      "apps/collection/js/view_collection.js",
+      "apps/collection/locales/collection.en-US.properties",
+      "apps/collection/setup.html",
+      "apps/collection/style/css/base.css",
+      "apps/collection/style/css/view.css",
+      "apps/collection/test/unit/contextmenu_test.js",
+      "apps/collection/test/unit/view_collection_test.js",
+      "apps/collection/testpage/testpage.html",
+      "apps/collection/view.html",
+      "apps/communications/contacts/js/activities.js",
+      "apps/communications/contacts/test/unit/import/import_sim_contacts_test.js",
+      "apps/communications/contacts/test/unit/vcard_parsing_test.js",
+      "apps/communications/dialer/js/suggestion_bar.js",
+      "apps/communications/dialer/locales/dialer.en-US.properties",
+      "apps/communications/dialer/test/unit/suggestion_bar_test.js",
+      "apps/email/js/ext/mailapi/activesync/protocollayer.js",
+      "apps/email/js/ext/mailapi/chewlayer.js",
+      "apps/email/js/ext/mailapi/composite/configurator.js",
+      "apps/email/js/ext/mailapi/pop3/probe.js",
+      "apps/email/js/ext/pop3/pop3.js",
+      "apps/email/js/mail_common.js",
+      "apps/email/js/tmpl.js",
+      "apps/email/style/images/gradient@1.5x.png",
+      "apps/email/style/images/icons/star_on.png",
+      "apps/email/style/images/icons/star_on@1.5x.png",
+      "apps/email/style/images/icons/star_on@2x.png",
+      "apps/fm/js/fm.js",
+      "apps/ftu/style/images/tutorial/Notifications.mp4",
+      "apps/ftu/style/images/tutorial/Notifications@1.5x.mp4",
+      "apps/ftu/style/images/tutorial/Notifications@2x.mp4",
+      "apps/ftu/style/images/tutorial/Sheets.mp4",
+      "apps/ftu/style/images/tutorial/Sheets@1.5x.mp4",
+      "apps/ftu/style/images/tutorial/Sheets@2x.mp4",
+      "apps/ftu/style/images/tutorial/VerticalScroll.mp4",
+      "apps/ftu/style/images/tutorial/VerticalScroll@1.5x.mp4",
+      "apps/ftu/style/images/tutorial/VerticalScroll@2x.mp4",
+      "apps/gallery/index.html",
+      "apps/gallery/js/gallery.js",
+      "apps/gallery/style/gallery.css",
+      "apps/keyboard/js/keyboard.js",
+      "apps/keyboard/js/keyboard/layout_manager.js",
+      "apps/keyboard/style/images/divider.png",
+      "apps/keyboard/style/images/divider@1.5x.png",
+      "apps/keyboard/style/images/icon_alternate_keyboard.png",
+      "apps/keyboard/style/images/icon_alternate_keyboard@1.5x.png",
+      "apps/keyboard/style/images/icon_alternate_keyboard@2.25x.png",
+      "apps/keyboard/style/images/icon_alternate_keyboard@2x.png",
+      "apps/keyboard/style/images/icon_close.png",
+      "apps/keyboard/style/images/icon_close@1.5x.png",
+      "apps/keyboard/style/images/icon_dismiss.png",
+      "apps/keyboard/style/images/icon_dismiss@1.5x.png",
+      "apps/keyboard/style/images/icon_extend.png",
+      "apps/keyboard/style/images/icon_extend@1.5x.png",
+      "apps/keyboard/style/images/icon_hide_keyboard.png",
+      "apps/keyboard/style/images/icon_hide_keyboard@1.5x.png",
+      "apps/keyboard/style/images/icon_hide_keyboard@2.25x.png",
+      "apps/keyboard/style/images/icon_hide_keyboard@2x.png",
+      "apps/keyboard/style/keyboard.css",
+      "apps/keyboard/test/unit/keyboard/layout_manager_test.js",
+      "apps/search/index.html",
+      "apps/search/test/unit/providers/places_test.js",
+      "apps/settings/README.md",
+      "apps/settings/build/settings.build.jslike",
+      "apps/settings/elements/bluetooth.html",
+      "apps/settings/elements/developer_hud.html",
+      "apps/settings/elements/display.html",
+      "apps/settings/elements/firefox_accounts.html",
+      "apps/settings/elements/root.html",
+      "apps/settings/index.html",
+      "apps/settings/js/bluetooth.js",
+      "apps/settings/js/config/require.js",
+      "apps/settings/js/findmydevice.js",
+      "apps/settings/js/firefox_accounts/panel.js",
+      "apps/settings/js/modules/mvvm/observable.js",
+      "apps/settings/js/panels/root/panel.js",
+      "apps/settings/js/panels/root/root.js",
+      "apps/settings/js/utils.js",
+      "apps/settings/locales/settings.en-US.properties",
+      "apps/settings/style/icons.css",
+      "apps/settings/style/lists.css",
+      "apps/settings/style/settings.css",
+      "apps/settings/style/settings_large.css",
+      "apps/settings/test/marionette/app/app.js",
+      "apps/settings/test/marionette/app/regions/display.js",
+      "apps/settings/test/marionette/app/regions/root.js",
+      "apps/settings/test/marionette/tests/display_settings_test.js",
+      "apps/settings/test/unit/firefox_accounts_panel_test.js",
+      "apps/settings/test/unit/mock_fx_accounts_iac_helper.js",
+      "apps/settings/test/unit/setup.js",
+      "apps/sms/index.html",
+      "apps/sms/js/desktop-only/contacts.js",
+      "apps/sms/js/thread_ui.js",
+      "apps/sms/style/composer.css",
+      "apps/system/js/devtools/developer_hud.js",
+      "apps/system/js/fxa_client.js",
+      "apps/system/js/fxa_manager.js",
+      "apps/system/test/unit/developer_hud_test.js",
+      "apps/system/test/unit/fxa_client_test.js",
+      "apps/system/test/unit/fxa_iac_client_test.js",
+      "apps/system/test/unit/fxa_manager_test.js",
+      "apps/system/test/unit/mock_fxa_client.js",
+      "apps/verticalhome/build/build.js",
+      "apps/verticalhome/build/default-homescreens.json",
+      "apps/verticalhome/index.html",
+      "apps/verticalhome/locales/locales.ini",
+      "apps/verticalhome/test/marionette/app_retry_icon_fetch.js",
+      "apps/verticalhome/test/marionette/lib/home2.js",
+      "apps/verticalhome/test/marionette/localization_test.js",
+      "apps/video/index.html",
+      "apps/video/locales/video.en-US.properties",
+      "build/config/common-settings.json",
+      "build/jshint/xfail.list",
+      "build/l10n.js",
+      "build/test/integration/build.test.js",
+      "build/webapp-optimize.js",
+      "customization/browser.json",
+      "dev_apps/test-agent/common/test/agent.js",
+      "dev_apps/test-iac-publisher/js/test.js",
+      "shared/elements/gaia_grid/js/grid_view.js",
+      "shared/elements/gaia_grid/js/items/icon.js",
+      "shared/elements/gaia_grid/style.css",
+      "shared/elements/gaia_header/images/icons/add.png",
+      "shared/elements/gaia_header/images/icons/back.png",
+      "shared/elements/gaia_header/images/icons/back@1.5x.png",
+      "shared/elements/gaia_header/images/icons/back@2.25x.png",
+      "shared/elements/gaia_header/images/icons/back@2x.png",
+      "shared/elements/gaia_header/images/icons/close@2.25x.png",
+      "shared/elements/gaia_header/images/icons/compose.png",
+      "shared/elements/gaia_header/images/icons/compose@1.5x.png",
+      "shared/elements/gaia_header/images/icons/down.png",
+      "shared/elements/gaia_header/images/icons/edit.png",
+      "shared/elements/gaia_header/images/icons/edit@1.5x.png",
+      "shared/elements/gaia_header/images/icons/menu@2.25x.png",
+      "shared/elements/gaia_header/images/icons/menu@2x.png",
+      "shared/elements/gaia_header/images/icons/options.png",
+      "shared/elements/gaia_header/images/icons/options@1.5x.png",
+      "shared/elements/gaia_header/images/icons/reply_all.png",
+      "shared/elements/gaia_header/images/icons/up.png",
+      "shared/elements/gaia_header/images/icons/user@1.5x.png",
+      "shared/elements/gaia_menu/script.js",
+      "shared/js/collections_database.js",
+      "shared/js/contacts/import/utilities/import_sim_contacts.js",
+      "shared/js/contacts/import/utilities/vcard_parser.js",
+      "shared/js/everythingme/api.js",
+      "shared/js/everythingme/device.js",
+      "shared/js/fb/fb_reader_utils.js",
+      "shared/js/fxa_iac_client.js",
+      "shared/js/l10n.js",
+      "shared/js/omadrm/fl.js",
+      "shared/js/settings_url.js",
+      "shared/style/dialer/keypad.css",
+      "shared/style/headers/images/icons/add.png",
+      "shared/style/headers/images/icons/back.png",
+      "shared/style/headers/images/icons/back@1.5x.png",
+      "shared/style/headers/images/icons/back@2.25x.png",
+      "shared/style/headers/images/icons/back@2x.png",
+      "shared/style/headers/images/icons/close@2.25x.png",
+      "shared/style/headers/images/icons/compose.png",
+      "shared/style/headers/images/icons/compose@1.5x.png",
+      "shared/style/headers/images/icons/down.png",
+      "shared/style/headers/images/icons/edit.png",
+      "shared/style/headers/images/icons/edit@1.5x.png",
+      "shared/style/headers/images/icons/menu@2.25x.png",
+      "shared/style/headers/images/icons/menu@2x.png",
+      "shared/style/headers/images/icons/options.png",
+      "shared/style/headers/images/icons/options@1.5x.png",
+      "shared/style/headers/images/icons/reply_all.png",
+      "shared/style/headers/images/icons/up.png",
+      "shared/style/headers/images/icons/user@1.5x.png",
+      "shared/test/unit/mocks/mock_moz_activity.js",
+      "shared/test/unit/mocks/mock_settings_url.js",
+      "tests/performance/startup_events_test.js",
+      "tests/python/gaia-ui-tests/README.md",
+      "tests/python/gaia-ui-tests/gaiatest/apps/contacts/regions/settings_form.py",
+      "tests/python/gaia-ui-tests/gaiatest/apps/settings/app.py",
+      "tests/python/gaia-ui-tests/gaiatest/apps/settings/regions/display.py",
+      "tests/python/gaia-ui-tests/gaiatest/gaia_test.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/accessibility/phone/test_a11y_phone_call_log.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_camera.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_gallery_flick.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_settings.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/endurance/test_endurance_video_playback.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_add_photo_to_contact.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/contacts/test_import_contacts_from_sdcard.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_crop_photo.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_delete_image.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_edit_photo.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_flick.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/gallery/test_gallery_view.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/music/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/settings/test_settings_media_storage.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_audio_capture_prompt.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_contacts_prompt.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/system/test_privileged_app_video_capture_prompt.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_3gp_video.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_mp4_video.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogg_video.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_ogv_video.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/functional/videoplayer/test_play_webm_video.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/tbpl-manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/unit/manifest.ini",
+      "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_cleanup_storage.py",
+      "tests/python/gaia-ui-tests/gaiatest/tests/unit/test_resources.py",
+      "tests/python/gaia-ui-tests/requirements.txt",
+      "tests/python/gaia-unit-tests/gaia_unit_test/main.py",
+      "tools/extensions/httpd/bootstrap.js",
+      "tools/extensions/httpd/content/httpd.js"
+    ]
+  },
+  "repository": {
+    "id": 20762675,
+    "name": "gaia",
+    "url": "https://github.com/try-server-hook/gaia",
+    "description": "Gaia is a HTML5-based Phone UI for the Boot 2 Gecko Project. NOTE: For details of what branches are used for what releases, see https://wiki.mozilla.org/Release_Management/B2G_Landing",
+    "homepage": "https://wiki.mozilla.org/B2G",
+    "watchers": 0,
+    "stargazers": 0,
+    "forks": 0,
+    "fork": true,
+    "size": 785706,
+    "owner": {
+      "name": "try-server-hook",
+      "email": "try-server-hook@users.noreply.github.com"
+    },
+    "private": false,
+    "open_issues": 1,
+    "has_issues": false,
+    "has_downloads": true,
+    "has_wiki": false,
+    "language": "JavaScript",
+    "created_at": 1402567136,
+    "pushed_at": 1403322666,
+    "master_branch": "master"
+  },
+  "pusher": {
+    "name": "try-server-hook",
+    "email": "try-server-hook@users.noreply.github.com"
+  }
 }

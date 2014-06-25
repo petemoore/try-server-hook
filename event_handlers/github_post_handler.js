@@ -20,6 +20,18 @@ function avatar(src, username, w, h) {
 }
 
 function postStartPr(msg, callback) {
+
+}
+
+function GithubPostHandler(downstreams) {
+  BaseEventHandler.call(this, downstreams);
+}
+
+util.inherits(GithubPostHandler, BaseEventHandler);
+
+GithubPostHandler.prototype.name = "Post to Github Issue";
+
+GithubPostHandler.prototype.handle = function (msg, callback) {
   github.user.getFrom({user: msg.pr.who}, function(err, result) {
     if (err) {
       return callback(err, true);
@@ -46,26 +58,7 @@ function postStartPr(msg, callback) {
       debug('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
       return callback(null, null);
     }); 
-  });
-}
-
-function GithubPostHandler(downstreams) {
-  BaseEventHandler.call(this, downstreams);
-}
-
-util.inherits(GithubPostHandler, BaseEventHandler);
-
-GithubPostHandler.prototype.name = "Post to Github Issue";
-
-GithubPostHandler.prototype.handle = function (msg, callback) {
-  // Do shit
-  if (msg.pr && !msg.finished) {
-    postStartPr(msg, callback); 
-  } else if (msg.pr && msg.finished && msg.state) {
-    handleFinishPR(msg, callback);
-  } else { 
-    return callback(new Error('I only know how to handle Pull Requests right now'));
-  }
+  }); 
 };
 
 module.exports = GithubPostHandler;

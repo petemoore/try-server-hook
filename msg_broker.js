@@ -120,7 +120,7 @@ function assertSchema(connection) {
     }
     connection.createChannel().then(function(ch) {
       schema.exchanges.forEach(function(e) {
-        promises.push(ch.assertExchange(wrap(e.name), e.type || 'fanout', e.options));
+        promises.push(ch.assertExchange(wrap(e.name), e.type, e.options));
       });
 
       schema.queues.forEach(function(q) {
@@ -233,6 +233,7 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
           // Actually call the action!
           action(obj, function(err, retry, dsMsg) {
             if (err) {
+              console.log(err.stack || err);
               if (retry) {
                 var doRetry;
                 if (!msg.retry) {

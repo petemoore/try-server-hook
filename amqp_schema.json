@@ -2,25 +2,32 @@
   "prefix": "com.herokuapp.try-server-hook",
   "msg_format": "application/json",
   "exchanges": [
-    {"name": "incoming_github_events"},
-    {"name": "commit_to_gaia_try"},
-    {"name": "irc_send"},
-    {"name": "commit_notification"}
+    {"name": "exchange.github_push_events", "type": "fanout"},
+    {"name": "exchange.github_pull_request_events", "type": "fanout"},
+    {"name": "commit_to_gaia_try", "type": "fanout"},
+    {"name": "irc_send", "type": "fanout"},
+    {"name": "push_notifications", "type": "fanout"},
+    {"name": "pr_notifications", "type": "fanout"}
   ],
   "queues": [
-    {"name": "github_api_incoming"},
+    {"name": "incoming_push_events"},
+    {"name": "incoming_pull_request_events"},
     {"name": "to_commit"},
     {"name": "irc_outgoing"},
     {"name": "make_github_comment"},
+    {"name": "make_bugzilla_comments"},
     {"name": "start_monitoring"},
     {"name": "queue_irc"}
   ],
   "bindings": [
-    {"exchange": "incoming_github_events", "queue": "github_api_incoming"},
+    {"exchange": "exchange.github_push_events", "queue": "incoming_push_events"},
+    {"exchange": "exchange.github_pull_request_events", "queue": "incoming_pull_request_events"},
     {"exchange": "commit_to_gaia_try", "queue": "to_commit"},
     {"exchange": "irc_send", "queue": "irc_outgoing"},
-    {"exchange": "commit_notification", "queue": "make_github_comment"},
-    {"exchange": "commit_notification", "queue": "start_monitoring"},
-    {"exchange": "commit_notification", "queue": "queue_irc"}
+    {"exchange": "push_notifications", "queue": "make_bugzilla_comments"},
+    {"exchange": "push_notifications", "queue": "start_monitoring"},
+    {"exchange": "push_notifications", "queue": "queue_irc"},
+    {"exchange": "pr_notifications", "queue": "start_monitoring"},
+    {"exchange": "pr_notifications", "queue": "make_github_comment"}
   ]
 }

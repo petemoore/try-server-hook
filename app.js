@@ -15,6 +15,7 @@ var Connection = require('./connection');
 
 // Event Handlers
 var PREventHandler = require('./event_handlers/pr_event_handler');
+var PushEventHandler = require('./event_handlers/push_event_handler');
 var IRCEventHandler = require('./event_handlers/irc_event_handler');
 var GithubPostHandler = require('./event_handlers/github_post_handler');
 var StartMonitoringEventHandler = require('./event_handlers/start_monitoring_event_handler');
@@ -81,6 +82,7 @@ app.use(githubHmacAuthenticator(config.getBool('GITHUB_API_REQUIRE_HMAC')));
 app.connection = new Connection();
 
 app.prEventHandler = new PREventHandler('commit_to_gaia_try');
+app.pushEventHandler = new PushEventHandler('commit_to_gaia_try');
 app.ircEventHandler = new IRCEventHandler('irc_send');
 app.githubPostHandler = new GithubPostHandler();
 app.startMonitoringEventHandler = new StartMonitoringEventHandler();
@@ -98,37 +100,32 @@ app.post('/github/v3', function(req, res) {
     var type = req.get('X-GitHub-Event');
     var deliveryId = req.get('X-GitHub-Delivery');
     var payload = {type: type, delivery_id: deliveryId, content: req.body};
-    var hmacInfo = req.get('X-Hub-Signature').split('=');
-    try {
-      var hmacAlgo = hmacInfo[0]; 
-      var hmacDigest = hmacInfo[1];
-    } catch (e) {
-      debug('Error doing HMAC Authentication');
-      debug(e.stack || e);
-      res.send(500, error('Failed HMAC Authentication'));
-    }
 
-  
-    if (req.computedHmacDigest === hmacDigest) {
-      debug('HMAC authentication is successful');
-    } else {
-      debug('HMAC authentication failed, request: %s computed: %s', hmacDigest, req.computedHmacDigest || 'not computed');
-    }
-
-    debug('Inserting a %s (%s) event into queue', type, deliveryId);
+    var exchange = null;
+    switch(type) {
+      case "push":
+        exchange = 'exchange.github_push_events';
+        break;
+      case "pull_request":
+        exchange = 'exchange.github_pull_request_events';
+        break;
+      default:
+        res.send(200, success({interested: false}));
+        return;
+    };
 
     app.connection.open().then(function(conn) {
         function passed() {
-            debug('Inserted %s (%s)', type, deliveryId);
+          debug('Published a %s (%s) into %s', type, deliveryId, exchange);
             res.send(200, success({ inserted: true }));
         }
         function failed(err) {
             console.log('ERROR Inserting Github Event');
             console.log(err.stack || err);
-            debug('Failed to insert %s (%s)', type, deliveryId);
+            debug('Failed to publish a %s (%s) into %s', type, deliveryId, exchange);
             res.send(500, error(outcome.message || outcome));
         }
-        msgBroker.insert(conn, 'incoming_github_events', payload).then(passed, failed).done();
+        msgBroker.insert(conn, exchange, payload).then(passed, failed).done();
     }).done();
 });
 
@@ -149,7 +146,8 @@ function setupConsumers(connection) {
         setupConsumers(connection);
       });
       return when.all([
-        msgBroker.addConsumer(ch, 'github_api_incoming', app.prEventHandler),
+        msgBroker.addConsumer(ch, 'incoming_pull_request_events', app.prEventHandler),
+        msgBroker.addConsumer(ch, 'incoming_push_events', app.pushEventHandler),
         msgBroker.addConsumer(ch, 'queue_irc', app.ircEventHandler),
         msgBroker.addConsumer(ch, 'make_github_comment', app.githubPostHandler)
       ]);
