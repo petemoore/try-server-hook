@@ -133,7 +133,7 @@ function assertSchema(connection) {
       });
 
       schema.bindings.forEach(function(b) {
-        promises.push(ch.bindQueue(wrap(b.queue), wrap(b.exchange), b.routing_key || ''));
+        promises.push(ch.bindQueue(wrap(b.queue), wrap(b.exchange), b.routing_key));
       });
 
       when.all(promises).then(function(x) {
@@ -148,7 +148,7 @@ function assertSchema(connection) {
 
 // For now, always persistent and to '' for routing key
 // Do insertions on their own channel
-function insert(connection, exchange, payload) {
+function insert(connection, exchange, routingKey, payload) {
   return when.promise(function(resolve, reject) {
     debug('Inserting message');
     var msgFormat = schema.msg_format;
@@ -163,7 +163,7 @@ function insert(connection, exchange, payload) {
         contentType: msgFormat
       };
       connection.createConfirmChannel().then(function(ch) {
-          return insertCh(ch, exchange, payload).then(function() {
+          return insertCh(ch, exchange, routingKey, payload).then(function() {
             return ch.close().then(function() { resolve(connection); });
           });
         });
@@ -173,7 +173,7 @@ function insert(connection, exchange, payload) {
 
 // For now, always persistent and to '' for routing key
 // Do insertions on existing channel
-function insertCh(ch, exchange, payload) {
+function insertCh(ch, exchange, routingKey, payload) {
   return when.promise(function(resolve, reject) {
     var msgFormat = schema.msg_format;
     serialiseMsg(msgFormat, payload).then(function(msg) {
@@ -186,10 +186,11 @@ function insertCh(ch, exchange, payload) {
         mandatory: true,
         contentType: msgFormat
       };
-      debug('Publishing to exchange %s', exchange);
-      ch.publish(wrap(exchange), '', new Buffer(msg, 'utf-8'), pubOpts, function(err, ok) {
+      debug('Publishing to exchange %s with routing key %s', exchange, routingKey);
+      ch.publish(wrap(exchange), routingKey, new Buffer(msg, 'utf-8'), pubOpts, function(err, ok) {
         if (err) {
           debug('Failed to insert msg');
+          debug(err.stack || err);
           reject(err);
         }
         debug('Published to %s exchange', exchange);
@@ -230,37 +231,41 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
         function(obj) {
           debug('Parsed message for %s consumer', actionName);
 
-          // Actually call the action!
-          action(obj, function(err, retry, dsMsg) {
-            if (err) {
-              console.log(err.stack || err);
-              if (retry) {
-                var doRetry;
-                if (!msg.retry) {
-                  msg.retry = 5;
-                  debug('First failure, retrying %s', actionName);
-                  doRetry = true;
-                } else {
-                  msg.retry--;
-                  if (msg.retry > 0) {
-                    debug('%s has %d retries left', actionName, msg.retry);
+          try {
+            // Actually call the action!
+            action(obj, msg.fields.routingKey, function(err, retry, dsMsg) {
+              if (err) {
+                console.log(err.stack || err);
+                if (retry) {
+                  var doRetry;
+                  if (!msg.retry) {
+                    msg.retry = 5;
+                    debug('First failure, retrying %s', actionName);
                     doRetry = true;
                   } else {
-                    debug('%s has exhausted all retries, rejecting', msg.retry);
-                    doRetry = false;
+                    msg.retry--;
+                    if (msg.retry > 0) {
+                      debug('%s has %d retries left', actionName, msg.retry);
+                      doRetry = true;
+                    } else {
+                      debug('%s has exhausted all retries, rejecting', msg.retry);
+                      doRetry = false;
+                    }
                   }
+                } else {
+                  debug('Rejecting a %s, not retrying', actionName);
+                  doRetry = false;
                 }
+                channel.reject(msg, doRetry);
               } else {
-                debug('Rejecting a %s, not retrying', actionName);
-                doRetry = false;
+                debug('Successfully processed %s', actionName);
+                channel.ack(msg);
               }
-              channel.reject(msg, doRetry);
-            } else {
-              debug('Successfully processed %s', actionName);
-              channel.ack(msg);
-            }
-          });
-
+            });
+          } catch (e) {
+            debug('Error running action %s', actionName);
+            debug(e.stack || e);
+          }
         },
         function(err) {
           debug('Error parsing message for %s consumer', actionName); 

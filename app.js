@@ -7,6 +7,7 @@ var debug = require('debug')('try-server-hook:app');
 var msgBroker = require('./msg_broker');
 var crypto = require('crypto');
 var morgan = require('morgan');
+var util = require('util');
 
 var config = require('./config');
 
@@ -101,32 +102,26 @@ app.post('/github/v3', function(req, res) {
     var deliveryId = req.get('X-GitHub-Delivery');
     var payload = {type: type, delivery_id: deliveryId, content: req.body};
 
-    var exchange = null;
-    switch(type) {
-      case "push":
-        exchange = 'exchange.github_push_events';
-        break;
-      case "pull_request":
-        exchange = 'exchange.github_pull_request_events';
-        break;
-      default:
-        res.send(200, success({interested: false}));
-        return;
-    };
+    var exchange = 'incoming_github_api_events';
+    var routingKey = util.format('github.%s', type);
 
-    app.connection.open().then(function(conn) {
-        function passed() {
-          debug('Published a %s (%s) into %s', type, deliveryId, exchange);
-            res.send(200, success({ inserted: true }));
-        }
-        function failed(err) {
-            console.log('ERROR Inserting Github Event');
-            console.log(err.stack || err);
-            debug('Failed to publish a %s (%s) into %s', type, deliveryId, exchange);
-            res.send(500, error(outcome.message || outcome));
-        }
-        msgBroker.insert(conn, exchange, payload).then(passed, failed).done();
-    }).done();
+    try {
+      app.connection.open().then(function(conn) {
+          function passed() {
+            debug('Published a %s (%s) into %s', type, deliveryId, exchange);
+              res.send(200, success({ inserted: true }));
+          }
+          function failed(err) {
+              console.log('ERROR Inserting Github Event');
+              console.log(err.stack || err);
+              debug('Failed to publish a %s (%s) into %s', type, deliveryId, exchange);
+              res.send(500, error(outcome.message || outcome));
+          }
+          msgBroker.insert(conn, exchange, routingKey, payload).then(passed, failed).done();
+      }).done();
+    } catch (e) {
+      console.log(e.stack || e);
+    }
 });
 
 app.connection.on('close', function() {

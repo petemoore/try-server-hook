@@ -25,7 +25,7 @@ BaseEventHandler.prototype = {
       debug('Missing channel to use for downstream messages');
       throw new Error('Missing channel to use for downstream messages');
     }
-    return function (msg, realCallback) {
+    return function (msg, routingKey, realCallback) {
       var interceptor = function (err, retry, dsMsg) {
         debug('Invoking intercepting callback for %s', this.name);
         if (err) {
@@ -40,8 +40,8 @@ BaseEventHandler.prototype = {
 
         var promises = [];
         this.downstreams.forEach(function (ds) {
-          debug('Will send to downstream %s', ds);
-          promises.push(msgBroker.insertCh(channel, ds, dsMsg));
+          debug('Will send to downstream %s with routing key %s', ds, routingKey);
+          promises.push(msgBroker.insertCh(channel, ds, routingKey, dsMsg));
         });
         when.all(promises).then(
           function () {

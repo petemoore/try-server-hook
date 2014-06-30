@@ -3,6 +3,7 @@
 var when = require('when');
 var util = require('util');
 var config = require('./config');
+var debug = require('debug');
 
 var Connection = require('./connection');
 var connection = new Connection();

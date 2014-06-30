@@ -3,13 +3,14 @@
 var when = require('when');
 var util = require('util');
 var config = require('./config');
+var debug = require('debug');
 
 var Connection = require('./connection');
 var connection = new Connection();
 var msgBroker = require('./msg_broker');
 
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-var commitEventHandler = new CommitEventHandler(['push_notifications', 'pr_notifications']);
+var commitEventHandler = new CommitEventHandler(['post_commit_notifications']);
 var IRCSender = require('./event_handlers/irc_sender');
 var ircSender = new IRCSender();
 

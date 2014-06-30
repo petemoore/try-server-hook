@@ -2,12 +2,22 @@
   "prefix": "com.herokuapp.try-server-hook",
   "msg_format": "application/json",
   "exchanges": [
-    {"name": "exchange.github_push_events", "type": "fanout"},
-    {"name": "exchange.github_pull_request_events", "type": "fanout"},
-    {"name": "commit_to_gaia_try", "type": "fanout"},
-    {"name": "irc_send", "type": "fanout"},
-    {"name": "push_notifications", "type": "fanout"},
-    {"name": "pr_notifications", "type": "fanout"}
+    {
+      "name": "incoming_github_api_events",
+      "type": "topic"
+    },
+    {
+      "name": "commit_to_gaia_try",
+      "type": "topic"
+    },
+    {
+      "name": "irc_send",
+      "type": "topic"
+    },
+    {
+      "name": "post_commit_notifications",
+      "type": "topic"
+    }
   ],
   "queues": [
     {"name": "incoming_push_events"},
@@ -20,14 +30,45 @@
     {"name": "queue_irc"}
   ],
   "bindings": [
-    {"exchange": "exchange.github_push_events", "queue": "incoming_push_events"},
-    {"exchange": "exchange.github_pull_request_events", "queue": "incoming_pull_request_events"},
-    {"exchange": "commit_to_gaia_try", "queue": "to_commit"},
-    {"exchange": "irc_send", "queue": "irc_outgoing"},
-    {"exchange": "push_notifications", "queue": "make_bugzilla_comments"},
-    {"exchange": "push_notifications", "queue": "start_monitoring"},
-    {"exchange": "push_notifications", "queue": "queue_irc"},
-    {"exchange": "pr_notifications", "queue": "start_monitoring"},
-    {"exchange": "pr_notifications", "queue": "make_github_comment"}
+    {
+      "exchange": "incoming_github_api_events",
+      "queue": "incoming_push_events",
+      "routing_key": "github.push.#"
+    },
+    {
+      "exchange": "incoming_github_api_events",
+      "queue": "incoming_pull_request_events",
+      "routing_key": "github.pull_request.#"
+    },
+    {
+      "exchange": "commit_to_gaia_try",
+      "queue": "to_commit",
+      "routing_key": "#"
+    },
+    {
+      "exchange": "irc_send",
+      "queue": "irc_outgoing",
+      "routing_key": "#"
+    },
+    {
+      "exchange": "post_commit_notifications",
+      "queue": "make_bugzilla_comments",
+      "routing_key": "github.push.#"
+    },
+    {
+      "exchange": "post_commit_notifications",
+      "queue": "start_monitoring",
+      "routing_key": "github.#"
+    },
+    {
+      "exchange": "post_commit_notifications",
+      "queue": "queue_irc",
+      "routing_key": "github.push.#"
+    },
+    {
+      "exchange": "post_commit_notifications",
+      "queue": "make_github_comment",
+      "routing_key": "github.pull_request.#"
+    }
   ]
 }
