@@ -81,8 +81,12 @@ function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
       return callback(err);
     }
     var fullName = result.name;
-    var commitMsg = util.format('Gaia PR#%d: %s (%s) %s <-- %s',
-                          number, fullName, ghUser, baseLabel, prBranch);
+    var nameString = util.format('%s (%s)', fullName, ghUser);
+    if (typeof fullName === 'undefined') {
+      nameString = ghUser;
+    }
+    var commitMsg = util.format('Gaia PR#%d: %s %s <-- %s',
+                          number, nameString, baseLabel, prBranch);
     return callback(null, commitMsg);
   });
 }

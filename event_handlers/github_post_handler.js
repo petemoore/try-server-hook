@@ -41,9 +41,13 @@ GithubPostHandler.prototype.handle = function (msg, callback) {
     var avatarUrl = result.avatar_url;
     var user = msg.pr.base_owner;
     var repo = msg.pr.base_name;
-    var comment = util.format('[%s %s (%s)](%s) started tests. [Results](%s)',
-                              avatar(avatarUrl, msg.pr.who), fullName,
-                              msg.pr.who, profileUrl, tbpl.url({rev: msg.hg_id}));
+    var nameString = util.format('%s (%s)', fullName, msg.pr.who);
+    if (typeof fullName === 'undefined') {
+      nameString = msg.pr.who;
+    }
+    var comment = util.format('[%s %s](%s) started tests. [Results](%s)',
+                              avatar(avatarUrl, msg.pr.who), nameString,
+                              profileUrl, tbpl.url({rev: msg.hg_id}));
     var ghmsg = {
       user: user,
       repo: repo,
