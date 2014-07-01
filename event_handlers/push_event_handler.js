@@ -78,7 +78,7 @@ function makePushCommitMsg(pushBranch, before, after, ghUser, callback) {
     if (typeof fullName === 'undefined') {
       nameString = ghUser; 
     }
-    var commitMsg = util.format('Gaia %s branch push by %s (%s) %s...%s',
+    var commitMsg = util.format('Gaia %s branch push by %s %s...%s',
                           pushBranch, nameString,
                           before.length > 7 ? before.slice(0, 7) : before,
                           after.length > 7 ? after.slice(0, 7) : after);
