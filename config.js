@@ -56,11 +56,16 @@ function load(options, obj) {
 
 function update() {
   var options = {};
-  load(options, JSON.parse(fs.readFileSync(defaultsFile)));
-  if (fs.existsSync(envFile)) {
-    load(options, JSON.parse(fs.readFileSync(envFile)));
+  try {
+    load(options, JSON.parse(fs.readFileSync(defaultsFile)));
+    if (fs.existsSync(envFile)) {
+      load(options, JSON.parse(fs.readFileSync(envFile)));
+    }
+    config.options = options;
+  } catch (e) {
+    debug('Error loading configuration files');
+    debug(e.stack || e);
   }
-  config.options = options;
 }
 
 update();
