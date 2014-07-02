@@ -116,7 +116,10 @@ PREventHandler.prototype.handle = function (msg, callback) {
     child.once('message', function(msg) {
       child.kill();
       if (msg.err) {
-        callback(err, false);
+        return callback(msg.err, false);
+      }
+      if (!msg.contents) {
+        return callback(new Error('Could not determine Gecko files'), false);
       }
       debug('Fetched platform file values for %s', pr.base_ref);
       var user = pr.who;
