@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var debug = require('debug')('try-server-hook:platform_files');
 var url = require('url');
@@ -18,14 +18,6 @@ var platformToSuffix = {
   'linux-i686': '.tar.bz2',
   'linux-x86_64': '.tar.bz2',
   'mac64': '.dmg'
-};
-
-var ffosBranchToGeckoBranch = {
-  master: 'mozilla-central',
-  'v2.0': 'mozilla-aurora',
-  'v1.4': 'mozilla-b2g30_v1_4',
-  'v1.3': 'mozilla-b2g28_v1_3',
-  'v1.3t': 'mozilla-b2g28_v1_3_t',
 };
 
 /*
@@ -289,7 +281,15 @@ function getURLs(b2gVer, bbPlatform, callback) {
   });
 }
 
+var data = {}
+
+
+
 function all(b2gVer, callback) {
+  if (data[b2gVer]) {
+    return callback(null, data[b2gVer]);
+  }
+
   function x(platform, callback) {
     getURLs(b2gVer, platform, function (err, data) {
       if (err) {
@@ -307,6 +307,7 @@ function all(b2gVer, callback) {
     results.forEach(function(e,idx) {
       allFiles[platforms[idx].replace(/_gecko(-debug)?$/,'$1') + '.json'] = e;
     });
+    data[b2gVer]= allFiles;
     return callback(null, allFiles);
   });
 
