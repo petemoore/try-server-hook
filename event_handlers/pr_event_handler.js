@@ -120,6 +120,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
       }
       debug('Fetched platform file values for %s', pr.base_ref);
       var user = pr.who;
+      debug('########   ' + JSON.stringify(msg));
       var contents = msg.contents;
       contents['gaia.json'] = jsonForPR(pr);
       return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
