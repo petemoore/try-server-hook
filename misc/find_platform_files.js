@@ -6,6 +6,10 @@ var platformFiles = require('./platform_files');
 process.on('message', function(msg) {
   debug('Received a request from mommy and daddy: %s', msg);
   var pfFiles = platformFiles.all(msg, function(err, contents) {
-    process.send({err:err, contents: contents});
+    if (err) {
+      process.send({err: err});
+    } else {
+      process.send({contents: contents});
+    }
   })
 });

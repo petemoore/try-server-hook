@@ -109,7 +109,7 @@ PushEventHandler.prototype.handle = function (msg, callback) {
       child.once('message', function(msg) {
         child.kill();
         if (msg.err) {
-          callback(err);
+          callback(err, false);
         }
         debug('Fetched platform file values for %s', push.branch);
         var user = push.who;
