@@ -1,0 +1,76 @@
+{
+  "variables": {
+      "node_ver": "v0.10.29",
+      "do_api_key": "",
+      "do_client_id": ""
+  },
+  "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "RedHat_64",
+    "iso_url": "http://mirror.stanford.edu/yum/pub/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+    "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+    "iso_checksum_type": "md5",
+    "ssh_username": "root",
+    "ssh_password": "packer",
+    "shutdown_command": "shutdown -h 0",
+    "http_directory": "files",
+    "boot_wait": "3s",
+    "headless": "true",
+    "vm_name": "centos6-x86_64",
+    "boot_command": [
+        "<tab><wait>",
+        " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6-x86_64-ks.cfg <enter>"
+    ]
+  },
+  {
+    "type": "digitalocean",
+    "image_id": 3448641,
+    "client_id": "{{user `do_client_id` }}",
+    "api_key": "{{user `do_api_key` }}"
+  }
+  ],
+  "post-processors": [
+  {
+    "type": "vagrant",
+    "only": ["virtualbox-iso"]
+  }
+  ],
+  "provisioners": [
+  {
+    "type": "shell",
+    "inline": ["sleep 30"]
+  },
+  {
+    "type": "shell",
+    "only": ["virtualbox-iso"],
+    "inline": [
+        "MP=$(mktemp -d)",
+        "mount -o loop /root/VBoxGuestAdditions.iso $MP",
+        "$MP/VBoxLinuxAdditions.run",
+        "umount $MP",
+        "rm -rf $MP"
+    ]
+  },
+  {
+      "type": "shell",
+      "inline": ["yum localinstall -y http://mirror.pnl.gov/epel/6/x86_64/epel-release-6-8.noarch.rpm"]
+  },
+  {
+      "type": "shell",
+      "inline": ["yum install -y git gcc gcc-c++ screen python-pip python-devel"]
+  },
+  {
+      "type": "shell",
+      "inline": ["pip install mercurial"]
+  },
+  {
+      "type": "shell",
+      "inline": [
+          "curl -LO http://nodejs.org/dist/{{user `node_ver` }}/node-{{user `node_ver` }}.tar.gz",
+          "tar axf node-{{user `node_ver` }}.tar.gz",
+          "cd node-{{user `node_ver` }}",
+          "./configure && make && make install"
+      ]
+  }
+  ]
+}
