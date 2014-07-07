@@ -10,7 +10,7 @@ var connection = new Connection();
 var msgBroker = require('./msg_broker');
 
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-var commitEventHandler = new CommitEventHandler('commit_notification');
+var commitEventHandler = new CommitEventHandler(['post_commit_notifications']);
 
 connection.open()
   .then(msgBroker.assertSchema)
