@@ -34,7 +34,7 @@ function PREventHandler(downstreams) {
 
 util.inherits(PREventHandler, BaseEventHandler);
 
-PREventHandler.prototype.name = 'Incoming Github API Message';
+PREventHandler.prototype.name = 'Incoming Github API Pull Request Message';
 PREventHandler.prototype.parse = function (msg) {
   var pr = {};
   var upstreamPr = msg.content.pull_request;
@@ -76,11 +76,13 @@ PREventHandler.prototype.interesting = function (msg) {
 
 function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
   github.user.getFrom({user: ghUser}, function(err, result) {
+    var fullName;
     if (err) {
-      debug('API Call to figure out username has failed');
-      return callback(err);
+      debug('API Call to figure out username has failed for %s', ghUser);
+      fullName = undefined;
+    } else {
+      fullName = result.name;
     }
-    var fullName = result.name;
     var nameString = util.format('%s (%s)', fullName, ghUser);
     if (typeof fullName === 'undefined') {
       nameString = ghUser;
@@ -116,14 +118,13 @@ PREventHandler.prototype.handle = function (msg, callback) {
     child.once('message', function(msg) {
       child.kill();
       if (msg.err) {
-        return callback(msg.err, false);
+        return callback(msg.err, true);
       }
       if (!msg.contents) {
         return callback(new Error('Could not determine Gecko files'), false);
       }
       debug('Fetched platform file values for %s', pr.base_ref);
       var user = pr.who;
-      debug('########   ' + JSON.stringify(msg));
       var contents = msg.contents;
       contents['gaia.json'] = jsonForPR(pr);
       return callback(null, null, {user: user, commit_message: commitMsg, contents: contents, pr: pr});
@@ -133,7 +134,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
       child.send(pr.base_ref);
     } catch (err) {
       child.kill();
-      callback(err);
+      callback(err, true);
     }
   });
 };

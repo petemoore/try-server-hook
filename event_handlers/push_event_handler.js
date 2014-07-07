@@ -31,7 +31,7 @@ function PushEventHandler(downstreams) {
 
 util.inherits(PushEventHandler, BaseEventHandler);
 
-PushEventHandler.prototype.name = 'Incoming Github API Message';
+PushEventHandler.prototype.name = 'Incoming Github API Push Message';
 PushEventHandler.prototype.parse = function (msg, callback) {
   var push = {};
   var upstreamPush = msg.content;
@@ -53,7 +53,8 @@ PushEventHandler.prototype.parse = function (msg, callback) {
   }
   github.repos.get({user: push.owner, repo: push.repo_name}, function (err, result) {
     if (err) {
-      return callback(err);
+      // We want to retry this because it's an API failure, not invalid nessecarily data
+      return callback(err, true);
     }
     push.clone_url = result.clone_url;
     callback(null, push);
@@ -69,11 +70,14 @@ PushEventHandler.prototype.interesting = function (msg) {
 
 function makePushCommitMsg(pushBranch, before, after, ghUser, callback) {
   github.user.getFrom({user: ghUser}, function(err, result) {
+    var fullName;
     if (err) {
-      debug('API Call to figure out username has failed');
-      return callback(err);
+      debug('API Call to figure out username has failed for %s', ghUser);
+      debug(e.stack || e);
+      fullName = undefined;
+    } else {
+      fullName = result.name;
     }
-    var fullName = result.name;
     var nameString = util.format('%s (%s)', fullName, ghUser);
     if (typeof fullName === 'undefined') {
       nameString = ghUser; 
@@ -109,9 +113,10 @@ PushEventHandler.prototype.handle = function (msg, callback) {
       child.once('message', function(msg) {
         child.kill();
         if (msg.err) {
-          return callback(msg.err, false);
+          return callback(msg.err, true);
         }
         if (!msg.contents) {
+          debug('Failed to get the Gecko files');
           return callback(new Error('Could not determine Gecko files'), false);
         }
         debug('Fetched platform file values for %s', push.branch);
@@ -125,7 +130,7 @@ PushEventHandler.prototype.handle = function (msg, callback) {
         child.send(push.branch);
       } catch (err) {
         child.kill();
-        return callback(err);
+        return callback(err, true);
       }
     });
   });
