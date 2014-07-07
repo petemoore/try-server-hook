@@ -6,10 +6,13 @@ var config = require('./config');
 var debug = require('debug');
 
 var Connection = require('./connection');
-var connection = new Connection();
 var msgBroker = require('./msg_broker');
 
+// Event Handlers
 var IRCSender = require('./event_handlers/irc_sender');
+
+var connection = new Connection();
+
 var ircSender = new IRCSender();
 
 connection.open()

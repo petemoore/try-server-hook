@@ -14,13 +14,6 @@ var config = require('./config');
 var port = config.get('PORT') || 7040;
 var Connection = require('./connection');
 
-// Event Handlers
-var PREventHandler = require('./event_handlers/pr_event_handler');
-var PushEventHandler = require('./event_handlers/push_event_handler');
-var IRCEventHandler = require('./event_handlers/irc_event_handler');
-var GithubPostHandler = require('./event_handlers/github_post_handler');
-var StartMonitoringEventHandler = require('./event_handlers/start_monitoring_event_handler');
-
 function error(msg) {
     return JSON.stringify({ 'error': msg }) + '\n';
 }
@@ -82,11 +75,7 @@ app.use(githubHmacAuthenticator(config.getBool('GITHUB_API_REQUIRE_HMAC')));
 
 app.connection = new Connection();
 
-app.prEventHandler = new PREventHandler('commit_to_gaia_try');
-app.pushEventHandler = new PushEventHandler('commit_to_gaia_try');
-app.ircEventHandler = new IRCEventHandler('irc_send');
-app.githubPostHandler = new GithubPostHandler();
-app.startMonitoringEventHandler = new StartMonitoringEventHandler();
+
 
 app.get('/', function(req, res) {
     res.send('200', 'Server is up!');
@@ -129,31 +118,8 @@ app.connection.on('close', function() {
     process.exit(1);
 });
 
-function setupConsumers(connection) {
-  msgBroker.assertSchema(connection)
-  .then(function () { 
-    return connection.createConfirmChannel().then(function(ch) {
-      ch.prefetch(5);
-      // Reset consumers if they error out
-      ch.on('error', function(err) {
-        debug('Encountered channel error, resetting consumers');
-        debug(err.stack || err);
-        setupConsumers(connection);
-      });
-      return when.all([
-        msgBroker.addConsumer(ch, 'incoming_pull_request_events', app.prEventHandler),
-        msgBroker.addConsumer(ch, 'incoming_push_events', app.pushEventHandler),
-        msgBroker.addConsumer(ch, 'queue_irc', app.ircEventHandler),
-        msgBroker.addConsumer(ch, 'make_github_comment', app.githubPostHandler)
-      ]);
-    })
-  })
-  .then(function() {
-    debug('Starting server on port %d', port);
-    app.listen(port);
-  }).done();
-}
-
-app.connection.on('connected', setupConsumers);
-
-app.connection.open().done();
+app.connection.open().then(
+  function () {
+    app.listen(process.env.PORT || 7040);
+  }
+).done();
