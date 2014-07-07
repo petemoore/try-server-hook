@@ -15,7 +15,7 @@ var IRCEventHandler = require('./event_handlers/irc_event_handler');
 var GithubPostHandler = require('./event_handlers/github_post_handler');
 var StartMonitoringEventHandler = require('./event_handlers/start_monitoring_event_handler');
 var CommitEventHandler = require('./event_handlers/commit_event_handler');
-var IRCSender = require('./event_handlers/irc_sender');
+//var IRCSender = require('./event_handlers/irc_sender');
 
 var connection = new Connection();
 
@@ -25,7 +25,7 @@ var ircEventHandler = new IRCEventHandler('irc_send');
 var githubPostHandler = new GithubPostHandler();
 var startMonitoringEventHandler = new StartMonitoringEventHandler();
 var commitEventHandler = new CommitEventHandler(['post_commit_notifications']);
-var ircSender = new IRCSender();
+//var ircSender = new IRCSender();
 
 connection.open()
   .then(msgBroker.assertSchema)
@@ -38,7 +38,7 @@ connection.open()
       });
       return when.all([
         msgBroker.addConsumer(ch, 'to_commit', commitEventHandler),
-        msgBroker.addConsumer(ch, 'irc_outgoing', ircSender),
+        //msgBroker.addConsumer(ch, 'irc_outgoing', ircSender),
         msgBroker.addConsumer(ch, 'incoming_pull_request_events', prEventHandler),
         msgBroker.addConsumer(ch, 'incoming_push_events', pushEventHandler),
         msgBroker.addConsumer(ch, 'queue_irc', ircEventHandler),
