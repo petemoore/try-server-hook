@@ -118,7 +118,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
     child.once('message', function(msg) {
       child.kill();
       if (msg.err) {
-        return callback(msg.err, true);
+        return callback(msg.err, false);
       }
       if (!msg.contents) {
         return callback(new Error('Could not determine Gecko files'), false);

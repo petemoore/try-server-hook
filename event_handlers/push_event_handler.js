@@ -113,7 +113,7 @@ PushEventHandler.prototype.handle = function (msg, callback) {
       child.once('message', function(msg) {
         child.kill();
         if (msg.err) {
-          return callback(msg.err, true);
+          return callback(msg.err, false);
         }
         if (!msg.contents) {
           debug('Failed to get the Gecko files');
