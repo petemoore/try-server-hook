@@ -141,7 +141,7 @@ function commit(user, message, contents, callback) {
         repo.commit(commitOpts, function(err, output) {
           if (err) handleErr(repo, err, true, callback); 
           debug('Committed to repository');
-          repo.push(hgUrl, {'--ssh': sshCmd, '--force': ''}, function(err, output) {
+          repo.push(hgUrl, {'--ssh': sshCmd}, function(err, output) {
             if (err) handleErr(repo, err, true, callback);
             debug('Pushed to %s', hgUrl);
             hgId(repo, function(err, id) {
