@@ -21,6 +21,10 @@ lint:
 		--disable "220,225,0211,0110" \
 		--exclude_directories "examples,node_modules,b2g,api-design"
 
+.FORCE: test
+tests:
+	./node_modules/.bin/mocha
+
 send-pr:
 	curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
 		--header "Content-Type:application/json" \

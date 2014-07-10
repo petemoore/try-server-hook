@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<link rel="icon" href="/releases/static/hgicon.png" type="image/png" />
+<meta name="robots" content="index, nofollow"/>
+<link rel="stylesheet" href="/releases/static/style-gitweb.css" type="text/css" />
+
+<style type="text/css">
+div.feed {
+  float: right;
+}
+a img {
+  border-width: 0px;
+}
+div.log_link {
+  width: 80px;
+  background-color: white;
+}
+
+div.log_body {
+  padding-left: 96px;
+}
+</style>
+
+<title>Mercurial repositories index</title>
+</head>
+<body>
+
+<div class="page_header">
+    <a href="http://developer.mozilla.org/en/docs/Mercurial" title="Mercurial" style="float: right;">Mercurial</a>
+    Repositories list
+</div>
+
+<table cellspacing="0">
+    <tr>
+        <td><a href="?sort=name">Name</a></td>
+        <td><a href="?sort=description">Description</a></td>
+        <td><a href="?sort=lastchange">Last change</a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr class="parity0"><td><a class="list" href="/releases/comm-aurora/"><b>comm-aurora</b></a></td><td>Thunderbird and SeaMonkey aurora channel</td><td class="age">at Sat Jun 28 10:04:22 2014 +0000</td><td class="indexlinks"> <a href="/releases/comm-aurora/archive/tip.zip">zip</a>  <a href="/releases/comm-aurora/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-aurora/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-aurora/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/comm-beta/"><b>comm-beta</b></a></td><td>Thunderbird and SeaMonkey beta channel</td><td class="age">at Sat Jun 28 10:03:21 2014 +0000</td><td class="indexlinks"> <a href="/releases/comm-beta/archive/tip.zip">zip</a>  <a href="/releases/comm-beta/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-beta/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-beta/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/comm-esr10/"><b>comm-esr10</b></a></td><td>Thunderbird Extended Support Release 10</td><td class="age">at Sat Jan 05 14:11:43 2013 +0000</td><td class="indexlinks"> <a href="/releases/comm-esr10/archive/tip.zip">zip</a>  <a href="/releases/comm-esr10/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-esr10/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-esr10/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/comm-esr17/"><b>comm-esr17</b></a></td><td>Thunderbird Extended Support Release 17</td><td class="age">at Mon Nov 18 16:14:06 2013 +0000</td><td class="indexlinks"> <a href="/releases/comm-esr17/archive/tip.zip">zip</a>  <a href="/releases/comm-esr17/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-esr17/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-esr17/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/comm-esr24/"><b>comm-esr24</b></a></td><td>Thunderbird Extended Support Release 24</td><td class="age">at Tue Jun 10 06:55:47 2014 +0000</td><td class="indexlinks"> <a href="/releases/comm-esr24/archive/tip.zip">zip</a>  <a href="/releases/comm-esr24/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-esr24/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-esr24/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/comm-release/"><b>comm-release</b></a></td><td>Released versions of Thunderbird, Seamonkey, etc.</td><td class="age">at Fri Jun 13 00:17:56 2014 +0000</td><td class="indexlinks"> <a href="/releases/comm-release/archive/tip.zip">zip</a>  <a href="/releases/comm-release/archive/tip.tar.gz">gz</a>  <a href="/releases/comm-release/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/comm-release/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/firefox-hotfixes/"><b>firefox-hotfixes</b></a></td><td>unknown</td><td class="age">at Wed Jul 02 17:05:24 2014 +0000</td><td class="indexlinks"> <a href="/releases/firefox-hotfixes/archive/tip.zip">zip</a>  <a href="/releases/firefox-hotfixes/archive/tip.tar.gz">gz</a>  <a href="/releases/firefox-hotfixes/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/firefox-hotfixes/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mobile-5.0/"><b>mobile-5.0</b></a></td><td>unknown</td><td class="age">at Wed Jun 15 22:53:14 2011 +0000</td><td class="indexlinks"> <a href="/releases/mobile-5.0/archive/tip.zip">zip</a>  <a href="/releases/mobile-5.0/archive/tip.tar.gz">gz</a>  <a href="/releases/mobile-5.0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mobile-5.0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-aurora/"><b>mozilla-aurora</b></a></td><td>Firefox Aurora Channel development</td><td class="age">at Wed Jul 02 23:06:21 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-aurora/archive/tip.zip">zip</a>  <a href="/releases/mozilla-aurora/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-aurora/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-aurora/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-beta/"><b>mozilla-beta</b></a></td><td>Firefox Beta channel development</td><td class="age">at Wed Jul 02 18:31:43 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-beta/archive/tip.zip">zip</a>  <a href="/releases/mozilla-beta/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-beta/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-beta/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-b2g18/"><b>mozilla-b2g18</b></a></td><td>Firefox gecko 18 for b2g</td><td class="age">at Mon Apr 28 19:16:04 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g18/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g18/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g18/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g18/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-b2g18_v1_0_0/"><b>mozilla-b2g18_v1_0_0</b></a></td><td>Firefox gecko 18 for b2g</td><td class="age">at Thu Jul 25 14:53:30 2013 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g18_v1_0_0/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g18_v1_0_0/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g18_v1_0_0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g18_v1_0_0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-b2g18_v1_0_1/"><b>mozilla-b2g18_v1_0_1</b></a></td><td>Firefox gecko 18 for b2g</td><td class="age">at Wed Jun 19 08:51:49 2013 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g18_v1_0_1/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g18_v1_0_1/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g18_v1_0_1/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g18_v1_0_1/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-b2g18_v1_1_0/"><b>mozilla-b2g18_v1_1_0</b></a></td><td>Firefox gecko 18 for b2g</td><td class="age">at Tue Apr 02 14:25:48 2013 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g18_v1_1_0/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g18_v1_1_0/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g18_v1_1_0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g18_v1_1_0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-b2g18_v1_1_0_hd/"><b>mozilla-b2g18_v1_1_0_hd</b></a></td><td>Firefox gecko 18 for b2g</td><td class="age">at Mon Apr 28 19:28:53 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g18_v1_1_0_hd/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g18_v1_1_0_hd/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g18_v1_1_0_hd/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g18_v1_1_0_hd/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-b2g26_v1_2/"><b>mozilla-b2g26_v1_2</b></a></td><td>Firefox gecko 26 for b2g</td><td class="age">at Fri May 30 03:00:11 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g26_v1_2/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g26_v1_2/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g26_v1_2/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g26_v1_2/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-b2g26_v1_2f/"><b>mozilla-b2g26_v1_2f</b></a></td><td>unknown</td><td class="age">at Sat Jun 07 19:22:13 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g26_v1_2f/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g26_v1_2f/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g26_v1_2f/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g26_v1_2f/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-b2g28_v1_3/"><b>mozilla-b2g28_v1_3</b></a></td><td>Firefox gecko 28 for b2g</td><td class="age">at Tue Jul 01 01:54:53 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g28_v1_3/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g28_v1_3/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g28_v1_3/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g28_v1_3/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-b2g28_v1_3t/"><b>mozilla-b2g28_v1_3t</b></a></td><td>unknown</td><td class="age">at Tue Jul 01 07:31:45 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g28_v1_3t/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g28_v1_3t/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g28_v1_3t/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g28_v1_3t/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-b2g30_v1_4/"><b>mozilla-b2g30_v1_4</b></a></td><td>unknown</td><td class="age">at Wed Jul 02 23:16:07 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-b2g30_v1_4/archive/tip.zip">zip</a>  <a href="/releases/mozilla-b2g30_v1_4/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-b2g30_v1_4/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-b2g30_v1_4/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-esr10/"><b>mozilla-esr10</b></a></td><td>Firefox Extended Support Release 10</td><td class="age">at Sat Jan 05 14:11:02 2013 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-esr10/archive/tip.zip">zip</a>  <a href="/releases/mozilla-esr10/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-esr10/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-esr10/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-esr17/"><b>mozilla-esr17</b></a></td><td>Firefox Extended Support Release 17</td><td class="age">at Sat Dec 07 11:14:29 2013 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-esr17/archive/tip.zip">zip</a>  <a href="/releases/mozilla-esr17/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-esr17/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-esr17/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-esr24/"><b>mozilla-esr24</b></a></td><td>Firefox Extended Support Release 24</td><td class="age">at Sat Jun 28 10:10:36 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-esr24/archive/tip.zip">zip</a>  <a href="/releases/mozilla-esr24/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-esr24/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-esr24/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-esr31/"><b>mozilla-esr31</b></a></td><td>unknown</td><td class="age">at Thu Jun 26 13:45:51 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-esr31/archive/tip.zip">zip</a>  <a href="/releases/mozilla-esr31/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-esr31/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-esr31/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-release/"><b>mozilla-release</b></a></td><td>Released versions of Firefox</td><td class="age">at Sat Jun 28 10:10:05 2014 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-release/archive/tip.zip">zip</a>  <a href="/releases/mozilla-release/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-release/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-release/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mozilla-mobile-5.0/"><b>mozilla-mobile-5.0</b></a></td><td>unknown</td><td class="age">at Sat Oct 29 20:13:16 2011 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-mobile-5.0/archive/tip.zip">zip</a>  <a href="/releases/mozilla-mobile-5.0/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-mobile-5.0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-mobile-5.0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity0"><td><a class="list" href="/releases/mozilla-mobile-6.0/"><b>mozilla-mobile-6.0</b></a></td><td>unknown</td><td class="age">at Wed Jul 06 17:02:55 2011 +0000</td><td class="indexlinks"> <a href="/releases/mozilla-mobile-6.0/archive/tip.zip">zip</a>  <a href="/releases/mozilla-mobile-6.0/archive/tip.tar.gz">gz</a>  <a href="/releases/mozilla-mobile-6.0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mozilla-mobile-6.0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+<tr class="parity1"><td><a class="list" href="/releases/mobile-6.0/"><b>mobile-6.0</b></a></td><td>unknown</td><td class="age">at Wed Jul 06 16:03:38 2011 +0000</td><td class="indexlinks"> <a href="/releases/mobile-6.0/archive/tip.zip">zip</a>  <a href="/releases/mobile-6.0/archive/tip.tar.gz">gz</a>  <a href="/releases/mobile-6.0/archive/tip.tar.bz2">bz2</a> </td><td><a href="/releases/mobile-6.0/atom-log"><img src="/releases/static/livemarks16.png" alt="Feed" title="Feed of repository changes"/></a></td></tr>
+
+</table>
+&nbsp;
+&nbsp;
+&nbsp;
+<div class="title">
+     Repository Layout
+</div>
+<table cellspacing="0">
+    <tr>
+        <td><a href="/">/</a></td>
+        <td>Mozilla top level repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/automation">automation</a></td>
+        <td>QA automation projects</td>
+    </tr>
+    <tr>
+        <td><a href="/build">build</a></td>
+        <td>Build team projects</td>
+    </tr>
+    <tr>
+        <td><a href="/hgcustom">hgcustom</a></td>
+        <td>Mercurial customizations</td>
+    </tr>
+    <tr>
+        <td><a href="/incubator">incubator</a></td>
+        <td>Incubator projects</td>
+    </tr>
+    <tr>
+        <td><a href="/l10n">l10n</a></td>
+        <td>L10n infrastructure projects</td>
+    </tr>
+    <tr>
+        <td><a href="/l10n-central">l10n-central</a></td>
+        <td>L10n repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/labs">labs</a></td>
+        <td>Mozilla <a href="http://labs.mozilla.com/">labs</a> projects</td>
+    </tr>
+    <tr>
+        <td><a href="/projects">projects</a></td>
+        <td>Miscellaneous project repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/qa">qa</a></td>
+        <td>QA projects and functional test repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/integration">integration</a></td>
+        <td>Source code integration work</td>
+    </tr>
+    <tr>
+        <td><a href="/releases">releases</a></td>
+        <td>Release branches (use releases/l10n-branchname for l10n repos)</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/gaia-l10n/v1_2">releases/gaia-l10n/v1_2</a></td>
+        <td>Gaia l10n v1_2 repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/gaia-l10n/v1_3">releases/gaia-l10n/v1_3</a></td>
+        <td>Gaia l10n v1_3 repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/gaia-l10n/v1_4">releases/gaia-l10n/v1_4</a></td>
+        <td>Gaia l10n v1_4 repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/l10n/mozilla-aurora">releases/l10n/mozilla-aurora</a></td>
+        <td>Aurora l10n repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/l10n/mozilla-beta">releases/l10n/mozilla-beta</a></td>
+        <td>Beta l10n repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/releases/l10n/mozilla-release">releases/l10n/mozilla-release</a></td>
+        <td>Release l10n repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/rewriting-and-analysis">rewriting-and-analysis</a></td>
+        <td>Rewriting &amp; Analysis</td>
+    </tr>
+    <tr>
+        <td><a href="/services">services</a></td>
+        <td>Code related to Mozilla services projects (Firefox sync, etc..)</td>
+    </tr>
+    <tr>
+        <td><a href="/users">users</a></td>
+        <td>User code repositories</td>
+    </tr>
+    <tr>
+        <td><a href="/weave-l10n">weave-l10n</a></td>
+        <td>l10n repos for weave code</td>
+    </tr>
+    <tr>
+        <td><a href="/webtools">webtools</a></td>
+        <td>Webtool projects like mxr, etc</td>
+    </tr>
+    <tr>
+        <td><a href="/www">www</a></td>
+        <td>Code related to various mozilla websites</td>
+    </tr>
+</table>
+<div class="page_footer">
+
+</div>
+</body>
+</html>

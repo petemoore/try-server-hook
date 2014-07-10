@@ -50,9 +50,9 @@ function geckoVersion (options, callback) {
     port: options.port,
     pathname: pathComponents.join('/')
   };
-  var versionURL = url.format(urlObj);
-  debug('Getting version from %s', versionURL);
-  request(versionURL, function (err, response, body) {
+  var versionUrl = url.format(urlObj);
+  debug('Getting version from %s', versionUrl);
+  request.get(versionUrl, function (err, response, body) {
     if (err) {
       return callback(err);
     }
@@ -66,25 +66,50 @@ function geckoVersion (options, callback) {
   });
 }
 
-// Check if a URL points to an existing resource
-function checkURL(urlToCheck, callback) {
+// Check if a Url points to an existing resource
+function checkUrl(urlToCheck, callback) {
   var reqOpts = {
     url: urlToCheck,
-    method: 'HEAD',
-    headers: {'User-Agent': 'try-server-hook (gaia)'},
+    headers: {
+      'User-Agent': 'try-server-hook (gaia)',
+      'Connection': 'close'
+    },
   }
-  debug('Checking URL: %s', urlToCheck);
-  request(reqOpts, function (err, response, body) {
+  debug('Checking Url: %s', urlToCheck);
+  request.head(reqOpts, function (err, response, body) {
     if (err) {
       return callback(false);
+    } else {
+      return callback(response.statusCode >= 200 && response.statusCode < 300);
     }
-    return callback(response.statusCode >= 200 && response.statusCode < 300);
   });
 }
 
-// Build the URL for a bundle, optionally only the part of the
+// Fetch a Url's eventual body
+function fetchUrl(urlToFetch, callback) {
+  var reqOpts = {
+    url: urlToFetch,
+    headers: {
+      'User-Agent': 'try-server-hook (gaia)',
+    },
+  }
+  debug('Fetching Url: %s', urlToFetch);
+  request.get(reqOpts, function (err, response, body) {
+    if (err) {
+      return callback(err);
+    }
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return callback(null, body);
+    } else {
+      return callback(new Error('Invalid response from server'));
+    }
+
+  });
+}
+
+// Build the Url for a bundle, optionally only the part of the
 // url that points to the directory before the timestamp dir
-function buildBundleURL(options, callback) {
+function buildFtpUrl(options, callback) {
   var urlObj = {
     protocol: options.protocol || 'https',
     hostname: options.host || 'ftp.mozilla.org',
@@ -96,7 +121,7 @@ function buildBundleURL(options, callback) {
     'mozilla.org',
     options.ftpProduct || 'b2g',
     'tinderbox-builds',
-    util.format('%s-%s', options.branch || 'mozilla-central', options.bbPlatform || 'linux64'),
+    util.format('%s-%s', options.branch || 'mozilla-central', options.bbPlatform || 'linux64_gecko'),
   ];
   if (!options.findingLatest) {
     [
@@ -111,13 +136,13 @@ function buildBundleURL(options, callback) {
     ].forEach(function(e) { path.push(e)});
   }
   urlObj.pathname = path.join('/');
-  var bundleURL = url.format(urlObj);
-  debug('Built URL: %s', bundleURL);
-  checkURL(bundleURL, function(there) {
+  var bundleUrl = url.format(urlObj);
+  debug('Built Url: %s', bundleUrl);
+  checkUrl(bundleUrl, function(there) {
     if (!there) {
-      return callback(new Error('URL created but not there: ' + bundleURL));
+      return callback(new Error('Url created but not there: ' + bundleUrl));
     }
-    return callback(null, bundleURL);
+    return callback(null, bundleUrl);
   });
 }
 
@@ -125,32 +150,47 @@ function buildBundleURL(options, callback) {
 // the most recent gecko upload
 function getLatestDirNum(loc, callback) {
   var potato = 'This ' + loc + ' document is a potato, not a directory listing';
-  jsdom.env(loc, function(err, window) {
-    debug('Created dom for %s:', loc);
+  fetchUrl(loc, function(err, body) {
     if (err) {
-      return callback(new Error(potato));
-    }
-    var times = []; 
-    var datacells = window.document.querySelectorAll('table>tr>td:not(th):not(tf):nth-child(2)>a[href^="1"]');
-    if (datacells.length < 0) {
-      debug('Query selector failed, has markup changed?');
-      window.close();
-      return callback(new Error('No potential builds to find'));
+      return callback(err);
     }
 
-    for (var i = 0; i < datacells.length; i++) {
-      var content = datacells[i].innerHTML;
-      var match = /^(\d{10})\/$/.exec(content);
-      if (match) {
-        times.push(Number(match[1]));
-      }
+    try {
+      jsdom.env(body, function(err, window) {
+        debug('Created dom for %s:', loc);
+        if (err) {
+          return callback(new Error(potato));
+        }
+        var times = []; 
+        var selector = 'table>tr>td:not(th):not(tf):nth-child(2)>a[href^="1"]'
+        try {
+          var datacells = window.document.querySelectorAll(selector);
+        } catch (e) {
+          return callback(new Error('Could not query the selector'));
+        }
+        if (datacells.length < 0) {
+          debug('Query selector failed, has markup changed?');
+          window.close();
+          return callback(new Error('No potential builds to find'));
+        }
+
+        for (var i = 0; i < datacells.length; i++) {
+          var content = datacells[i].innerHTML;
+          var match = /^(\d{10})\/$/.exec(content);
+          if (match) {
+            times.push(Number(match[1]));
+          }
+        }
+        if (times.length === 0) {
+          window.close();
+          return callback(new Error('No builds to find'));
+        }
+        window.close();
+        return callback(null, Math.max.apply(Math, times));
+      });
+    } catch (e) {
+      return callback(e);
     }
-    if (times.length === 0) {
-      window.close();
-      return callback(new Error('No builds to find'));
-    }
-    window.close();
-    return callback(null, Math.max.apply(Math, times));
   });
 }
 
@@ -163,6 +203,7 @@ function findB2GVer (b2gGeckoRepos, b2gVer) {
   // Need to figure out how to handle the case where
   // a numbered gaia branch is aurora
   b2gGeckoRepos.forEach(function(e, idx) {
+    // this should really deal with leading backslash
     var bits = e.split(/^releases\/mozilla-b2g\d+_?(.*)/);
     if (bits[1]) {
       var realB2GVer = bits[1].replace('_', '.');
@@ -183,8 +224,18 @@ function findB2GVer (b2gGeckoRepos, b2gVer) {
   return geckoBranch;
 }
 
+// We can safely cache this data
+var b2gVersionCache = {
+  master: 'mozilla-central',
+};
+
 // Map a B2G Version, e.g. v1.3t, to a Gecko repo path, e.g. releases/mozilla-b2g28_v1_3t
 function mapB2GVerToGeckoRepo(b2gVer, callback) {
+  // These values are immutable, so let's just cache them!
+  if (b2gVersionCache[b2gVer]) {
+    return callback(null, b2gVersionCache[b2gVer]);
+  }
+
   var potato = 'This hg.m.o document is a potato, not a directory listing';
   jsdom.env('http://hg.mozilla.org/releases', function(err, window) {
     debug('Built dom for repository mapping');
@@ -192,6 +243,7 @@ function mapB2GVerToGeckoRepo(b2gVer, callback) {
       return callback(new Error(potato));
     }
     var names = ['mozilla-central', 'mozilla-aurora'];
+    
     var datacells = window.document.querySelectorAll('table>tr>td:not(th):not(tf):first-child>a[href^="/releases/mozilla-b2g"]');
     if (datacells.length < 1) {
       window.close();
@@ -210,20 +262,24 @@ function mapB2GVerToGeckoRepo(b2gVer, callback) {
       return callback(new Error(potato));
     }
     window.close();
-    return callback(null, findB2GVer(names, b2gVer));
+    var geckoRepoPath = findB2GVer(names, b2gVer)
+    if (geckoRepoPath !== 'releases/mozilla-aurora') {
+      b2gVersionCache[b2gVer] = geckoRepoPath;
+    }
+    return callback(null, geckoRepoPath);
   });
 }
 
-// I should write a fuzzURL function that checks for one version
+// I should write a fuzzUrl function that checks for one version
 // higher if the url isn't found
 // I recommend writing tests against:
-//  * getURLs('v1.4', 'linux-x86_64',
-//  * getURLs('v1.3t', 'linux-x86_64',
-//  * getURLs('v2.0', 'linux-x86_64',
-//  * getURLs('master', 'linux-x86_64',
-function getURLs(b2gVer, bbPlatform, callback) {
-  var buildURL;
-  var testsURL;
+//  * getUrls('v1.4', 'linux-x86_64',
+//  * getUrls('v1.3t', 'linux-x86_64',
+//  * getUrls('v2.0', 'linux-x86_64',
+//  * getUrls('master', 'linux-x86_64',
+function getUrls(b2gVer, bbPlatform, callback) {
+  var buildUrl;
+  var testsUrl;
   mapB2GVerToGeckoRepo(b2gVer, function (err, repoPath) {
     if (err) {
       return callback(err);
@@ -238,12 +294,12 @@ function getURLs(b2gVer, bbPlatform, callback) {
     };
     var platform = bbToRealPlatform[bbPlatform];
     debug('%s has repo path of %s', b2gVer, repoPath);
-    buildBundleURL(opts, function (err, dURL) {
+    buildFtpUrl(opts, function (err, dUrl) {
       if (err) {
         return callback(err);
       }
-      debug('Timestamp directory is %s', dURL);
-      getLatestDirNum(dURL, function (err, latestDir) { 
+      debug('Timestamp directory is %s', dUrl);
+      getLatestDirNum(dUrl, function (err, latestDir) { 
         if (err) {
           return callback(err);
         }
@@ -259,20 +315,20 @@ function getURLs(b2gVer, bbPlatform, callback) {
           opts.platform = platform;
           opts.timestamp = latestDir;
           opts.fileSuffix = platformToSuffix[platform];
-          buildBundleURL(opts, function(err, bURL) {
-            debug('Browser URL for %s with %s is %s', bbPlatform, b2gVer, bURL);
+          buildFtpUrl(opts, function(err, bUrl) {
+            debug('Browser Url for %s with %s is %s', bbPlatform, b2gVer, bUrl);
             if (err) {
               return callback(err);
             }
-            buildURL = bURL;
+            buildUrl = bUrl;
             opts.fileSuffix = '.tests.zip';
-            buildBundleURL(opts, function(err, tURL) {
-              debug('Tests URL for %s with %s is %s', b2gVer, bbPlatform, tURL);
+            buildFtpUrl(opts, function(err, tUrl) {
+              debug('Tests Url for %s with %s is %s', b2gVer, bbPlatform, tUrl);
               if (err) {
                 return callback(err);
               }
-              testsURL = tURL;
-              return callback(null, {installer_url: buildURL, test_url: testsURL});
+              testsUrl = tUrl;
+              return callback(null, {installer_url: buildUrl, test_url: testsUrl});
             });
           });
         });
@@ -291,7 +347,7 @@ function all(b2gVer, callback) {
   }
 
   function x(platform, callback) {
-    getURLs(b2gVer, platform, function (err, data) {
+    getUrls(b2gVer, platform, function (err, data) {
       if (err) {
         return callback(err);
       }
@@ -315,9 +371,12 @@ function all(b2gVer, callback) {
 
 module.exports = {
   geckoVersion: geckoVersion,
-  checkURL: checkURL,
-  buildBundleURL: buildBundleURL,
-  getURLs: getURLs,
+  checkUrl: checkUrl,
+  fetchUrl: fetchUrl,
+  buildFtpUrl: buildFtpUrl,
+  getLatestDirNum: getLatestDirNum,
+  getUrls: getUrls,
+  findB2GVer: findB2GVer,
   mapB2GVerToGeckoRepo: mapB2GVerToGeckoRepo,
   all: all
 }

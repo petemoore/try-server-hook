@@ -14,6 +14,7 @@ for i in \
   "https://hg.mozilla.org/releases/mozilla-b2g30_v1_4/raw-file/eb690ed47c24/browser/config/version.txt"
 do
   filename="$(echo "$i" | sed -e 's,/$,,' | xargs basename)"
-  curl -L -i -o "$filename" "$i"
+  curl -L -I -o "$filename.headers" "$i"
+  curl -L -o "$filename" "$i"
   echo Saved file to $filename you should add to git
 done

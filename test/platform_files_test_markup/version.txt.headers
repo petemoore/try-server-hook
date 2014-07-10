@@ -1,0 +1,11 @@
+HTTP/1.1 200 Script output follows
+Server: Apache/2.2.15 (Red Hat)
+Vary: Accept-Encoding
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 02 Jul 2014 23:34:13 GMT
+Access-Control-Allow-Origin: *
+ETag: 1404342968.01
+Content-Disposition: inline; filename="version.txt"
+Connection: Keep-Alive
+Content-Length: 5
+
