@@ -1,15 +1,36 @@
-CREATE USER bangbang PASSWORD 'abcd123';
-
-GRANT ALL PRIVILEGES ON DATABASE "staging-db" TO bangbang;
-
-CREATE TABLE IF NOT EXISTS gaia_try_monitor
+CREATE TABLE IF NOT EXISTS revisions
 (
-  hg_id character(40) NOT NULL,
-  upstream json NOT NULL,
-  state char(15) NOT NULL,
-  CONSTRAINT gaia_try_monitor_pkey PRIMARY KEY (hg_id)
+  id TEXT NOT NULL,  -- gaia-try commit id
+  repository TEXT NOT NULL, -- gaia-try repository
+  eventtype TEXT NOT NULL, -- was it a pull_request, push?
+  prnum INTEGER DEFAULT NULL, -- if it's a PR, what's the number
+  username TEXT NOT NULL, -- user who did the pushing/pr'ing
+  basebranch TEXT NOT NULL,
+  targetbranch TEXT NOT NULL,
+  baseremote TEXT NOT NULL,
+  targetremote TEXT NOT NULL,
+  basecommit TEXT NOT NULL,
+  targetcommit TEXT NOT NULL,
+  commitmsg TEXT NOT NULL,
+  upstream json NOT NULL, -- Various info mainly for debugging
+  submitted timestamp NOT NULL, -- time of when gaia-try commit happend
+  completed timestamp DEFAULT NULL, -- time when we found out job was done
+  CONSTRAINT gaia_try_monitor_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE gaia_try_monitor OWNER TO bangbang;
+
+CREATE TABLE IF NOT EXISTS builds
+(
+  id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  starttime TIMESTAMP,
+  endtime TIMESTAMP,
+  revision TEXT references revisions(id) ON DELETE CASCADE,
+  outcome INTEGER DEFAULT NULL,
+  CONSTRAINT builds_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+)

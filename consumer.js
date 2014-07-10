@@ -5,6 +5,7 @@ var util = require('util');
 var config = require('./config');
 var debug = require('debug');
 
+// Connection Libraries
 var Connection = require('./connection');
 var msgBroker = require('./msg_broker');
 
@@ -42,6 +43,7 @@ connection.open()
         msgBroker.addConsumer(ch, 'incoming_pull_request_events', prEventHandler),
         msgBroker.addConsumer(ch, 'incoming_push_events', pushEventHandler),
         msgBroker.addConsumer(ch, 'queue_irc', ircEventHandler),
+        msgBroker.addConsumer(ch, 'start_monitoring', startMonitoringEventHandler),
         msgBroker.addConsumer(ch, 'make_github_comment', githubPostHandler)
       ]);
     });

@@ -71,6 +71,15 @@
           "cd node-{{user `node_ver` }}",
           "./configure && make && make install"
       ]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "useradd hook",
+      "mkdir /home/hook/.ssh",
+      "chown hook:hook /home/hook /home/hook/.ssh",
+      "chmod 700 /home/hook /home/hook/.ssh"
+    ]
   }
   ]
 }

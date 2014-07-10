@@ -8,6 +8,7 @@
   "GITHUB_API_HMAC_KEY": "your-hmac-key",
   "GITHUB_API_REQUIRE_HMAC": "0",
   "DATABASE_URL": "postgres://user:pass@localhost:5432/try-server-hook",
+  "REDIS_URL": "",
   "HG_USER": "gaiabld",
   "HG_KEY": "~/.ssh/user_rsa",
   "HG_REPOSITORY": "ssh://hg.mozilla.org/users/jford_mozilla.com/gaia-try",
