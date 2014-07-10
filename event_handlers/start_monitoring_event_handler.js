@@ -1,7 +1,7 @@
 "use strict";
 
 var config = require('../config');
-var pg = require('pg');
+var pg = require('pg').native;
 var debug = require('debug')('try-server-hook:start_monitoring_event_handler');
 var util = require('util');
 
@@ -86,6 +86,7 @@ StartMonitoringEventHandler.prototype.handle = function (msg, callback) {
     debug('QUERY: %s', query);
     debug('VALUES: %s', values.join(', '));
     client.query(query, values, function (err, result) {
+      done();
       if (err) {
         debug('Error inserting: %s', err.stack || err);
         return callback(new Error(err), true);
