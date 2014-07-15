@@ -17,6 +17,10 @@
     {
       "name": "post_commit_notifications",
       "type": "topic"
+    },
+    {
+      "name": "buildapi_jobs",
+      "type": "topic"
     }
   ],
   "queues": [
@@ -27,6 +31,8 @@
     {"name": "make_github_comment"},
     {"name": "make_bugzilla_comments"},
     {"name": "start_monitoring"},
+    {"name": "check_on_test_runs"},
+    {"name": "check_on_test_run"},
     {"name": "queue_irc"}
   ],
   "bindings": [
@@ -69,6 +75,16 @@
       "exchange": "post_commit_notifications",
       "queue": "make_github_comment",
       "routing_key": "github.pull_request.#"
+    },
+    {
+      "exchange": "buildapi_jobs",
+      "queue": "check_on_test_runs",
+      "routing_key": "all_tests"
+    },
+    {
+      "exchange": "buildapi_jobs",
+      "queue": "check_on_test_run",
+      "routing_key": "single_test"
     }
   ]
 }

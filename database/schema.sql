@@ -1,3 +1,4 @@
+-- Should probably be creating indexes on submitted and completed
 CREATE TABLE IF NOT EXISTS revisions
 (
   id TEXT NOT NULL,  -- gaia-try commit id
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS revisions
   upstream json NOT NULL, -- Various info mainly for debugging
   submitted timestamp NOT NULL, -- time of when gaia-try commit happend
   completed timestamp DEFAULT NULL, -- time when we found out job was done
-  CONSTRAINT gaia_try_monitor_pkey PRIMARY KEY (id)
+  CONSTRAINT revisions_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
