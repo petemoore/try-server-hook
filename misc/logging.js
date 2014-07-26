@@ -3,7 +3,7 @@
 var bunyan = require('bunyan');
 var path = require('path');
 
-var logfile = process.eng.LOGFILE || '/var/log/hook/log';
+var logfile = process.env.LOGFILE || '/var/log/hook/log';
 
 // This is done because of the express bunyan
 // logger interface module requiring a config
