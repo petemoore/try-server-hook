@@ -3,6 +3,8 @@
 var bunyan = require('bunyan');
 var path = require('path');
 
+var logfile = process.eng.LOGFILE || '/var/log/hook/log';
+
 // This is done because of the express bunyan
 // logger interface module requiring a config
 // object instead of a logger instance
@@ -16,7 +18,7 @@ function makeConfig() {
       {
         type: 'rotating-file',
         level: bunyan.TRACE,
-        path: '/var/log/hook/log',
+        path: logfile,
         period: '1d',
         count: 10
       }
