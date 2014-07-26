@@ -1,14 +1,16 @@
 "use strict";
 
-var debug = require('debug')('try-server-hook:config');
 var fs = require('fs');
 var path = require('path');
+var logging = require('./misc/logging');
 
 var configDir = path.join(__dirname, 'config');
 var defaultsFile = path.join(configDir, 'default.json');
 var environment = process.env.NODE_ENV || 'local';
 var envFile = path.join(configDir, environment + '.json');
-debug('Environment: %s', environment);
+var log = logging.setup(__filename);
+
+log.info('Environment: %s', environment);
 
 var watchingEnvFile = false;
 
@@ -19,13 +21,13 @@ function Config (options) {
 Config.prototype = {
   get: function (key) {
     if (!this.options) {
-      debug('Trying to get a config var before we\'ve read the file');
+      log.warn('Trying to get a config var before we\'ve read the file');
       return undefined;
     } else if (process.env[key]) {
-      debug('Reading %s from environment', key);
+      log.debug('Reading %s from environment', key);
       return process.env[key]
     } else {
-      debug('Reading %s from a file', key);
+      log.debug('Reading %s from a file', key);
       return this.options[key]
     }
   },
@@ -62,9 +64,8 @@ function update() {
       load(options, JSON.parse(fs.readFileSync(envFile)));
     }
     config.options = options;
-  } catch (e) {
-    debug('Error loading configuration files');
-    debug(e.stack || e);
+  } catch (err) {
+    log.error(err, 'Error loading configuration files');
   }
 }
 
@@ -73,11 +74,11 @@ update();
 fs.watch(configDir, {persistent: false}, function(action, filename) {
   if (filename) {
     if (filename === path.basename(defaultsFile) || filename === path.basename(envFile)){
-      debug('Reloading config because defaults file %s %s', filename, action);
+      log.debug('Reloading config because defaults file %s %s', filename, action);
       update();
     }
   } else {
-    debug('Reloading config because some file changed in config/ and I don\'t know which');
+    log.debug('Reloading config because some file changed in config/ and I don\'t know which');
     update();
   }
 });

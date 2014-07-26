@@ -2,11 +2,13 @@
 
 var util = require('util');
 var when = require('when');
-var debug = require('debug')('try-server-hook:pr_event_handler');
 var platformFiles = require('../misc/platform_files.js');
 var fork = require('child_process').fork;
 var path = require('path');
 var github = require('../misc/githubapi');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -78,7 +80,7 @@ function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
   github.user.getFrom({user: ghUser}, function(err, result) {
     var fullName;
     if (err) {
-      debug('API Call to figure out username has failed for %s', ghUser);
+      log.error(err, 'API Call to figure out username has failed for %s', ghUser);
       fullName = undefined;
     } else {
       fullName = result.name;
@@ -96,14 +98,14 @@ function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
 
 PREventHandler.prototype.handle = function (msg, callback) {
   if (!this.interesting(msg)) {
-    debug('Ignoring uninteresting event');
+    log.debug('Ignoring uninteresting event');
     return callback(null);
   }
 
   try {
     var pr = this.parse(msg);
   } catch(err) {
-    debug('Failed to parse Github message');
+    log.error(err, 'Failed to parse Github message');
     return callback(err, false);
   }
 
@@ -111,7 +113,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
     var child = fork(path.join(__dirname, '../misc/find_platform_files.js'));
   
     child.once('error', function(err) {
-      debug('Error while talking to child process that figures out building platform json files');
+      log.error(err, 'Error while talking to child process that figures out building platform json files');
       callback(err);
     });
 
@@ -123,7 +125,7 @@ PREventHandler.prototype.handle = function (msg, callback) {
       if (!msg.contents) {
         return callback(new Error('Could not determine Gecko files'), false);
       }
-      debug('Fetched platform file values for %s', pr.base_ref);
+      log.debug('Fetched platform file values for %s', pr.base_ref);
       var user = pr.who;
       var contents = msg.contents;
       contents['gaia.json'] = jsonForPR(pr);

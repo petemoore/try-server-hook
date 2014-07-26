@@ -57,7 +57,11 @@
   },
   {
       "type": "shell",
-      "inline": ["yum install -y git gcc gcc-c++ screen python-pip python-devel"]
+      "inline": ["yum localinstall -y http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm"]
+  },
+  {
+      "type": "shell",
+      "inline": ["yum install -y git gcc gcc-c++ screen python-pip python-devel postgresql93-devel"]
   },
   {
       "type": "shell",

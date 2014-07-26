@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var config = require('../config');
 var pg = require('pg').native;
@@ -8,8 +8,10 @@ var buildapi = _buildapi(
     config.get('BUILD_API_USER'),
     config.get('BUILD_API_PASSWORD')
 );
-var debug = require('debug')('try-server-hook:check_tests_event_handler');
 var util = require('util');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -34,26 +36,20 @@ CheckTestsEventHandler.prototype.handle = function (msg, callback) {
     if (err) {
       return callback(err, true);
     }
-    // I wonder if there's any value to ordering by submitted time?
-    var query = 'SELECT id FROM revisions WHERE completed IS NULL';
     
-    debug('QUERY: %s', query);
-    var query = client.query(query);
-  
-    query.on('row', function(row) {
-      var hg_id = row.id;
-      this.amqpConn.open().then(function(conn) {
-        return msgBroker.insert(conn, 'buildapi_jobs', 'single_test', hg_id);
-      }).done();
-    }.bind(this));
+    var info = [];
 
-    query.on('end', function(row) {
-      debug('Finished creating build check jobs');
-      callback(null, null);
-    });
-
-    query.once('error', function(error) {
-      callback(error, true);
+    buildapi.getRev(msg, config.get('BUILD_API_REPO'), function(err, info) {
+      info.forEach(function(build) {
+        info.append({
+          build_id: build.build_id,
+          starttime: build.starttime,
+          status: build.status,
+          branch: build.branch,
+          buildername: build.buildername,
+          endtime: build.endtime
+        });
+      }); 
     });
 
   }.bind(this));

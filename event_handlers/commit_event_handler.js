@@ -4,6 +4,9 @@ var util = require('util');
 
 var BaseEventHandler = require('./base_event');
 var gaiaTry = require('../gaia_try');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 
 function CommitEventHandler(downstreams) {
@@ -19,6 +22,7 @@ CommitEventHandler.prototype.handle = function(msg, callback) {
   }
   gaiaTry.commit(msg.user, msg.commit_message, msg.contents, function(err, retry, hgId) {
     if (err) {
+      log.error(err, 'Trying to commit to gaia-try repo');
       return callback(err, retry)
     }
     msg['hg_id'] = hgId; 

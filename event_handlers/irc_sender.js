@@ -5,6 +5,9 @@ var jerk = require('jerk');
 var url = require('url');
 var util = require('util');
 var config = require('../config');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 function cyfn(message) {
   message.say(message.user + ': https://i.imgur.com/tM2E2kI.png');
@@ -68,7 +71,7 @@ IRCSender.prototype.handle = function(msg, callback) {
   if (!msg || !msg.message) {
     return callback(new Error('Invalid message'));
   }
-  console.log('Handling an IRC event');
+  log.info('Handling an IRC event');
 
   this.channels.forEach(function(channel) {
     this.jerk.say(channel, msg.message);

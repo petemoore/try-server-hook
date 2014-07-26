@@ -2,8 +2,10 @@
 
 var config = require('../config');
 var pg = require('pg').native;
-var debug = require('debug')('try-server-hook:start_monitoring_event_handler');
 var util = require('util');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -83,15 +85,15 @@ StartMonitoringEventHandler.prototype.handle = function (msg, callback) {
       submitted
     ];
 
-    debug('QUERY: %s', query);
-    debug('VALUES: %s', values.join(', '));
+    log.debug('QUERY: %s', query);
+    log.debug('VALUES: %s', values.join(', '));
     client.query(query, values, function (err, result) {
       done();
       if (err) {
-        debug('Error inserting: %s', err.stack || err);
+        log.error(err, 'Error inserting: %s', err.stack || err);
         return callback(new Error(err), true);
       }
-      debug('Success! %s', JSON.stringify(result));
+      log.info('Inserted %s into monitoring DB %s', id);
       return callback(null, null, result);
     });
   });

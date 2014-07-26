@@ -4,7 +4,9 @@ var BaseEventHandler = require('./base_event');
 var util = require('util');
 var shorten = require('../misc/bitly_shorten').shorten;
 var tbpl = require('../misc/tbpl');
-var debug = require('debug')('try-server-hook:irc_event_handler');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 function IRCEventHandler(downstreams) {
   BaseEventHandler.call(this, downstreams);
@@ -18,7 +20,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
   if (!msg || !msg.user || !msg.hg_id) {
     return callback(new Error('Invalid message'));
   }
-  debug('Queueing up IRC message');
+  log.debug('Queueing up IRC message');
   var tbplURL = tbpl.url({rev: msg.hg_id});
   shorten(msg.push.compare_url, function(err, shortCompareURL) {
     if (err) {
@@ -31,7 +33,7 @@ IRCEventHandler.prototype.handle = function(msg, callback) {
       var message = util.format('%s pushed to %s branch.  Commits: %s Results: %s', 
                                 msg.push.who, msg.push.branch, shortCompareURL,
                                 shortTbplURL);
-      debug('Queueing message: %s', message);
+      log.info('Queueing message: %s', message);
       callback(null, null, {message: message});
     }.bind(this)); 
   }.bind(this));

@@ -1,5 +1,5 @@
 'use strict';
-var debug = require('debug')('try-server-hook:gaia_try');
+
 var util = require('util');
 var path = require('path');
 var when = require('when');
@@ -13,7 +13,9 @@ var temp = require('temp');
 var rimraf = require('rimraf');
 
 var config = require('./config');
-//var hgId = require('./hg_id');
+var logging = require('./misc/logging');
+
+var log = logging.setup(__filename);
 
 // For now, we aren't using tmpfs backed storage because
 // it's limited to 5mb on heroku
@@ -28,7 +30,7 @@ function showHgOutput(output) {
       resolve(true);
     }
     output.forEach(function(e) {
-      debug(e.body.replace(/\n$/, ''));
+      log.trace(e.body.replace(/\n$/, ''));
     });
     resolve(true);
   });
@@ -50,6 +52,7 @@ function hgId(repo, callback) {
   repo.log({'--limit': 1, '--template': '{node}'}, function (err, output) {
     var id;
     if (err) {
+      log.error(err, "Trying to run hg log on new commit");
       return callback(err);
     }
     if (output.length != 2) {
@@ -62,21 +65,21 @@ function hgId(repo, callback) {
       return callback(new Error('Expected extraneous output differs from expected content'));
     }
     id = output[0].body;
-    debug('HG id: ' + id);
+    log.debug('HG id: ' + id);
     return callback(null, id);
   });
 }
 
 
 function handleErr(repo, err, retry, output, callback) {
-  debug('Failed command output:');
+  log.error(err, 'Failed to run hg command');
   showHgOutput(output);
-  debug('Cleaning up ' + repo.path + ' after failure ' + err);
+  log.debug('Cleaning up ' + repo.path + ' after failure');
   rimraf(repo.path, function (rmrferr) {
     if (rmrferr) {
-      debug('Failed to clean up %s', repo.path);
+      log.error(rmrferr, 'Failed to clean up %s', repo.path);
     }
-    callback(err, retry);
+    return callback(err, retry);
   });
 }
 
@@ -91,7 +94,7 @@ function writeFiles(directory, contents) {
       var fullFileName = path.join(directory, fileName);
       // Ugh.  This should really use the promise interface
       if (!fs.existsSync(fullFileName)) {
-        debug('Found new file %s', fileName);
+        log.debug('Found new file %s', fileName);
         newFiles.push(fileName);
       }
       var stringToWrite = contents[fileName];
@@ -106,7 +109,7 @@ function writeFiles(directory, contents) {
 
 function commit(user, message, contents, callback) {
   var repoDir = temp.path({prefix: 'gaia-try-hg', dir: tmpDir});
-  debug('Repository path is %s', repoDir);
+  log.debug('Repository path is %s', repoDir);
 
   var commitOpts = {
     '--message': message,
@@ -117,38 +120,63 @@ function commit(user, message, contents, callback) {
                             config.get('HG_USER'));
   var hgUrl = config.get('HG_REPOSITORY');
 
-  debug('Using %s to clone %s', sshCmd, hgUrl);
+  log.info('Cloning %s to %s using %s', hgUrl, repoDir, sshCmd);
 
   hg.clone(hgUrl, repoDir, {'--ssh': sshCmd}, function(err, output) {
     if (err) {
-      debug('Failed to clone %s', hgUrl); 
-      debug(err.stack || err);
+      log.error(err, 'Failed to clone %s', hgUrl); 
       showHgOutput(output);
       return callback(err, true);
     };
-    debug('Cloned to %s', repoDir);
+    log.info('Cloned to %s', repoDir);
     var repo = new hg.HGRepo(repoDir); // The convenience API sucks
   
     writeFiles(repo.path, contents).then(function(newFiles) {
-      debug('Wrote repository contents to %s', Object.keys(contents).join(', '));
+      log.info('Wrote repository contents to %s', Object.keys(contents).join(', '));
       repo.add(newFiles, function (err, output) {
-        if (err) handleErr(repo, err, true, callback);
+        if (err) {
+          log.error(err, 'Adding files to repository');
+          rimraf(repo.path, function (rmerr) {
+            log.error(rmerr);
+          });
+          return callback(err, true);
+        }
         if (newFiles.length > 0) {
-          debug('Added %s to repository', newFiles.join(', '));
+          log.debug('Added %s to repository', newFiles.join(', '));
         } else {
-          debug('No files need to be added');
+          log.debug('No files need to be added');
         }
         repo.commit(commitOpts, function(err, output) {
-          if (err) handleErr(repo, err, true, callback); 
-          debug('Committed to repository');
+          if (err) {
+            log.error(err, 'Commiting to repository');
+            rimraf(repo.path, function (rmerr) {
+              log.error(rmerr);
+            });
+            return callback(err, true);
+          }
+          log.debug('Committed to repository');
           repo.push(hgUrl, {'--ssh': sshCmd}, function(err, output) {
-            if (err) handleErr(repo, err, true, callback);
-            debug('Pushed to %s', hgUrl);
+            if (err) {
+              log.error(err, 'Pusing to repository');
+              rimraf(repo.path, function (rmerr) {
+                log.error(rmerr);
+              });
+              return callback(err, true);
+            }
+            log.info('Pushed to %s', hgUrl);
             hgId(repo, function(err, id) {
-              if (err) handleErr(repo, err, false, callback);
-              debug('Created commit %s', id);
+              if (err) {
+                log.error(err, 'Identifying head');
+                rimraf(repo.path, function (rmerr) {
+                  log.error(rmerr);
+                });
+                return callback(err, true);
+              }
+              log.info('Created commit %s', id);
               rimraf(repo.path, function(err) {
-                if(err) debug('Cleanup failed %s', err.stack || err);
+                if(err) {
+                  log.error(err, 'Cleanup failure in %s', repodir);
+                }
                 callback(null, null, id);
               });
             });

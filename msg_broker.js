@@ -4,7 +4,9 @@ var fs = require('fs');
 var when = require('when');
 var amqp = require('amqplib');
 var util = require('util');
-var debug = require('debug')('try-server-hook:msg_broker');
+var logging = require('./misc/logging');
+
+var log = logging.setup(__filename);
 
 var schemaFile = 'amqp_schema.json';
 var schema = JSON.parse(fs.readFileSync(schemaFile));
@@ -20,7 +22,7 @@ function parseMsg(contentType, msg) {
         parseMsgJson(msg).then(resolve, reject);
         break;
       default:
-        debug('Cannot parse unknown content type %s', contentType);
+        log.error('Cannot parse unknown content type %s', contentType);
         reject(new Error('Unsupported content type: ' + contentType));
     }
   });
@@ -32,7 +34,7 @@ function parseMsgJson(msg) {
     try {
       var obj = JSON.parse(msg);
     } catch (e) {
-      debug('Failed to parse JSON: %s', e.stack || e);
+      log.error('Failed to parse JSON: %s', e.stack || e);
       reject(e);
     }
     resolve(obj);
@@ -47,7 +49,7 @@ function serialiseMsg(contentType, msg) {
         serialiseMsgJson(msg).then(resolve, reject);
         break;
       default:
-        debug('Cannot serialise unknown content type %s', contentType);
+        log.error('Cannot serialise unknown content type %s', contentType);
         reject(new Error('Unsupported content type: ' + contentType));
     }
   });
@@ -59,7 +61,7 @@ function serialiseMsgJson(msg) {
     try {
       var jsons = JSON.stringify(msg);
     } catch (e) {
-      debug('Failed to serialise JSON: %s', e.stack || e);
+      log.error('Failed to serialise JSON: %s', e.stack || e);
       reject(e);
     }
     resolve(jsons);
@@ -72,7 +74,7 @@ function validateSchema(schema) {
   var queueNames = [];
 
   if (typeof schema.prefix !== 'string') {
-    debug('Invalid schema prefix: %s', schema.prefix);
+    log.error('Invalid schema prefix: %s', schema.prefix);
     return false;
   }
 
@@ -88,32 +90,32 @@ function validateSchema(schema) {
     var boundExchange = e.exchange;
     var boundQueue = e.queue;
     if (queueNames.indexOf(boundQueue) === -1 || exchangeNames.indexOf(boundExchange) === -1) {
-      debug('Cannot bind %s to %s because one doesn\'t exist', boundQueue, boundExchange);
+      log.error('Cannot bind %s to %s because one doesn\'t exist', boundQueue, boundExchange);
       return false;
     }
   });
-  debug('Valid Schema');
+  log.debug('Valid Schema');
   return true;
 }
 
 
 function wrap(name) {
   var wrapped = util.format('%s.%s', schema.prefix, name);
-  //debug('Wrapped %s -> %s', name, wrapped);
+  log.trace('Wrapped %s -> %s', name, wrapped);
   return wrapped;
 }
 
 
 function unwrap(name) {
   var unwrapped = name.split(schema.prefix + '.')[0];
-  //debug('Unwrapped %s -> %s', name, unwrapped);
+  log.trace('Unwrapped %s -> %s', name, unwrapped);
   return unwrapped;
 }
 
 
 function assertSchema(connection) {
   return when.promise(function(resolve, reject)  {
-    debug('Asserting schema');
+    log.debug('Asserting schema');
     var promises = [];
     if (!connection) {
       reject('Must have a connection');
@@ -138,7 +140,7 @@ function assertSchema(connection) {
 
       when.all(promises).then(function(x) {
         ch.close();
-        debug('Asserted schema');
+        log.debug('Asserted schema');
         resolve(connection);
       }).done();
     });
@@ -150,10 +152,10 @@ function assertSchema(connection) {
 // Do insertions on their own channel
 function insert(connection, exchange, routingKey, payload) {
   return when.promise(function(resolve, reject) {
-    debug('Inserting message');
+    log.info('Inserting message');
     var msgFormat = schema.msg_format;
     serialiseMsg(msgFormat, payload).then(function(msg) {
-      debug('Serialised payload');
+      log.debug('Serialised payload');
       if (typeof msg !== 'string') {
         reject('Message must serialise to string');
       }
@@ -177,7 +179,6 @@ function insertCh(ch, exchange, routingKey, payload) {
   return when.promise(function(resolve, reject) {
     var msgFormat = schema.msg_format;
     serialiseMsg(msgFormat, payload).then(function(msg) {
-      debug('Serialised payload');
       if (typeof msg !== 'string') {
         reject('Message must serialise to string');
       }
@@ -186,14 +187,12 @@ function insertCh(ch, exchange, routingKey, payload) {
         mandatory: true,
         contentType: msgFormat
       };
-      debug('Publishing to exchange %s with routing key %s', exchange, routingKey);
       ch.publish(wrap(exchange), routingKey, new Buffer(msg, 'utf-8'), pubOpts, function(err, ok) {
         if (err) {
-          debug('Failed to insert msg');
-          debug(err.stack || err);
+          log.error(err, 'Failed to insert msg');
           reject(err);
         }
-        debug('Published to %s exchange', exchange);
+        log.info('Published to %s exchange with routing key %s', exchange, routingKey);
         resolve(ch);
       });
     }).done();
@@ -219,17 +218,17 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
       channel.on('error', onChError);
     }
     channel.on('error', function(err) {
-      debug('Channel error: %s', err);
+      log.error(err, 'Channel error: %s', err);
     });
 
     function consumer(msg) {
       if (!msg) {
-        debug('%s consumer cancelled', actionName);
+        log.info('%s consumer cancelled', actionName);
       }
 
       parseMsg(msg.properties.contentType, msg.content).then(
         function(obj) {
-          debug('Parsed message for %s consumer', actionName);
+          log.debug('Parsed message for %s consumer', actionName);
 
           try {
             // Actually call the action!
@@ -240,40 +239,43 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
                   var doRetry;
                   if (!msg.retry) {
                     msg.retry = 5;
-                    debug('First failure, retrying %s', actionName);
+                    log.debug('First failure, retrying %s', actionName);
                     doRetry = true;
                   } else {
                     msg.retry--;
                     if (msg.retry > 0) {
-                      debug('%s has %d retries left', actionName, msg.retry);
+                      log.debug('%s has %d retries left', actionName, msg.retry);
                       doRetry = true;
                     } else {
-                      debug('%s has exhausted all retries, rejecting', msg.retry);
+                      log.debug('%s has exhausted all retries, rejecting', msg.retry);
                       doRetry = false;
                     }
                   }
                 } else {
-                  debug('Rejecting a %s, not retrying', actionName);
+                  log.debug('Rejecting a %s, not retrying', actionName);
                   doRetry = false;
                 }
                 channel.reject(msg, doRetry);
+              } else if (!err && retry) {
+                //This is a special case for things that need to repeat
+                log.debug('Successfully processed %s, but rejecting msg to requeue', actionName);
+                chanel.reject(msg, true);
               } else {
-                debug('Successfully processed %s', actionName);
+                log.debug('Successfully processed %s', actionName);
                 channel.ack(msg);
               }
             });
-          } catch (e) {
-            debug('Error running action %s', actionName);
-            debug(e.stack || e);
+          } catch (err) {
+            log.error(err, 'Error running action %s', actionName);
           }
         },
         function(err) {
-          debug('Error parsing message for %s consumer', actionName); 
+          log.error(err, 'Error parsing message for %s consumer', actionName); 
           channel.reject(msg, false);
         }).done();
     }
     channel.consume(wrap(queue), consumer, {noAck: false}).then(function(tagObj) {
-      debug('Created %s consumer %s', actionName, tagObj.consumerTag);
+      log.debug('Created %s consumer %s', actionName, tagObj.consumerTag);
       resolve(tagObj);
     }, reject);
   });

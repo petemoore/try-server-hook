@@ -12,6 +12,7 @@
   "HG_USER": "gaiabld",
   "HG_KEY": "~/.ssh/user_rsa",
   "HG_REPOSITORY": "ssh://hg.mozilla.org/users/jford_mozilla.com/gaia-try",
+  "BUILD_API_REPO": "integration/gaia-try",
   "BUILD_API_USER": "your-username",
   "BUILD_API_PASSWORD": "your-password",
   "IRC_SERVER": "irc://irc.mozilla.org",

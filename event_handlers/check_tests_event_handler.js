@@ -1,10 +1,12 @@
-"use strict";
+'use strict';
 
 var config = require('../config');
 var pg = require('pg').native;
 var msgBroker = require('../msg_broker');
-var debug = require('debug')('try-server-hook:check_tests_event_handler');
 var util = require('util');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -27,7 +29,7 @@ CheckTestsEventHandler.prototype.handle = function (msg, callback) {
     // I wonder if there's any value to ordering by submitted time?
     var query = 'SELECT id FROM revisions WHERE completed IS NULL';
     
-    debug('QUERY: %s', query);
+    log.debug('QUERY: %s', query);
     var query = client.query(query);
   
     query.on('row', function(row) {
@@ -42,8 +44,9 @@ CheckTestsEventHandler.prototype.handle = function (msg, callback) {
       callback(null, null);
     });
 
-    query.once('error', function(error) {
-      callback(error, true);
+    query.once('error', function(err) {
+      log.error(err, 'Error running %s', query);
+      callback(err, true);
     });
 
   }.bind(this));

@@ -1,11 +1,13 @@
-"use strict";
+'use strict';
 
-var debug = require('debug')('try-server-hook:github_post_handler');
 var util = require('util');
 var config = require('../config');
 var github = require('../misc/githubapi');
 
 var tbpl = require('../misc/tbpl');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -17,10 +19,6 @@ var BaseEventHandler = require('./base_event');
 function avatar(src, username, w, h) {
   return util.format('<img src="%s" alt="%s" width="%dpx" height="%dpx" />',
                       src, username, w || 50, h || 50);
-}
-
-function postStartPr(msg, callback) {
-
 }
 
 function GithubPostHandler(downstreams) {
@@ -54,12 +52,12 @@ GithubPostHandler.prototype.handle = function (msg, callback) {
       number: msg.pr.number,
       body: comment
     };
-    debug('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
+    log.debug('Going to comment on %s/%s #%d', user, repo, msg.pr.number);
     github.issues.createComment(ghmsg, function(err, response){
       if (err) {
         return callback(err, true);
       }
-      debug('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
+      log.info('Created comment %d on %s/%s #%d', response.id, user, repo, msg.pr.number);
       return callback(null, null);
     }); 
   }); 

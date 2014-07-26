@@ -1,9 +1,6 @@
-"use strict";
+'use strict';
 
 var when = require('when');
-var util = require('util');
-var config = require('./config');
-var debug = require('debug');
 
 // Connection Libraries
 var Connection = require('./connection');
@@ -34,7 +31,7 @@ connection.open()
     return conn.createConfirmChannel().then(function(ch) {
       ch.prefetch(1);
       ch.on('error', function(err) {
-        debug('AMQP Channel Error, exiting');
+        log.error(err, 'AMQP channel error, exiting');
         process.exit(1);
       });
       return when.all([

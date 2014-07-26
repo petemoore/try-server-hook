@@ -2,11 +2,13 @@
 
 var util = require('util');
 var when = require('when');
-var debug = require('debug')('try-server-hook:push_event_handler');
 var platformFiles = require('../misc/platform_files.js');
 var fork = require('child_process').fork;
 var path = require('path');
 var github = require('../misc/githubapi');
+var logging = require('../misc/logging');
+
+var log = logging.setup(__filename);
 
 var BaseEventHandler = require('./base_event');
 
@@ -72,8 +74,7 @@ function makePushCommitMsg(pushBranch, before, after, ghUser, callback) {
   github.user.getFrom({user: ghUser}, function(err, result) {
     var fullName;
     if (err) {
-      debug('API Call to figure out username has failed for %s', ghUser);
-      debug(e.stack || e);
+      log.error(err, 'API Call to figure out username has failed for %s', ghUser);
       fullName = undefined;
     } else {
       fullName = result.name;
@@ -93,20 +94,20 @@ function makePushCommitMsg(pushBranch, before, after, ghUser, callback) {
 
 PushEventHandler.prototype.handle = function (msg, callback) {
   if (!this.interesting(msg)) {
-    debug('Ignoring uninteresting event');
+    log.debug('Ignoring uninteresting event');
     return callback(null);
   }
 
   this.parse(msg, function (err, push) {
     if (err) {
-      debug('Failed to parse a Push event');
+      log.error(err, 'Failed to parse a Push event');
       return callback(err, false);
     }
     makePushCommitMsg(push.branch, push.before, push.after, push.who, function(err, commitMsg) {
       var child = fork(path.join(__dirname, '../misc/find_platform_files.js'));
     
       child.once('error', function(err) {
-        debug('Error while talking to child process that figures out building platform json files');
+        log.error(err, 'Error while talking to child process that figures out building platform json files');
         callback(err);
       });
 
@@ -116,10 +117,10 @@ PushEventHandler.prototype.handle = function (msg, callback) {
           return callback(msg.err, false);
         }
         if (!msg.contents) {
-          debug('Failed to get the Gecko files');
+          log.error('Failed to get the Gecko files');
           return callback(new Error('Could not determine Gecko files'), false);
         }
-        debug('Fetched platform file values for %s', push.branch);
+        log.debug('Fetched platform file values for %s', push.branch);
         var user = push.who;
         var contents = msg.contents;
         contents['gaia.json'] = jsonForPush(push);

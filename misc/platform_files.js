@@ -1,11 +1,13 @@
 'use strict';
 
-var debug = require('debug')('try-server-hook:platform_files');
 var url = require('url');
 var async = require('async');
 var request = require('request');
 var util = require('util');
 var jsdom = require('jsdom');
+var logging = require('./logging');
+
+var log = logging.setup(__filename);
 
 var bbToRealPlatform = {
   'linux32_gecko': 'linux-i686',
@@ -51,9 +53,10 @@ function geckoVersion (options, callback) {
     pathname: pathComponents.join('/')
   };
   var versionUrl = url.format(urlObj);
-  debug('Getting version from %s', versionUrl);
+  log.debug('Getting version from %s', versionUrl);
   request.get(versionUrl, function (err, response, body) {
     if (err) {
+      log.error(err, 'Getting version from %s', versionUrl);
       return callback(err);
     }
     var match = /^((\d+)\.{0,1})+(\d+)([ab]?\d+)?$/gm.exec(body);
@@ -61,7 +64,7 @@ function geckoVersion (options, callback) {
       return callback(new Error(util.format('%s is not a valid version number', body)));
     }
     var version = match[0].replace(/\s+$/, '');
-    debug('Version is %s', version);
+    log.debug('Version is %s', version);
     return callback(null, match[0]);
   });
 }
@@ -75,7 +78,7 @@ function checkUrl(urlToCheck, callback) {
       'Connection': 'close'
     },
   }
-  debug('Checking Url: %s', urlToCheck);
+  log.debug('Checking Url: %s', urlToCheck);
   request.head(reqOpts, function (err, response, body) {
     if (err) {
       return callback(false);
@@ -93,7 +96,7 @@ function fetchUrl(urlToFetch, callback) {
       'User-Agent': 'try-server-hook (gaia)',
     },
   }
-  debug('Fetching Url: %s', urlToFetch);
+  log.debug('Fetching Url: %s', urlToFetch);
   request.get(reqOpts, function (err, response, body) {
     if (err) {
       return callback(err);
@@ -137,7 +140,7 @@ function buildFtpUrl(options, callback) {
   }
   urlObj.pathname = path.join('/');
   var bundleUrl = url.format(urlObj);
-  debug('Built Url: %s', bundleUrl);
+  log.debug('Built Url: %s', bundleUrl);
   checkUrl(bundleUrl, function(there) {
     if (!there) {
       return callback(new Error('Url created but not there: ' + bundleUrl));
@@ -157,7 +160,7 @@ function getLatestDirNum(loc, callback) {
 
     try {
       jsdom.env(body, function(err, window) {
-        debug('Created dom for %s:', loc);
+        log.debug('Created dom for %s:', loc);
         if (err) {
           return callback(new Error(potato));
         }
@@ -169,7 +172,7 @@ function getLatestDirNum(loc, callback) {
           return callback(new Error('Could not query the selector'));
         }
         if (datacells.length < 0) {
-          debug('Query selector failed, has markup changed?');
+          log.debug('Query selector failed, has markup changed?');
           window.close();
           return callback(new Error('No potential builds to find'));
         }
@@ -215,12 +218,12 @@ function findB2GVer (b2gGeckoRepos, b2gVer) {
   // repo already are aurora.  I will live to regret this
   var geckoBranch;
   if (!mapping[b2gVer]) {
-    debug('Using aurora because this non-master version of b2g doesn\'t have a gecko yet');
+    log.debug('Using aurora because this non-master version of b2g doesn\'t have a gecko yet');
     geckoBranch = 'releases/mozilla-aurora';
   } else {
     geckoBranch = mapping[b2gVer];
   }
-  debug('Found gecko branch: %s', geckoBranch);
+  log.debug('Found gecko branch: %s', geckoBranch);
   return geckoBranch;
 }
 
@@ -238,7 +241,7 @@ function mapB2GVerToGeckoRepo(b2gVer, callback) {
 
   var potato = 'This hg.m.o document is a potato, not a directory listing';
   jsdom.env('http://hg.mozilla.org/releases', function(err, window) {
-    debug('Built dom for repository mapping');
+    log.debug('Built dom for repository mapping');
     if (err) {
       return callback(new Error(potato));
     }
@@ -293,22 +296,22 @@ function getUrls(b2gVer, bbPlatform, callback) {
       findingLatest: true,
     };
     var platform = bbToRealPlatform[bbPlatform];
-    debug('%s has repo path of %s', b2gVer, repoPath);
+    log.debug('%s has repo path of %s', b2gVer, repoPath);
     buildFtpUrl(opts, function (err, dUrl) {
       if (err) {
         return callback(err);
       }
-      debug('Timestamp directory is %s', dUrl);
+      log.debug('Timestamp directory is %s', dUrl);
       getLatestDirNum(dUrl, function (err, latestDir) { 
         if (err) {
           return callback(err);
         }
-        debug('Latest build dir is %s', latestDir);
+        log.debug('Latest build dir is %s', latestDir);
         geckoVersion({repoPath: branch}, function (err, version) {
           if (err) {
             return callback(err);
           }
-          debug('Gecko version is %s', version);
+          log.debug('Gecko version is %s', version);
           opts.findingLatest = false;
           opts.version = version;
           opts.branch = ftpBranch;
@@ -316,14 +319,14 @@ function getUrls(b2gVer, bbPlatform, callback) {
           opts.timestamp = latestDir;
           opts.fileSuffix = platformToSuffix[platform];
           buildFtpUrl(opts, function(err, bUrl) {
-            debug('Browser Url for %s with %s is %s', bbPlatform, b2gVer, bUrl);
+            log.debug('Browser Url for %s with %s is %s', bbPlatform, b2gVer, bUrl);
             if (err) {
               return callback(err);
             }
             buildUrl = bUrl;
             opts.fileSuffix = '.tests.zip';
             buildFtpUrl(opts, function(err, tUrl) {
-              debug('Tests Url for %s with %s is %s', b2gVer, bbPlatform, tUrl);
+              log.debug('Tests Url for %s with %s is %s', b2gVer, bbPlatform, tUrl);
               if (err) {
                 return callback(err);
               }
