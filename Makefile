@@ -26,7 +26,9 @@ tests:
 	./node_modules/.bin/mocha
 
 send-pr:
-	curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
+	#curl -X POST -d @sample_new_pr_payload.json http://localhost:7040/github/v3 \
+
+	curl -X POST -d @sample_new_pr_payload.json https://try-server-hook.herokuapp.com/github/v3 \
 		--header "Content-Type:application/json" \
 		--header "X-GitHub-Event:pull_request" \
 		--header "X-Hub-Signature:sha1=john" \

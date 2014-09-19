@@ -7,7 +7,7 @@ var log = logging.setup(__filename);
 
 process.on('message', function(msg) {
   log.debug('Received a request from mommy and daddy: %s', msg);
-  var pfFiles = platformFiles.all(msg, function(err, contents) {
+  var pfFiles = platformFiles.all(msg, function(err, noBuilds, contents) {
     if (err) {
       log.error(err, 'Figuring out platform files');
       process.send({err: err});

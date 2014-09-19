@@ -12,6 +12,7 @@ var log = logging.setup(__filename);
 var bbToRealPlatform = {
   'linux32_gecko': 'linux-i686',
   'linux64_gecko': 'linux-x86_64',
+  'linux64': 'linux-x86_64',
   'linux64_gecko-debug': 'linux-x86_64',
   'macosx64_gecko': 'mac64',
 };
@@ -127,9 +128,11 @@ function buildFtpUrl(options, callback) {
     util.format('%s-%s', options.branch || 'mozilla-central', options.bbPlatform || 'linux64_gecko'),
   ];
   if (!options.findingLatest) {
+    path.push(options.timestamp || 'latest');
+    if (!options.skipLocaleDir) {
+      path.push(options.locale || 'en-US');
+    }
     [
-      options.timestamp || 'latest',
-      options.locale || 'en-US',
       util.format('%s-%s.%s.%s%s',
           options.product || 'b2g',
           options.version || '999a1',
@@ -174,7 +177,7 @@ function getLatestDirNum(loc, callback) {
         if (datacells.length < 0) {
           log.debug('Query selector failed, has markup changed?');
           window.close();
-          return callback(new Error('No potential builds to find'));
+          return callback(new Error('No potential builds to find'), false);
         }
 
         for (var i = 0; i < datacells.length; i++) {
@@ -295,6 +298,11 @@ function getUrls(b2gVer, bbPlatform, callback) {
       bbPlatform: bbPlatform,
       findingLatest: true,
     };
+    if (bbPlatform.indexOf('gecko') <= -1) {
+      opts.ftpProduct = 'firefox';
+      opts.product = 'firefox';
+      opts.skipLocaleDir = true;
+    }
     var platform = bbToRealPlatform[bbPlatform];
     log.debug('%s has repo path of %s', b2gVer, repoPath);
     buildFtpUrl(opts, function (err, dUrl) {
@@ -364,7 +372,14 @@ function all(b2gVer, callback) {
       return callback(err);
     }
     results.forEach(function(e,idx) {
-      allFiles[platforms[idx].replace(/_gecko(-debug)?$/,'$1') + '.json'] = e;
+      var platformName = platforms[idx];
+      var key;
+      if (platformName.indexOf('gecko') <= -1) {
+        key = 'firefox-' + platformName + '.json';
+      } else {
+        key = platforms[idx].replace(/_gecko(-debug)?$/,'$1') + '.json'
+      }
+      allFiles[key] = e;
     });
     data[b2gVer]= allFiles;
     return callback(null, allFiles);

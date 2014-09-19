@@ -346,6 +346,32 @@ describe('building Ftp urls', function () {
         done(err);
       });
     });
+    
+    it('should build a gecko URL by specifying everything and skipping the localeSubDir', function(done) {
+      var opts = {
+        protocol: 'ftp',
+        host: 'server',
+        port: 8080,
+        branch: 'branch',
+        bbPlatform: 'bbplat',
+        ftpProduct: 'ftpprod',
+        timestamp: '1234567890',
+        locale: 'en-CA',
+        product: 'phone',
+        version: '123a1',
+        platform: 'platform',
+        fileSuffix: '.junk',
+        skipLocaleDir: true,
+      };
+      subject.buildFtpUrl(opts, function(err, url) {
+        should.not.exist(err);
+        var e = 'ftp://server:8080/pub/mozilla.org/ftpprod/' +
+                'tinderbox-builds/branch-bbplat/1234567890/' +
+                'phone-123a1.en-CA.platform.junk';
+        url.should.equal(e);
+        done(err);
+      });
+    });
 
     it('should build a latest directory by specifying everything', function(done) {
       var opts = {
