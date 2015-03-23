@@ -192,6 +192,7 @@ function insertCh(ch, exchange, routingKey, payload) {
           log.error(err, 'Failed to insert msg');
           reject(err);
         }
+        console.log(JSON.stringify(msg, null, 2), '<<< DEBUG ME');
         log.info('Published to %s exchange with routing key %s', exchange, routingKey);
         resolve(ch);
       });
