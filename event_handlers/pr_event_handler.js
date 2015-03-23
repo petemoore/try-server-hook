@@ -97,6 +97,7 @@ function makePrCommitMsg(number, baseLabel, prBranch, ghUser, callback) {
 
 
 PREventHandler.prototype.handle = function (msg, callback) {
+  console.log('>>> XFOO HANDLE PR', JSON.stringify(msg, null, 2));
   if (!this.interesting(msg)) {
     log.debug('Ignoring uninteresting event');
     return callback(null);
