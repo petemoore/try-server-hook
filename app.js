@@ -89,6 +89,7 @@ app.post('/github/v3', function(req, res) {
 
     var exchange = 'incoming_github_api_events';
     var routingKey = util.format('github.%s', type);
+    console.log('>>> DEBUG', exchange, routingKey);
 
     try {
       app.connection.open().then(function(conn) {
