@@ -28,12 +28,14 @@ var commitEventHandler = new CommitEventHandler(['post_commit_notifications']);
 connection.open()
   .then(msgBroker.assertSchema)
   .then(function(conn) {
+	log.info('inside connection.open....')
     return conn.createConfirmChannel().then(function(ch) {
       ch.prefetch(1);
       ch.on('error', function(err) {
         log.error(err, 'AMQP channel error, exiting');
         process.exit(1);
       });
+	  log.info('inside connection.open.return....')
       return when.all([
         msgBroker.addConsumer(ch, 'to_commit', commitEventHandler),
         //msgBroker.addConsumer(ch, 'irc_outgoing', ircSender),

@@ -206,6 +206,7 @@ function insertCh(ch, exchange, routingKey, payload) {
 // that the action failed, retry is a boolean that decides whether
 // to requeue the job to try again
 function addConsumer(channel, queue, handler, onChClose, onChError) {
+  log.info('In add Consumer function...');
   return when.promise(function(resolve, reject) {
     if (!channel || !queue || !handler || !handler.makeAction) {
       reject('Missing channel, queue, handler or handler.makeAction');
@@ -223,6 +224,7 @@ function addConsumer(channel, queue, handler, onChClose, onChError) {
     });
 
     function consumer(msg) {
+      log.info('Inside addConsumer.consumer function');
       if (!msg) {
         log.info('%s consumer cancelled', actionName);
       }
